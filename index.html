@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>
+    Iced Blog - 
+  </title>
+  <meta name="description" content="Blog for and by Iced Dev">
+
+  <meta name="author" content="Iced Dev">
+  <meta name="ROBOTS" content="ALL">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="favicon.png" rel="icon">
+
+  <link rel="alternate" type="application/rss+xml" title="Iced Blog - feed" href="/index.xml" />
+  <link href='http://fonts.googleapis.com/css?family=Bowlby+One+SC' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+  <link type="text/css" rel="stylesheet" href="static/styles/normalize.css">
+  <link type="text/css" rel="stylesheet" href="static/styles/prism.css">
+  <link type="text/css" rel="stylesheet" href="static/styles/jsdoc-default.css">
+
+  <style>
+    .main {
+      margin-top: 15px;
+    }
+  </style>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-27771989-3', 'iceddev.com');
+    ga('send', 'pageview');
+
+  </script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+<body class="language-javascript examplepage">
+  <header class="header">
+    <h1 class="logo">Iced Blog</h1>
+
+    <nav class="mainnav">
+      <a href="http://iceddev.com">Home</a>
+      <a href="http://blog.iceddev.com">Blog</a>
+    </nav>
+  </header>
+
+  <div class="main">
+    <section>
+      <article>
+        <div class="articles">
+
+<article class="post">
+  <div class="title">
+    <h1><a href="./2012-11-05-node-js-in-chrome.html">node js in chrome</a></h1>
+    <p class="post-date">november 5th 2012</p>
+  </div>
+  <div class="post-content">
+    <p>This:</p>
+<pre><code><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span> <span class="attribute">src</span>=<span class="value">"node.js"</span>&gt;</span><span class="javascript"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></code></pre>
+<p>Allows you to do this in a Chrome App:</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> http = require(<span class="string">'http'</span>);
+http.createServer(<span class="function"><span class="keyword">function</span> <span class="params">(req, res)</span> {</span>
+    res.writeHead(<span class="number">200</span>, {<span class="string">'Content-Type'</span>: <span class="string">'text/plain'</span>});
+    res.end(<span class="string">'Hello World\n'</span>);
+}).listen(<span class="number">1337</span>, <span class="string">'127.0.0.1'</span>);
+console.log(<span class="string">'Server running at http://127.0.0.1:1337/'</span>);</code></pre>
+<h2>This is actually Node.js code running the http listener on Chrome&#39;s Javascript VM!</h2>
+<p>While we like the <a href="http://browserver.org/">Browserver project</a>, it uses a reverse proxy and pushes requests down to the client via a websocket.  Node-chromify took a different approach, and has no external server dependency.</p>
+<p>You can get the source to the demo app, and a build of node.js (the script, not the whole node project) here:  <a href="https://github.com/iceddev/node-chromify"><a href="https://github.com/iceddev/node-chromify">https://github.com/iceddev/node-chromify</a></a></p>
+<h2>So, how did we do this?</h2>
+<p><a href="https://github.com/iceddev/node-chromify">node-chromify</a> is built on top of <a href="https://github.com/substack/node-browserify">browserify</a>, which allows node modules to be converted into a format that can be run in a browser.
+Browsers can&#39;t normally created TCP listeners, but Chrome Apps can in Canary with the experimental extension APIs flag enabled.</p>
+<p>Google&#39;s Paul Kinlan created a net-browserify module which wraps the Chrome API calls to the node.js &quot;net&quot; package.  This gets us quite a bit further. We&#39;ve <a href="https://github.com/iceddev/net-chromify">patched</a> a few things on this to help us out.</p>
+<p>We&#39;ve created an <a href="https://github.com/iceddev/http-chromify">http-chromify</a> module which is based on Node.js&#39; &quot;http&quot; module.  The Node.js version uses native C++ code to parse the HTTP messages between client and server.  We replaced that with the pure JS <a href="https://github.com/creationix/http-parser-js">http-parser-js</a> module.</p>
+<p>There were also couple of other pure JS modules that weren&#39;t browserified yet, namely <a href="https://github.com/iceddev/freelist-chromify">freelist</a> and <a href="https://github.com/iceddev/string_decoder-chromify">string_decoder</a>.  We created repos for those so that browserify could pull them in.</p>
+<p>Finally we used the excellent <a href="http://gruntjs.com/">Grunt.js</a> to build and package this all up into <a href="https://github.com/iceddev/node-chromify">node-chromify</a>.</p>
+<h2>How do you run it?</h2>
+<p>You&#39;ll need Chrome Canary to run the demo.  Canary has recently allowed developers the ability to open TCP socket listeners in apps and extensions.</p>
+<p>Also, this requires enabling &quot;Experimental Extension APIs&quot; from chrome://flags</p>
+<p>Then, in chrome://extensions  use the &quot;Load unpacked extension...&quot; to point to the examples/plugin folder in the <a href="https://github.com/iceddev/node-chromify">node-chromify</a> source.</p>
+<p>We&#39;re accepting pull request to <a href="https://github.com/iceddev/node-chromify">node-chromify</a>, please help us fix this :)</p>
+<h2>Why did we do this?</h2>
+<p>&quot;any application that can be written in JavaScript, will eventually be written in JavaScript.&quot;</p>
+<p>It&#39;s the law.  Obey the law.</p>
+
+  </div>
+  <div class="post-navigation">
+  
+    <span class="comment-link"><a href="./2012-11-05-node-js-in-chrome.html#comments">View Comments</a></span>
+  
+  </div>
+</article>
+
+  
+  <hr />
+  
+
+<article class="post">
+  <div class="title">
+    <h1><a href="./2012-02-25-create-and-deploy-a-nodester-app-without-installing-git-using-cloud9-ide.html">create and deploy a nodester app without installing git using cloud9 ide</a></h1>
+    <p class="post-date">february 25th 2012</p>
+  </div>
+  <div class="post-content">
+    <p>At Iced Dev, our main business is consulting for Node.js and building
+great web applications using it with HTML5 technologies. Our favorite
+hosting platform is <a href="http://nodester.com" title="Nodester">Nodester</a> (<a href="http://twitter.com/nodester" title="Nodester">@Nodester</a>) because it is the only
+Open-Source PaaS for Node.js and maintained by a great group of
+developers. Recently, Nodester
+redesigned their website and made it extremely easy to use their API
+using <a href="http://apigee.com" title="apigee">apigee’s</a> API Explorer.  This is very helpful for people using
+Windows because curl is no longer required to request an invite, but
+Window’s users may still have trouble using Nodester because Git is used
+to push your project to the Nodester platform. For our Node.js
+development, we typically use <a href="http://c9.io" title="Cloud9 IDE">Cloud9 IDE</a> because it is very easy to
+debug our Node.js apps before we deploy them to production.
+ Unfortunately, Nodester is not a platform that is supported by Cloud9’s
+deploy feature (We have no idea why this is!!! Cloud9, please make this
+happen!). Thankfully, Cloud9 uses Git and makes all the commands
+available to the user.  Using the new Nodester API Explorer and Cloud9’s
+Git implementation, I am going to walk you through publishing your first
+Node.js app to Nodester from <del>any</del> <span><strong>every</strong></span> operating
+system with a web browser.</p>
+<h2>Set up your Cloud9 account.</h2>
+<ol>
+<li>Go to <a href="http://c9.io"><a href="http://c9.io/">http://c9.io/</a></a></li>
+<li>Choose a username</li>
+<li>Enter a valid email (they send you an activation email)</li>
+<li>Re-enter your email for confirmation</li>
+<li>Click the “Sign Me Up” button</li>
+<li>Check your email for your confirmation email</li>
+<li>Follow the activation link in your email</li>
+<li>Choose your password (following any password requirements C9 has)</li>
+<li>Re-type the password for confirmation</li>
+<li>Click Activate</li>
+<li>You will be redirected to your Cloud9 Dashboard (Keep this tab open for now)</li>
+</ol>
+<h2>Request a Nodester Registration Coupon.</h2>
+<ol>
+<li>Open (in a new tab) <a href="http://nodester.com"><a href="http://nodester.com/">http://nodester.com/</a></a></li>
+<li>Once on Nodester.com, Request your Registration Coupon by clicking
+the blue button labeled “Request Registration Coupon”</li>
+<li>Enter your email address in the box labeled “Email” and click Send</li>
+<li>Wait patiently to receive your Nodester Coupon (many more are being
+sent out daily)</li>
+<li>Once you receive your Nodester Coupon, you will be able to sign up
+for an account at <a href="http://nodester.com/api.html\#explorer" title="Nodester API Explorer"><a href="http://nodester.com/api.html\#explorer">http://nodester.com/api.html\#explorer</a></a></li>
+</ol>
+<h2>Set up your Nodester account</h2>
+<ol>
+<li>Expand the “User” option</li>
+<li>Click “CreateUser”</li>
+<li>The API Explorer will populate the URL</li>
+<li>To the right of the URL input, click the little gear button
+(<img src="https://apigee.com/images/gear_icon.png" alt="Apigee Gear Icon" title="Gear Icon">)</li>
+<li>Clicking the button will bring up the Advanced Options dialogue box</li>
+<li>Enter the Nodester Coupon received in the email in the “value” box
+next to “coupon”</li>
+<li>Enter your email in the “value” box next to “email”</li>
+<li>Enter a password in the “value” box next to “password”</li>
+<li><p><strong>VERY IMPORTANT:</strong>The RSA Key you enter must be the RSA Key
+provided by Cloud9 IDE</p>
+<ul>
+<li>On the Cloud9 Dashboard, click “Show Your SSH Key” on the right
+side, in the “Account Settings” list</li>
+<li>Click “Copy” to copy your RSA Key to the clipboard</li>
+<li>Paste that RSA Key into the Nodester “Advanced Options” dialogue
+in the “value” box next to “rsakey”</li>
+</ul>
+</li>
+<li><p>Enter a username in the “value” box next to “user”</p>
+</li>
+<li>Leave all the other options as defaults</li>
+<li>Click “OK” to save the options and dismiss the dialogue</li>
+<li><p>Click the “POST” button to submit your API call</p>
+<ul>
+<li><p>Your Response should look something like:</p>
+<pre><code>HTTP/1.1 200 OK
+Content-Length:
+20
+Content-Type:
+application/json; char<span class="operator"><span class="keyword">set</span>=utf-<span class="number">8</span>
+<span class="keyword">Connection</span>:
+<span class="keyword">close</span>
+X-Powered-<span class="keyword">By</span>:
+Express{
+<span class="string">"status"</span>: <span class="string">"success"</span>
+}</code></pre>
+</li>
+<li><p>If your response does not have the “status” of “success”, you
+have to repeat the above steps again (most likely because
+something was mistyped, that username is taken, or something
+else funky happened).</p>
+</li>
+</ul>
+</li>
+<li><p>Now that you have a Nodester account, it’s time to create your first
+Nodester app!!!!</p>
+</li>
+</ol>
+<h2>Create a Nodester App</h2>
+<p>There are 2 options for creating a Nodester app with the API, I will
+walk you through the Nodester Admin Panel (The option I like better) and
+then I will walk you through using the Nodester API Explorer.</p>
+<h3>Nodester Admin Panel</h3>
+<ol>
+<li><p>Since you have a Nodester account, you can access the Admin Panel by
+entering your username and password at the top of the page.</p>
+<ul>
+<li>As a new user, your will get an error message on the first page
+you see in the Admin Panel, but that is only because it is
+looking for your apps and you don’t have any yet.</li>
+</ul>
+</li>
+<li><p>Click “Create New App” in the menu on the left</p>
+</li>
+<li>Enter the name of the app you wish to create (This is also the
+subdomain that your app will be accessed with, e.g.
+appname.nodester.com)</li>
+<li><p>Enter the file name that you wish to be your startup file (This file
+will most likely be where your Node.js app is configured to listen
+on your specific port)</p>
+<ul>
+<li><strong>Personal preference:</strong>I like to use <code>server.js</code> as my start
+file because I have encountered issues using <code>app.js</code> as the
+start file with Nodester.</li>
+</ul>
+</li>
+<li><p>Once your Nodester app is created, you will see something similar
+to: [Nodester Admin Panel Clipping](<img src="http://iceddev.com/wp-content/uploads/2011/12/nodester-admin-panel.jpg" alt="Nodester Admin Panel Clipping">)</p>
+<ul>
+<li>The port is the port that your app listens on (this will need to
+be hardcoded into your app) and the app-status is false because
+there is no code inside the app yet.</li>
+</ul>
+</li>
+</ol>
+<h3>Nodester API Explorer</h3>
+<ol>
+<li>If you would rather use the API Explorer, the steps are below:</li>
+<li>Expand the “App” option</li>
+<li>Click “CreateApp”</li>
+<li>On the left side of the URL input box, click the lock icon (<img src="https://apigee.com/images/padlock_icon.png" alt="Apigee
+Padlock Icon" title="Padlock Icon">) and select “Basic HTTP”</li>
+<li>Enter your Nodester username and password in the dialogue that opens</li>
+<li>Open the “Advanced Options” dialogue</li>
+<li>Fill in the values for “appname” and “start”</li>
+<li>Click “OK”</li>
+<li>Click “POST”</li>
+<li><p>The response you should get looks like:</p>
+<pre><code>HTTP/1.1 200 OK
+Content-Length:
+182
+Content-Type:
+application/json
+Connection:
+close
+X-Powered-By:
+Express
+
+{
+  "status": "success",
+  "port": 13092,
+  "gitrepo": "git@nodester.com:/node/git/nodester-deploy/4939-840ce8a201f03c7d27852a5bde15b55e.git",
+  "<span class="operator"><span class="keyword">start</span><span class="string">": "</span>server.js<span class="string">",
+  "</span>running<span class="string">": false,
+  "</span>pid<span class="string">": "</span><span class="keyword">unknown</span><span class="string">"
+}</code></pre>
+</li>
+<li><p>Let’s get this app into Cloud9, so we can add some code and get it
+running!</p>
+</li>
+</ol>
+<h2>Import Nodester App into Cloud9</h2>
+<ol>
+<li>Click “Info” and copy the “gitrepo” value from the dialogue box that
+opens</li>
+<li>In your Cloud9 Dashboard, click the plus button that it points to
+while saying “Create a Project Here”</li>
+<li>Choose the “Clone from url” option and paste your “gitrepo” value
+from Nodester into the box, then click the “Checkout” button</li>
+<li>Cloud9 will perform the git clone operation and (once finished) you
+will be able to open the project within Cloud9 by selecting the
+project and clicking “Start Editing”</li>
+<li>Now that you have your project cloned into Cloud9, let’s add some
+code!</li>
+</ol>
+<h2>Add “Hello World” Code</h2>
+<ol>
+<li>When your project opens, we need to create the start file specified
+when creating your Nodester app (I used <code>server.js</code>) by clicking the
+plus icon to open an untitled document.</li>
+<li><p>For this tutorial, we will just get this app running the Nodejs.org
+“Hello World” code with some small tweaks to get it to run on
+Nodester and still debug on Cloud9</p>
+<ul>
+<li><p>Cloud9 requires you to use <code>process.env.C9_PORT</code>as your port for
+Node’s <code>.listen()</code>method and Nodester requires you to use a port
+specified to your app (They will have this environmental
+variable working soon), so I use this modified code for my
+“Hello World” app:</p>
+<pre><code><span class="keyword">var</span> port = process.env.C9_PORT || <span class="number">13087</span>; <span class="comment">/* Change 13087 to the port specified for your app */</span>
+
+<span class="keyword">var</span> http = <span class="keyword">require</span>(<span class="string">'http'</span>);
+http.createServer(<span class="function"><span class="keyword">function</span> <span class="params">(req, res)</span> {</span>
+  res.writeHead(<span class="number">200</span>, {<span class="string">'Content-Type'</span>: <span class="string">'text/plain'</span>});
+  res.end(<span class="string">'Hello World\n'</span>);
+}).listen(port);</code></pre>
+</li>
+</ul>
+</li>
+<li><p>Now, you want to save the code in the untitled document as the
+filename you specified as your start file when creating your
+Nodester app.</p>
+</li>
+<li>Once saved, clicking the “Run” button will bring up a dialogue box
+for a run configuration, where you can name your configuration and
+specify which file it is to run as the start file (server.js for
+me).  You can then click “Run” on that dialogue box.</li>
+<li>In the “Output” tab of your Cloud9 console, you will see a tip with
+a clickable link, when click, will launch the webpage for your app
+and you should see “Hello World” printed to the screen.</li>
+<li>Now that you have your app working in Cloud9, let’s get it onto
+Nodester!</li>
+</ol>
+<h2>Pushing your App to Nodester</h2>
+<ol>
+<li>Pushing your app to Nodester requires a little knowledge of Git
+(even though you don’t install it on your local machine, Cloud9 is
+still using it behind the scenes).</li>
+<li><p>In the Cloud9 Command Line (at the bottom of the screen), we around
+going to want to issue the command (either type or copy-paste):</p>
+<pre><code><span class="title">git</span> add .</code></pre>
+<p>to add all files to the Git repo.</p>
+</li>
+<li><p>Next, we want to issue the command:</p>
+<pre><code>git <span class="operator"><span class="keyword">commit</span> -m <span class="string">'initial commit'</span></code></pre>
+<p>to make our initial commit to the Git repo.</p>
+</li>
+<li><p>The last command we need to issue is</p>
+<pre><code><span class="title">git</span> push origin master</code></pre>
+<p>to push our changes to the Nodester Git repo.</p>
+</li>
+<li><p>Nodester will report on the progress of the push and the restarting
+of your app with the committed changes</p>
+</li>
+<li>If everything went as expected, your app will now be online!</li>
+</ol>
+<h2>Test Your Nodester App</h2>
+<ol>
+<li>Direct your web browser to YOUR_APPNAME.nodester.com (my test app
+was c9deploy1.nodester.com) to make sure your app is running.</li>
+<li>You can stop and start your app from the Nodester Admin Panel if
+something isn’t working correctly.</li>
+<li>After all of this is setup/configured, the only 3 commands you need
+to remember are the Git commands to add, commit, and push your
+changes to your Nodester apps!!</li>
+</ol>
+<h2>That’s All Folks!</h2>
+<p>I hope this post helps some people (especially ones developing on
+Windows or ChromeOS) with the difficult task of getting your apps hosted
+on the Nodester platform using the equally awesome Cloud9 IDE.</p>
+
+  </div>
+  <div class="post-navigation">
+  
+    <span class="comment-link"><a href="./2012-02-25-create-and-deploy-a-nodester-app-without-installing-git-using-cloud9-ide.html#comments">View Comments</a></span>
+  
+  </div>
+</article>
+
+  
+
+</div>
+      </article>
+    </section>
+  </div>
+
+  <footer>
+    Copyright Iced Dev, 2013.
+  </footer>
+
+  <script src="static/scripts/prism.js"> </script>
+</body>
+</html>
