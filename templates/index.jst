@@ -1,0 +1,10 @@
+<div class="articles">
+<% _(site.posts).chain().reverse().each(function(post){
+    post['embedded'] = true;
+%>
+<%= site.htmlFor(post) %>
+  <% if (_(site.posts).last() !== post) { %>
+  <hr />
+  <% } %>
+<% }) %>
+</div>

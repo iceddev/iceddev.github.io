@@ -1,0 +1,45 @@
+<article class="post">
+  <div class="title">
+    <h1><a href="<%= post.htmlPath() %>"><%= post.title() %></a></h1>
+    <p class="post-date"><%= post.date() %></p>
+  </div>
+  <div class="post-content">
+    <%= post.content() %>
+  </div>
+  <div class="post-navigation">
+  <% if (post['embedded']) { %>
+    <span class="comment-link"><a href="<%= post.htmlPath()%>#comments">View Comments</a></span>
+  <% } else { %>
+
+    <% if(site.newerPost(post)) { %>
+    <span class="newer"><a href="<%= site.newerPost(post).htmlPath() %>">&#8672;&nbsp;newer</a></span>
+    <% } %>
+    <% if(site.olderPost(post)) { %>
+    <span class="older"><a href="<%= site.olderPost(post).htmlPath() %>">older&nbsp;&#8674;</a></span>
+    <% } %>
+
+  </div>
+  <div class="post-comments">
+    <a name="comments"></a>
+    <% if(site.disqus) { %>
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = '<%= site.disqus %>'; // required: replace example with your forum shortname
+        var disqus_title = '<%= site.title %> - <%= post.title() %>';
+        var disqus_url = '<%= site.url %><%= post.htmlPath().slice(1)%>';
+        var disqus_developer = 1;
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript><a href="http://<%= site.disqus %>.disqus.com/?url=ref">View the discussion thread.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    <% } %>
+  <% } %>
+  </div>
+</article>

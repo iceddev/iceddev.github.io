@@ -1,0 +1,25 @@
+{
+  "name": "iceddev.github.io",
+  "version": "0.0.0",
+  "description": "Blog for Iced Dev",
+  "dependencies": {
+    "grunt-markdown-blog": "~0.0.6",
+    "grunt": "~0.4.1",
+    "volo": "~0.2.10"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "install": "volo add"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/iceddev/iceddev.github.io"
+  },
+  "author": "Iced Dev",
+  "license": "MIT",
+  "volo": {
+    "dependencies": {
+      "static": "github:iceddev/site-assets/master"
+    }
+  }
+}
