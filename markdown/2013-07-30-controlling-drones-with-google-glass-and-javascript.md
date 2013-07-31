@@ -1,20 +1,24 @@
-This past weekend (July 27, 2013) was [International Nodebots Day]() and I decided
+This past weekend (July 27, 2013) was [International Nodebots Day](http://nodebotsday.com) and I decided
 to attend Portland's event.
 
 The event was excellent and I would like to gives props to all the organizers,
-// TODO: organizer twitters
-who were able to bring people of all skill levels and interests together to
-control hardware with JavaScript.
+[Tracy](https://twitter.com/hackygolucky), [Troy](https://twitter.com/thoward37),
+[Adron](https://twitter.com/adron), [Carter](https://twitter.com/carterrabasa),
+[Jason](https://twitter.com/_jden), [Adam](https://twitter.com/s5fs) & anyone else
+I might have forgotten who were able to bring people of all skill levels and
+interests together to control hardware with JavaScript.
 
 Some projects I had interest in working on involved using different input devices
 to control robots with a small JS layer in between.
 
-I got started a day early with [Troy]() and [Nick]() while hacking at the New
-Relic offices.
+I got started a day early with [Troy](https://twitter.com/thoward37) and
+[Nick](https://twitter.com/nickniemeir) while hacking at the
+[New Relic](https://twitter.com/newrelic) offices.
 
-The first thing we did was read the input data from LeapMotion's WebSocket
-connection and use it to drive a [ShieldBot]() around using [johnny-five](),
-[shieldbot.js](), and [leapjs]().
+The first thing we did was read the input data from [LeapMotion's](https://www.leapmotion.com/)
+WebSocket connection and use it to drive a [ShieldBot](http://www.seeedstudio.com/depot/shield-bot-p-1380.html)
+around using [johnny-five](https://github.com/rwldrn/johnny-five),
+[shieldbot.js](https://github.com/phated/shieldbot.js), and [leapjs](http://js.leapmotion.com/).
 
 ```javascript
 var five = require('johnny-five');
@@ -89,7 +93,8 @@ prevX = x;
 Other plans included using the finders to stop the bot running into things or off tables, but
 I was unable to implement these because I quickly moved on to my next input device, Google Glass.
 
-For his [JSConf]() talk, Luis created a sideloadable app, [Face](), for Glass that broadcast
+For his [JSConf](https://github.com/jsconf/jsconfus2013/issues/13) talk, Luis created a
+sideloadable app, [Face](https://github.com/monteslu/Face), for Glass that broadcast
 the sensor data over WebSockets.  With this, I was able to get pitch and roll, which
 were both easily translated to the logic of the LeapMotion/ShieldBot combo.
 
@@ -263,7 +268,13 @@ a lot, since it was so sensitive and ran the drone into myself.  Second try, I w
 control it for a bit longer, but ended up crashing it into someone's leg, which I am very
 sorry about.
 
-// TODO: pictures and videos of my demo
+![Flying a Drone with Glass #1](https://pbs.twimg.com/media/BQN9iHbCYAAJOo1.jpg)
+
+Photo by [Alice Goldfuss](https://twitter.com/alicegoldfuss/status/361270420172857344)
+
+![Flying a Drone with Glass #2](https://pbs.twimg.com/media/BQOckcxCAAMZtLA.jpg)
+
+Photo by [Chris Hansen](https://twitter.com/cxhansen/status/361304545126645760)
 
 Turns out that I was driving the drone at full speed in each direction I tilted my head.
 I should have had the speed at about 0.3 instead of 1.  Lesson learned.  I would have also
