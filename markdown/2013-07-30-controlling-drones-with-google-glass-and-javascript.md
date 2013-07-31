@@ -60,7 +60,8 @@ board.on('ready', function(){
 We used the Leap's z-axis velocity tracking of a user's palm to drive the bot
 forward and backwards.
 
-// TODO: insert vine
+<iframe class="vine-embed" src="https://vine.co/v/hAexmlaWBUU/embed/simple" width="600" height="600" frameborder="0"></iframe>
+<script async src="//platform.vine.co/static/scripts/embed.js" charset="utf-8"></script>
 
 During Nodebots Day, I was able to add left & right stearing using palm x-axis rotation.
 
