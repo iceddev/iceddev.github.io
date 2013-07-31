@@ -15,6 +15,8 @@ I got started a day early with [Troy](https://twitter.com/thoward37) and
 [Nick](https://twitter.com/nickniemeir) while hacking at the
 [New Relic](https://twitter.com/newrelic) offices.
 
+## Leap + Bots
+
 The first thing we did was read the input data from [LeapMotion's](https://www.leapmotion.com/)
 WebSocket connection and use it to drive a [ShieldBot](http://www.seeedstudio.com/depot/shield-bot-p-1380.html)
 around using [johnny-five](https://github.com/rwldrn/johnny-five),
@@ -93,6 +95,8 @@ prevX = x;
 Other plans included using the finders to stop the bot running into things or off tables, but
 I was unable to implement these because I quickly moved on to my next input device, Google Glass.
 
+## Glass + Bots
+
 For his [JSConf](https://github.com/jsconf/jsconfus2013/issues/13) talk, Luis created a
 sideloadable app, [Face](https://github.com/monteslu/Face), for Glass that broadcast
 the sensor data over WebSockets.  With this, I was able to get pitch and roll, which
@@ -165,16 +169,19 @@ and right also turned the bot.
 
 This demo wasn't ideal because I couldn't see where the bot was while controlling it.
 I needed something that could be about eye height, so I could see its movement while
-controlling it.  Luckily, [Carter]() had brought a [Nodecopter]()!!
+controlling it.  Luckily, [Carter](https://twitter.com/carterrabasa) had brought a [NodeCopter](http://nodecopter.com/)!!
 
-// TODO: picture of nodecopter - carter & nodecopter?
+<iframe class="vine-embed" src="https://vine.co/v/hAgvjhl0zLA/embed/simple" width="600" height="600" frameborder="0"></iframe>
+<script async src="//platform.vine.co/static/scripts/embed.js" charset="utf-8"></script>
+
+## Glass + NodeCopter
 
 If it was so easy to switch the LeapMotion logic to use the Glass data, I figured it
-would be just as easy to swap the ShieldBot logic for the Nodecopter's.  After
-discussing the idea with a few people, it was suggested I use the [Voxel Drone]()
+would be just as easy to swap the ShieldBot logic for the NodeCopter's.  After
+discussing the idea with a few people, it was suggested I use the [Voxel Drone](https://github.com/shama/voxel-drone)
 to test my logic before applying it to a physical drone.  After a very frustrating
 experience trying to get Voxel Drone, which seems to have been abandoned, to actually
-work, I was able to wire up my Glass/Nodecopter logic and added code for the drone to
+work, I was able to wire up my Glass/NodeCopter logic and added code for the drone to
 take off with the A button and land with the B button displayed in Glass.
 
 ```javascript
@@ -251,6 +258,8 @@ var drone  = arDrone.createClient({
 });
 ```
 
+## Demos
+
 By the time I had the Voxel Drone working, Carter had to charge the drone's battery,
 which finished just as demos were starting.  The first attempt at my demo, the drone
 wasn't pairing with devices.  Carter reset it and was able to connect and show his
@@ -276,10 +285,7 @@ Photo by [Alice Goldfuss](https://twitter.com/alicegoldfuss/status/3612704201728
 
 Photo by [Chris Hansen](https://twitter.com/cxhansen/status/361304545126645760)
 
-<video controls preload="auto" width="600" height="600">
-  <source src="static/videos/nodecopter.mp4" type="video/mp4">
-  <source src="static/videos/nodecopter.mov">
-</video>
+<p><iframe src="http://player.vimeo.com/video/71405845" width="600" height="337" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></p>
 
 Turns out that I was driving the drone at full speed in each direction I tilted my head.
 I should have had the speed at about 0.3 instead of 1.  Lesson learned.  I would have also
