@@ -5,7 +5,7 @@ The event was excellent and I would like to gives props to all the organizers,
 [Tracy](https://twitter.com/hackygolucky), [Troy](https://twitter.com/thoward37),
 [Adron](https://twitter.com/adron), [Carter](https://twitter.com/carterrabasa),
 [Jason](https://twitter.com/_jden), [Adam](https://twitter.com/s5fs) & anyone else
-I might have forgotten who were able to bring people of all skill levels and
+I might have forgotten, who were able to bring people of all skill levels and
 interests together to control hardware with JavaScript.
 
 Some projects I had interest in working on involved using different input devices
@@ -275,6 +275,11 @@ Photo by [Alice Goldfuss](https://twitter.com/alicegoldfuss/status/3612704201728
 ![Flying a Drone with Glass #2](https://pbs.twimg.com/media/BQOckcxCAAMZtLA.jpg)
 
 Photo by [Chris Hansen](https://twitter.com/cxhansen/status/361304545126645760)
+
+<video controls preload="auto" width="600" height="600">
+  <source src="static/videos/nodecopter.mp4" type="video/mp4">
+  <source src="static/videos/nodecopter.mov">
+</video>
 
 Turns out that I was driving the drone at full speed in each direction I tilted my head.
 I should have had the speed at about 0.3 instead of 1.  Lesson learned.  I would have also
