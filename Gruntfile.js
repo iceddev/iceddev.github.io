@@ -32,11 +32,18 @@ module.exports = function(grunt) {
       blog: {
         dest: '.'
       }
+    },
+    watch: {
+      compile: {
+        files: ['markdown/*.md'],
+        tasks: ['markdown']
+      }
     }
   });
 
   // These plugins provide necessary tasks.
   grunt.loadNpmTasks('grunt-markdown-blog');
+  grunt.loadNpmTasks('grunt-contrib-watch');
 
   // Default task.
   grunt.registerTask('default', ['markdown']);

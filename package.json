@@ -7,7 +7,9 @@
     "grunt": "~0.4.1",
     "volo": "~0.2.10"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "grunt-contrib-watch": "~0.5.1"
+  },
   "scripts": {
     "install": "volo add"
   },
