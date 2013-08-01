@@ -165,7 +165,8 @@ After replacing some variables and reworking my velocity check, I was able to dr
 forward and backward, matching the direction I tilted my head.  Rolling my head left
 and right also turned the bot.
 
-// TODO: video or picture of shieldbot/glass?
+<iframe class="vine-embed" src="https://vine.co/v/hq620P0Qgjx/embed/simple" width="600" height="600" frameborder="0"></iframe>
+<script async src="//platform.vine.co/static/scripts/embed.js" charset="utf-8"></script>
 
 This demo wasn't ideal because I couldn't see where the bot was while controlling it.
 I needed something that could be about eye height, so I could see its movement while
@@ -173,6 +174,8 @@ controlling it.  Luckily, [Carter](https://twitter.com/carterrabasa) had brought
 
 <iframe class="vine-embed" src="https://vine.co/v/hAgvjhl0zLA/embed/simple" width="600" height="600" frameborder="0"></iframe>
 <script async src="//platform.vine.co/static/scripts/embed.js" charset="utf-8"></script>
+
+<p><iframe src="http://player.vimeo.com/video/71408246" width="600" height="338" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></p>
 
 ## Glass + NodeCopter
 
@@ -246,9 +249,6 @@ socket.on('broadcast', function(message){
 
 I loaded up Voxel Drone and was able to fly a WebGL drone in my browser.
 
-// TODO: video of voxel drone/glass
-
-This was super exciting because the same logic would be able to fly the real drone!
 All I needed to do was swap the voxel-drone specific code for:
 
 ```javascript
@@ -260,23 +260,6 @@ var drone  = arDrone.createClient({
 
 ## Demos
 
-By the time I had the Voxel Drone working, Carter had to charge the drone's battery,
-which finished just as demos were starting.  The first attempt at my demo, the drone
-wasn't pairing with devices.  Carter reset it and was able to connect and show his
-demo, which was to control and make the drone do tricks with a cell phone call (using
-the Twilio API).  After his demo, we attempted to get my computer connected.  At first,
-it wasn't working, so we both dropped wifi and I reconnected.  This time it worked!
-
-The second attempt at my demo was the last demo of the day.  I was super nervous because
-I didn't know how sensitive the drone would be towards my head movements and didn't want
-to injure anyone.  I hit the A button and the drone tookoff.  I then tilted my head forward
-and the drone moved forward!!!  Then to the side, the drone went the opposite direction.
-Oops, I guess my logic was reversed, which was strange because it seemed to be right in
-the browser.  I tilted my head back and the drone came at me.  I didn't want move my head
-a lot, since it was so sensitive and ran the drone into myself.  Second try, I was able to
-control it for a bit longer, but ended up crashing it into someone's leg, which I am very
-sorry about.
-
 ![Flying a Drone with Glass #1](https://pbs.twimg.com/media/BQN9iHbCYAAJOo1.jpg)
 
 Photo by [Alice Goldfuss](https://twitter.com/alicegoldfuss/status/361270420172857344)
@@ -284,6 +267,8 @@ Photo by [Alice Goldfuss](https://twitter.com/alicegoldfuss/status/3612704201728
 ![Flying a Drone with Glass #2](https://pbs.twimg.com/media/BQOckcxCAAMZtLA.jpg)
 
 Photo by [Chris Hansen](https://twitter.com/cxhansen/status/361304545126645760)
+
+<p><iframe width="600" height="450" src="//www.youtube.com/embed/BSXWkidgA1Q?rel=0" frameborder="0" allowfullscreen></iframe></p>
 
 <p><iframe src="http://player.vimeo.com/video/71405845" width="600" height="337" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></p>
 
