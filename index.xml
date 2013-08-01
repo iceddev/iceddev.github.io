@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Iced Blog]]></title><description><![CDATA[Blog for and by Iced Dev]]></description><link>http://blog.iceddev.com</link><generator>NodeJS RSS Module</generator><lastBuildDate>Thu, 01 Aug 2013 06:01:38 GMT</lastBuildDate><atom:link href="http://blog.iceddev.com/index.xml" rel="self" type="application/rss+xml"/><item><title><![CDATA[create and deploy a nodester app without installing git using cloud9 ide]]></title><description><![CDATA[<p>At Iced Dev, our main business is consulting for Node.js and building
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Iced Blog]]></title><description><![CDATA[Blog for and by Iced Dev]]></description><link>http://blog.iceddev.com</link><generator>NodeJS RSS Module</generator><lastBuildDate>Thu, 01 Aug 2013 18:57:19 GMT</lastBuildDate><atom:link href="http://blog.iceddev.com/index.xml" rel="self" type="application/rss+xml"/><item><title><![CDATA[create and deploy a nodester app without installing git using cloud9 ide]]></title><description><![CDATA[<p>At Iced Dev, our main business is consulting for Node.js and building
 great web applications using it with HTML5 technologies. Our favorite
 hosting platform is <a href="http://nodester.com" title="Nodester">Nodester</a> (<a href="http://twitter.com/nodester" title="Nodester">@Nodester</a>) because it is the only
 Open-Source PaaS for Node.js and maintained by a great group of
@@ -286,7 +286,7 @@ Browsers can&#39;t normally created TCP listeners, but Chrome Apps can in Canary
 <p>It&#39;s the law.  Obey the law.</p>
 ]]></description><link>http://blog.iceddev.com/./2012-11-05-node-js-in-chrome.html</link><guid isPermaLink="true">http://blog.iceddev.com/./2012-11-05-node-js-in-chrome.html</guid><dc:creator><![CDATA[Iced Dev]]></dc:creator><pubDate>Mon, 05 Nov 2012 00:00:00 GMT</pubDate></item><item><title><![CDATA[controlling drones with google glass and javascript]]></title><description><![CDATA[<p>This past weekend (July 27, 2013) was <a href="http://nodebotsday.com">International Nodebots Day</a> and I decided
 to attend Portland&#39;s event.</p>
-<p>The event was excellent and I would like to gives props to all the organizers,
+<p>The event was excellent and I would like to give props to all the organizers,
 <a href="https://twitter.com/hackygolucky">Tracy</a>, <a href="https://twitter.com/thoward37">Troy</a>,
 <a href="https://twitter.com/adron">Adron</a>, <a href="https://twitter.com/carterrabasa">Carter</a>,
 <a href="https://twitter.com/_jden">Jason</a>, <a href="https://twitter.com/s5fs">Adam</a> &amp; anyone else
@@ -297,6 +297,8 @@ to control robots with a small JS layer in between.</p>
 <p>The hardware I brought to work with was LeapMotion, Google Glass, and Shieldbots.
 I was also hoping someone would bring a NodeCopter.</p>
 <p>The goal was to use the input devices to control the bots, all using JavaScript.</p>
+<p><img src="https://pbs.twimg.com/media/BQN9iHbCYAAJOo1.jpg" alt="Flying a Drone with Glass #1"></p>
+<p>Photo by <a href="https://twitter.com/alicegoldfuss/status/361270420172857344">Alice Goldfuss</a></p>
 <h2>Leap + Bots</h2>
 <p>I got started a day early with <a href="https://twitter.com/thoward37">Troy</a> and
 <a href="https://twitter.com/nickniemeir">Nick</a> while hacking at the
@@ -516,8 +518,6 @@ socket.on(<span class="string">'broadcast'</span>, <span class="keyword">functio
   ip: <span class="string">'192.168.1.10'</span>
 });</code></pre>
 <h2>Demos</h2>
-<p><img src="https://pbs.twimg.com/media/BQN9iHbCYAAJOo1.jpg" alt="Flying a Drone with Glass #1"></p>
-<p>Photo by <a href="https://twitter.com/alicegoldfuss/status/361270420172857344">Alice Goldfuss</a></p>
 <p><img src="https://pbs.twimg.com/media/BQOckcxCAAMZtLA.jpg" alt="Flying a Drone with Glass #2"></p>
 <p>Photo by <a href="https://twitter.com/cxhansen/status/361304545126645760">Chris Hansen</a></p>
 <p><iframe width="600" height="450" src="//www.youtube.com/embed/BSXWkidgA1Q?rel=0" frameborder="0" allowfullscreen></iframe></p>

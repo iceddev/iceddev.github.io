@@ -1,7 +1,7 @@
 This past weekend (July 27, 2013) was [International Nodebots Day](http://nodebotsday.com) and I decided
 to attend Portland's event.
 
-The event was excellent and I would like to gives props to all the organizers,
+The event was excellent and I would like to give props to all the organizers,
 [Tracy](https://twitter.com/hackygolucky), [Troy](https://twitter.com/thoward37),
 [Adron](https://twitter.com/adron), [Carter](https://twitter.com/carterrabasa),
 [Jason](https://twitter.com/_jden), [Adam](https://twitter.com/s5fs) & anyone else
@@ -15,6 +15,11 @@ The hardware I brought to work with was LeapMotion, Google Glass, and Shieldbots
 I was also hoping someone would bring a NodeCopter.
 
 The goal was to use the input devices to control the bots, all using JavaScript.
+
+
+![Flying a Drone with Glass #1](https://pbs.twimg.com/media/BQN9iHbCYAAJOo1.jpg)
+
+Photo by [Alice Goldfuss](https://twitter.com/alicegoldfuss/status/361270420172857344)
 
 ## Leap + Bots
 
@@ -264,10 +269,6 @@ var drone  = arDrone.createClient({
 ```
 
 ## Demos
-
-![Flying a Drone with Glass #1](https://pbs.twimg.com/media/BQN9iHbCYAAJOo1.jpg)
-
-Photo by [Alice Goldfuss](https://twitter.com/alicegoldfuss/status/361270420172857344)
 
 ![Flying a Drone with Glass #2](https://pbs.twimg.com/media/BQOckcxCAAMZtLA.jpg)
 
