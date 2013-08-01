@@ -11,11 +11,16 @@ interests together to control hardware with JavaScript.
 Some projects I had interest in working on involved using different input devices
 to control robots with a small JS layer in between.
 
+The hardware I brought to work with was LeapMotion, Google Glass, and Shieldbots.
+I was also hoping someone would bring a NodeCopter.
+
+The goal was to use the input devices to control the bots, all using JavaScript.
+
+## Leap + Bots
+
 I got started a day early with [Troy](https://twitter.com/thoward37) and
 [Nick](https://twitter.com/nickniemeir) while hacking at the
 [New Relic](https://twitter.com/newrelic) offices.
-
-## Leap + Bots
 
 The first thing we did was read the input data from [LeapMotion's](https://www.leapmotion.com/)
 WebSocket connection and use it to drive a [ShieldBot](http://www.seeedstudio.com/depot/shield-bot-p-1380.html)
@@ -275,7 +280,14 @@ Photo by [Chris Hansen](https://twitter.com/cxhansen/status/361304545126645760)
 Turns out that I was driving the drone at full speed in each direction I tilted my head.
 I should have had the speed at about 0.3 instead of 1.  Lesson learned.  I would have also
 liked to add the ability to rotate the drone left and right based on the Glass' azimuth value,
-but I guess that will have to be in the future.  After such an amazing Nodebots Day, I have all
-sorts of ideas swimming around in my head for taking these types of interactions further!
+but I guess that will have to be in the future.
+
+## Wrapping Up
+
+With JavaScript, we are able to write a relatively small amount of code that can serve as a basis for swappable hardware components.
+
+I was able to start with a LeapMotion and Shieldbot and end up using Google Glass and a NodeCopter with quite similar code.
+
+After such an amazing Nodebots Day, I have all sorts of ideas swimming around in my head for taking these types of interactions further!
 
 -Blaine
