@@ -59,6 +59,274 @@
 
 <article class="post">
   <div class="title">
+    <h1><a href="./2013-07-30-controlling-drones-with-google-glass-and-javascript.html">controlling drones with google glass and javascript</a></h1>
+    <p class="post-date">july 30th 2013</p>
+  </div>
+  <div class="post-content">
+    <p>This past weekend (July 27, 2013) was <a href="http://nodebotsday.com">International Nodebots Day</a> and I decided
+to attend Portland&#39;s event.</p>
+<p>The event was excellent and I would like to gives props to all the organizers,
+<a href="https://twitter.com/hackygolucky">Tracy</a>, <a href="https://twitter.com/thoward37">Troy</a>,
+<a href="https://twitter.com/adron">Adron</a>, <a href="https://twitter.com/carterrabasa">Carter</a>,
+<a href="https://twitter.com/_jden">Jason</a>, <a href="https://twitter.com/s5fs">Adam</a> &amp; anyone else
+I might have forgotten, who were able to bring people of all skill levels and
+interests together to control hardware with JavaScript.</p>
+<p>Some projects I had interest in working on involved using different input devices
+to control robots with a small JS layer in between.</p>
+<p>The hardware I brought to work with was LeapMotion, Google Glass, and Shieldbots.
+I was also hoping someone would bring a NodeCopter.</p>
+<p>The goal was to use the input devices to control the bots, all using JavaScript.</p>
+<h2>Leap + Bots</h2>
+<p>I got started a day early with <a href="https://twitter.com/thoward37">Troy</a> and
+<a href="https://twitter.com/nickniemeir">Nick</a> while hacking at the
+<a href="https://twitter.com/newrelic">New Relic</a> offices.</p>
+<p>The first thing we did was read the input data from <a href="https://www.leapmotion.com/">LeapMotion&#39;s</a>
+WebSocket connection and use it to drive a <a href="http://www.seeedstudio.com/depot/shield-bot-p-1380.html">ShieldBot</a>
+around using <a href="https://github.com/rwldrn/johnny-five">johnny-five</a>,
+<a href="https://github.com/phated/shieldbot.js">shieldbot.js</a>, and <a href="http://js.leapmotion.com/">leapjs</a>.</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> five = require(<span class="string">'johnny-five'</span>);
+<span class="keyword">var</span> Shieldbot = require(<span class="string">'shieldbot'</span>);
+<span class="keyword">var</span> leap = require(<span class="string">'leapjs'</span>);
+<span class="keyword">var</span> board = <span class="keyword">new</span> five.Board();
+
+board.on(<span class="string">'ready'</span>, <span class="keyword">function</span>(){
+
+  <span class="keyword">var</span> shieldbot = <span class="keyword">new</span> Shieldbot();
+  <span class="keyword">var</span> prevZ;
+
+  leap.loop(<span class="keyword">function</span>(frame){
+    <span class="keyword">if</span>(frame.hands.length){
+      <span class="keyword">var</span> z = frame.hands[<span class="number">0</span>].palmPosition[<span class="number">2</span>];
+      <span class="keyword">var</span> velZ = frame.hands[<span class="number">0</span>].palmVelocity[<span class="number">2</span>];
+
+      <span class="keyword">if</span>(prevZ == <span class="literal">null</span>){
+        prevZ = z;
+      }
+
+      <span class="keyword">var</span> direction;
+      <span class="keyword">if</span>(z &lt; prevZ &amp;&amp; Math.abs(velZ) &gt; <span class="number">50</span>){
+        direction = <span class="string">'forward'</span>;
+        shieldbot.forward(<span class="number">127</span>, <span class="number">30</span>);
+      } <span class="keyword">else</span> <span class="keyword">if</span>(z &gt; prevZ &amp;&amp; Math.abs(velZ) &gt; <span class="number">50</span>){
+        direction = <span class="string">'backward'</span>;
+        shieldbot.reverse(<span class="number">127</span>, <span class="number">30</span>);
+      } <span class="keyword">else</span> {
+        direction = <span class="string">'still'</span>;
+        shieldbot.stop();
+      }
+
+      prevZ = z;
+    } <span class="keyword">else</span> {
+      shieldbot.stop();
+    }
+  });
+
+});</code></pre>
+<p>We used the Leap&#39;s z-axis velocity tracking of a user&#39;s palm to drive the bot
+forward and backwards.</p>
+<p><iframe class="vine-embed" src="https://vine.co/v/hAexmlaWBUU/embed/simple" width="600" height="600" frameborder="0"></iframe></p>
+<script async src="//platform.vine.co/static/scripts/embed.js" charset="utf-8"></script>
+
+<p>During Nodebots Day, I was able to add left &amp; right stearing using palm x-axis rotation.</p>
+<pre><code class="lang-javascript"><span class="comment">// outside leap.loop</span>
+<span class="keyword">var</span> prevX;
+
+<span class="comment">// inside leap.loop</span>
+<span class="keyword">var</span> velX = frame.hands[<span class="number">0</span>].palmVelocity[<span class="number">0</span>];
+<span class="keyword">var</span> x = frame.hands[<span class="number">0</span>].palmNormal[<span class="number">0</span>];
+
+<span class="keyword">if</span>(direction === <span class="string">'still'</span>){
+  <span class="keyword">if</span>(x &gt; prevX &amp;&amp; Math.abs(velX) &gt; <span class="number">50</span>){
+    shieldbot.turnRight(<span class="number">127</span>, <span class="number">30</span>);
+  } <span class="keyword">else</span> <span class="keyword">if</span>(x &lt; prevX  &amp;&amp; Math.abs(velX) &gt; <span class="number">50</span>){
+    shieldbot.turnLeft(<span class="number">127</span>, <span class="number">30</span>);
+  } <span class="keyword">else</span> {
+    shieldbot.stop();
+  }
+}
+
+prevX = x;</code></pre>
+<p>Other plans included using the finders to stop the bot running into things or off tables, but
+I was unable to implement these because I quickly moved on to my next input device, Google Glass.</p>
+<h2>Glass + Bots</h2>
+<p>For his <a href="https://github.com/jsconf/jsconfus2013/issues/13">JSConf</a> talk, Luis created a
+sideloadable app, <a href="https://github.com/monteslu/Face">Face</a>, for Glass that broadcast
+the sensor data over WebSockets.  With this, I was able to get pitch and roll, which
+were both easily translated to the logic of the LeapMotion/ShieldBot combo.</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> five = require(<span class="string">'johnny-five'</span>);
+<span class="keyword">var</span> Shieldbot = require(<span class="string">'shieldbot'</span>);
+
+<span class="keyword">var</span> io = require(<span class="string">'socket.io-client'</span>);
+<span class="keyword">var</span> socket = io.connect(<span class="string">'http://localhost:11097'</span>);
+socket.on(<span class="string">'connect'</span>, <span class="keyword">function</span>(){
+  socket.emit(<span class="string">'joinChannel'</span>, CHAN_ID_FROM_FACE);
+});
+
+<span class="keyword">var</span> board = <span class="keyword">new</span> five.Board();
+
+board.on(<span class="string">'ready'</span>, <span class="keyword">function</span>(){
+
+  <span class="keyword">var</span> shieldbot = <span class="keyword">new</span> Shieldbot();
+  <span class="keyword">var</span> prevZ;
+  <span class="keyword">var</span> prevX;
+
+  socket.on(<span class="string">'broadcast'</span>, <span class="keyword">function</span>(message){
+    <span class="keyword">if</span>(message.sensors){
+      <span class="keyword">var</span> z = message.sensors.pitch;
+      <span class="keyword">var</span> x = message.sensors.roll;
+
+      <span class="keyword">if</span>(prevZ == <span class="literal">null</span>){
+        prevZ = z;
+      }
+
+      <span class="keyword">var</span> direction;
+      <span class="keyword">if</span>(z &gt; prevZ &amp;&amp; Math.abs(z - prevZ) &gt; <span class="number">1</span>){
+        direction = <span class="string">'forward'</span>;
+        shieldbot.forward(<span class="number">127</span>, <span class="number">30</span>);
+      } <span class="keyword">else</span> <span class="keyword">if</span>(z &lt; prevZ &amp;&amp; Math.abs(z - prevZ) &gt; <span class="number">1</span>){
+        direction = <span class="string">'backward'</span>;
+        shieldbot.reverse(<span class="number">127</span>, <span class="number">30</span>);
+      } <span class="keyword">else</span> {
+        direction = <span class="string">'still'</span>;
+        shieldbot.stop();
+      }
+
+      <span class="keyword">if</span>(direction === <span class="string">'still'</span>){
+        <span class="keyword">if</span>(x &gt; prevX &amp;&amp; Math.abs(x - prevX) &gt; <span class="number">1</span>){
+          shieldbot.turnRight(<span class="number">127</span>, <span class="number">30</span>);
+        } <span class="keyword">else</span> <span class="keyword">if</span>(x &lt; prevX  &amp;&amp; Math.abs(x - prevX) &gt; <span class="number">1</span>){
+          shieldbot.turnLeft(<span class="number">127</span>, <span class="number">30</span>);
+        } <span class="keyword">else</span> {
+          shieldbot.stop();
+        }
+      }
+
+      prevZ = z;
+      prevX = x;
+    } <span class="keyword">else</span> {
+      shieldbot.stop();
+    }
+  });
+
+});</code></pre>
+<p>After replacing some variables and reworking my velocity check, I was able to drive the bot
+forward and backward, matching the direction I tilted my head.  Rolling my head left
+and right also turned the bot.</p>
+<p><iframe class="vine-embed" src="https://vine.co/v/hq620P0Qgjx/embed/simple" width="600" height="600" frameborder="0"></iframe></p>
+<script async src="//platform.vine.co/static/scripts/embed.js" charset="utf-8"></script>
+
+<p>This demo wasn&#39;t ideal because I couldn&#39;t see where the bot was while controlling it.
+I needed something that could be about eye height, so I could see its movement while
+controlling it.  Luckily, <a href="https://twitter.com/carterrabasa">Carter</a> had brought a <a href="http://nodecopter.com/">NodeCopter</a>!!</p>
+<p><iframe class="vine-embed" src="https://vine.co/v/hAgvjhl0zLA/embed/simple" width="600" height="600" frameborder="0"></iframe></p>
+<script async src="//platform.vine.co/static/scripts/embed.js" charset="utf-8"></script>
+
+<p><iframe src="http://player.vimeo.com/video/71408246" width="600" height="338" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></p>
+
+<h2>Glass + NodeCopter</h2>
+<p>If it was so easy to switch the LeapMotion logic to use the Glass data, I figured it
+would be just as easy to swap the ShieldBot logic for the NodeCopter&#39;s.  After
+discussing the idea with a few people, it was suggested I use the <a href="https://github.com/shama/voxel-drone">Voxel Drone</a>
+to test my logic before applying it to a physical drone.  After a very frustrating
+experience trying to get Voxel Drone, which seems to have been abandoned, to actually
+work, I was able to wire up my Glass/NodeCopter logic and added code for the drone to
+take off with the A button and land with the B button displayed in Glass.</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> io = require(<span class="string">'socket.io-client'</span>);
+<span class="keyword">var</span> socket = io.connect(<span class="string">'http://localhost:11097'</span>);
+socket.on(<span class="string">'connect'</span>, <span class="keyword">function</span>(){
+  socket.emit(<span class="string">'joinChannel'</span>, CHAN_ID_FROM_FACE);
+});
+
+<span class="keyword">var</span> prevZ;
+<span class="keyword">var</span> prevX;
+
+socket.on(<span class="string">'broadcast'</span>, <span class="keyword">function</span>(message){
+
+  <span class="keyword">if</span>(message.event){
+    <span class="keyword">if</span>(message.event === <span class="string">'A'</span>){
+      drone.takeoff();
+    }
+    <span class="keyword">if</span>(message.event === <span class="string">'B'</span>){
+      drone.land();
+    }
+    <span class="keyword">return</span>;
+  }
+  <span class="keyword">if</span>(message.sensors){
+    <span class="keyword">var</span> z = message.sensors.pitch;
+    <span class="keyword">var</span> x = message.sensors.roll;
+
+    <span class="keyword">if</span>(prevZ == <span class="literal">null</span>){
+      prevZ = z;
+    }
+
+    <span class="keyword">var</span> direction;
+    <span class="keyword">if</span>(z &gt; prevZ &amp;&amp; Math.abs(z - prevZ) &gt; <span class="number">1</span>){
+      direction = <span class="string">'forward'</span>;
+      drone.front(<span class="number">1</span>);
+    } <span class="keyword">else</span> <span class="keyword">if</span>(z &lt; prevZ &amp;&amp; Math.abs(z - prevZ) &gt; <span class="number">1</span>){
+      direction = <span class="string">'backward'</span>;
+      drone.back(<span class="number">1</span>);
+    } <span class="keyword">else</span> {
+      direction = <span class="string">'still'</span>;
+      drone.stop();
+    }
+
+    <span class="keyword">if</span>(direction === <span class="string">'still'</span>){
+      <span class="keyword">if</span>(x &gt; prevX &amp;&amp; Math.abs(x - prevX) &gt; <span class="number">1</span>){
+        drone.right(<span class="number">1</span>);
+      } <span class="keyword">else</span> <span class="keyword">if</span>(x &lt; prevX  &amp;&amp; Math.abs(x - prevX) &gt; <span class="number">1</span>){
+        drone.left(<span class="number">1</span>);
+      } <span class="keyword">else</span> {
+        drone.stop();
+      }
+    }
+
+    prevZ = z;
+    prevX = x;
+  } <span class="keyword">else</span> {
+    drone.stop();
+  }
+
+});</code></pre>
+<p>I loaded up Voxel Drone and was able to fly a WebGL drone in my browser.</p>
+<p>All I needed to do was swap the voxel-drone specific code for:</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> arDrone = require(<span class="string">'ar-drone'</span>);
+<span class="keyword">var</span> drone  = arDrone.createClient({
+  ip: <span class="string">'192.168.1.10'</span>
+});</code></pre>
+<h2>Demos</h2>
+<p><img src="https://pbs.twimg.com/media/BQN9iHbCYAAJOo1.jpg" alt="Flying a Drone with Glass #1"></p>
+<p>Photo by <a href="https://twitter.com/alicegoldfuss/status/361270420172857344">Alice Goldfuss</a></p>
+<p><img src="https://pbs.twimg.com/media/BQOckcxCAAMZtLA.jpg" alt="Flying a Drone with Glass #2"></p>
+<p>Photo by <a href="https://twitter.com/cxhansen/status/361304545126645760">Chris Hansen</a></p>
+<p><iframe width="600" height="450" src="//www.youtube.com/embed/BSXWkidgA1Q?rel=0" frameborder="0" allowfullscreen></iframe></p>
+
+<p><iframe src="http://player.vimeo.com/video/71405845" width="600" height="337" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></p>
+
+<p>Turns out that I was driving the drone at full speed in each direction I tilted my head.
+I should have had the speed at about 0.3 instead of 1.  Lesson learned.  I would have also
+liked to add the ability to rotate the drone left and right based on the Glass&#39; azimuth value,
+but I guess that will have to be in the future.</p>
+<h2>Wrapping Up</h2>
+<p>With JavaScript, we are able to write a relatively small amount of code that can serve as a basis for swappable hardware components.</p>
+<p>I was able to start with a LeapMotion and Shieldbot and end up using Google Glass and a NodeCopter with quite similar code.</p>
+<p>After such an amazing Nodebots Day, I have all sorts of ideas swimming around in my head for taking these types of interactions further!</p>
+<p>-Blaine</p>
+
+  </div>
+  <div class="post-navigation">
+  
+    <span class="comment-link"><a href="./2013-07-30-controlling-drones-with-google-glass-and-javascript.html#comments">View Comments</a></span>
+  
+  </div>
+</article>
+
+  
+  <hr />
+  
+
+<article class="post">
+  <div class="title">
     <h1><a href="./2012-11-05-node-js-in-chrome.html">node js in chrome</a></h1>
     <p class="post-date">november 5th 2012</p>
   </div>
