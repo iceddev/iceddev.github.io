@@ -76,6 +76,7 @@ the `optimize` option to `'none'`.
   insertRequire: ['main'],
   optimize: 'none'
 })
+```
 
 ## `out`
 
