@@ -1,3 +1,12 @@
+## What is Beefy?
+
+Beefy is a static web server with built-in JavaScript bundling.
+
+It was made to work with Browserify by default, but if you use the `--bundler`
+command line argument, you can specify r.js as your bundler of choice.
+
+We are going to use this to run r.js each time our `main.js` file is requested.
+
 ## `baseUrl`
 
 As with every Require.js project, you are going to want to set your `baseUrl`.
@@ -8,6 +17,7 @@ let's just use our current directory and we will put our JS files at the root
 of our project.
 
 ```javascript
+// config.js
 ({
   baseUrl: './'
 })
@@ -23,6 +33,7 @@ We are going to name our entry module `main.js`, an AMD package convention,
 and it will be in the root of our project.
 
 ```javascript
+// config.js
 ({
   baseUrl: './',
   name: 'main' // drop the .js, as AMD moduleId resolution appends it
@@ -76,6 +87,7 @@ you need to bootstrap your application with a `require` function call.  We can s
 the `insertRequire` option, to insert a `require` function call at the bottom of our bundle.
 
 ```javascript
+// config.js
 ({
   baseUrl: './',
   name: 'main',
@@ -90,6 +102,7 @@ be able to debug your bundle and builds will happen quicker. This is done by set
 the `optimize` option to `'none'`.
 
 ```javascript
+// config.js
 ({
   baseUrl: './',
   name: 'main',
@@ -113,6 +126,7 @@ We are going to leverage the `out` function to redirect the r.js output
 to `process.stdout`.
 
 ```javascript
+// config.js
 ({
   baseUrl: './',
   name: 'main',
@@ -130,6 +144,7 @@ option that can be used to disable logging.  Log level 4 is the level that disab
 logging.
 
 ```javascript
+// config.js
 ({
   baseUrl: './',
   name: 'main',
@@ -138,4 +153,10 @@ logging.
   out: console.log,
   logLevel: 4
 })
+```
+
+## Run Beefy
+
+```bash
+beefy :main.js --bundler ./node_modules/.bin/r.js -- -o config.js
 ```
