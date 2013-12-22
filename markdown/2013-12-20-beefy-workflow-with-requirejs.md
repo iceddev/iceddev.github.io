@@ -49,6 +49,26 @@ define([
 });
 ```
 
+### `another-module.js`
+
+Create another file in the root of your project, but name this one `another-module.js`.
+
+This file is a dependency of your `main.js` module and is just used to demonstrate that
+we are, in fact, bundling all the dependencies together.
+
+```javascript
+// another-module.js
+define(function(){
+
+  console.log('inside another-module.js');
+
+  return {
+    something: 'yup, another module';
+  };
+
+});
+```
+
 ## `insertRequire`
 
 When bundling files that only contain `define` function calls, loaded by `data-main`,
