@@ -168,8 +168,7 @@ to `process.stdout`.
 
 By default, r.js logs info about the build process.  This gets intercepted
 by beefy on stdout and is added to the output served.  r.js provides a `logLevel`
-option that can be used to disable logging.  Log level 4 is the level that disables
-logging.
+option that can be used to disable logging.  Log level 3 is the level that logs only errors.
 
 ```javascript
 // config.js
@@ -179,7 +178,7 @@ logging.
   insertRequire: ['main'],
   optimize: 'none'
   out: console.log,
-  logLevel: 4
+  logLevel: 3
 })
 ```
 
