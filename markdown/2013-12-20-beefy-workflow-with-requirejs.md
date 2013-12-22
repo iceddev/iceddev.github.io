@@ -199,8 +199,7 @@ entrypoint file. This won't work with the workflow outlined above because we ass
 require machinery will be available (see the Almond section for a different approach).
 
 ```html
-<!-- index.html -->
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
