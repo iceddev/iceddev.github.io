@@ -207,7 +207,6 @@ require machinery will be available (see the Almond section for a different appr
     <title>Beefy + Require.js</title>
 </head>
 <body>
-
     <script src="/node_modules/requirejs/require.js" data-main="main" type="text/javascript"></script>
 </body>
 </html>
