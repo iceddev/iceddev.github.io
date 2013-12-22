@@ -191,6 +191,28 @@ option that can be used to disable logging.  Log level 3 is the level that logs 
 })
 ```
 
+## `index.html`
+
+The last thing we need is an `index.html` file that includes Require.js. If an `index.html`
+file doesn't exist, beefy serves up a default page that just injects a script tag for your
+entrypoint file. This won't work with the workflow outlined above because we assume the
+require machinery will be available (see the Almond section for a different approach).
+
+```html
+<!-- index.html -->
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Beefy + Require.js</title>
+</head>
+<body>
+
+    <script src="/node_modules/requirejs/require.js" data-main="main" type="text/javascript"></script>
+</body>
+</html>
+```
+
 ## Run Beefy
 
 ```bash
