@@ -35,6 +35,12 @@ to the command:
 npm install --save-dev requirejs
 ```
 
+## Minimum Viable Config
+
+There are six options we need to set in our r.js config file that will allow us to use
+it with beefy.  They are `baseUrl`, `name`, `insertRequire`, `optimize`, `out` and `logLevel`
+and each one is explained below.
+
 ## `baseUrl`
 
 As with every Require.js project, you are going to want to set your `baseUrl`.
