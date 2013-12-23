@@ -249,7 +249,7 @@ Create an `index.html` file in the root of your project that contains:
 ## Run beefy
 
 The beefy command takes a filename as the first argument, or an input filename/output filename combination
-in the form of `input-filename.js:output-filename.js`. If you don't specify an input filename, like `:output-filename.js`
+in the form of `input-filename.js:output-filename.js`. If you don't specify an input filename, like `:output-filename.js`,
 beefy won't pass a filename to the bundler, but it will still make the result of the bundler command available as
 `output-filename.js`.
 
@@ -266,3 +266,12 @@ Putting it all together, the command looks like:
 ```bash
 beefy :main.js --bundler ./node_modules/.bin/r.js -- -o config.js
 ```
+
+## Accessing your bundle
+
+Open your browser and go to the location that the beefy command said it is listening on,
+e.g. `listening on http://localhost:9966/`.
+
+You should see logging in your console if your modules loaded correctly. You should also
+be able to view the individual files in the `sources` pane, probably under (no domain)
+since we were using `sourceUrl`s.
