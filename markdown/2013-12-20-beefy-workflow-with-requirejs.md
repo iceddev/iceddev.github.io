@@ -284,13 +284,7 @@ This configuration will allow you easily to swap dependencies with a single line
 ```javascript
 // config.js
 ({
-  baseUrl: './',
-  name: 'main',
-  insertRequire: ['main'],
-  optimize: 'none',
-  useSourceUrl: true,
-  out: console.log,
-  logLevel: 3,
+  // rest of the config
   paths: {
     underscore: 'node_modules/underscore/underscore'
   }
@@ -302,13 +296,7 @@ Can be changed to:
 ```javascript
 // config.js
 ({
-  baseUrl: './',
-  name: 'main',
-  insertRequire: ['main'],
-  optimize: 'none',
-  useSourceUrl: true,
-  out: console.log,
-  logLevel: 3,
+  // rest of the config
   paths: {
     underscore: 'node_modules/lodash/dist/lodash'
   }
