@@ -1,8 +1,7 @@
-A common reason [browserify](http://browserify.org/) users avoid
-[Require.js](http://requirejs.org/) is that they dislike bundling their JavaScript
-modules only in production. Recently, [Chris Dickinson](https://twitter.com/isntitvacant) and I did some testing and, with
-some changes to beefy, it’s now easier to use r.js as a custom bundler to achieve the
-bundle-during-development workflow while using AMD modules.
+Sometimes you want to work on your AMD code as a single bundle; the same way it will
+be deployed in production, with automatic bundling and live reload. Thanks to
+[Chris Dickinson's](https://twitter.com/isntitvacant) recent work on the beefy development
+server, it's now easier to use r.js as a custom bundler.
 
 Let’s get it configured.
 
@@ -23,9 +22,9 @@ npm install -g beefy
 
 ## What is r.js?
 
-[r.js](https://github.com/jrburke/r.js) is a command line utility designed for running [AMD](https://github.com/amdjs/amdjs-api/wiki)-based projects in node.js,
-Rhino, and xpcshell. It also includes an optimizer for combining your AMD files
-into a bundle.
+[r.js](https://github.com/jrburke/r.js) is a command line utility designed for running
+[AMD](https://github.com/amdjs/amdjs-api/wiki)-based projects in node.js, Rhino, and xpcshell.
+It also includes an optimizer for combining your AMD files into a bundle.
 
 By using the optimizer functionality of r.js, in combination with beefy, we can
 bundle our JavaScript on each page refresh.
@@ -36,7 +35,7 @@ We need to install r.js into our project using the command:
 npm install requirejs
 ```
 
-If you have a `package.json` and want to stamp it with the dependency, add `--save-dev`
+If you have a `package.json` and want to add it to your devDependencies, add `--save-dev`
 to the command:
 
 ```bash
