@@ -1,8 +1,8 @@
 I hear a lot of talking points by people that use [browserify](http://browserify.org/) about
 not wanting to bundle their JavaScript modules only in production, which is the common strategy
 that [Require.js](http://requirejs.org/) promotes. It is possible, using beefy and r.js, to
-emulate the bundle-during-development workflow. This post will take you through the steps needed
-to set up that type of environment.
+achieve the bundle-during-development workflow while using AMD modules. This post will take you
+through the steps needed to set up that type of environment.
 
 ## What is beefy?
 
@@ -43,9 +43,9 @@ npm install --save-dev requirejs
 
 ## Minimum Viable Config
 
-There are six options we need to set in our r.js config file that will allow us to use
-it with beefy.  They are `baseUrl`, `name`, `insertRequire`, `optimize`, `out` and `logLevel`
-and each one is explained below.
+There are seven options we need to set in our r.js config file that will allow us to use
+it with beefy (actually, two are just nice to have).  They are `baseUrl`, `name`, `insertRequire`,
+`optimize`, `useSourceUrl`, `out` and `logLevel` and each one is explained below.
 
 These options will be set in a file named `config.js`, which will be passed to the beefy
 command.
@@ -158,12 +158,31 @@ the `optimize` option to `'none'`.
 })
 ```
 
+## `useSourceUrl` - Source Maps
+
+When using the `optimize: 'none'` option, we can get source maps, using `//# sourceURL=`
+and an `eval` call.
+
+Setting the `useSourceUrl` option to `true` will auto insert these for you, but it should
+be disabled when bundling for production.
+
+```javascript
+// config.js
+({
+  baseUrl: './',
+  name: 'main',
+  insertRequire: ['main'],
+  optimize: 'none',
+  useSourceUrl: true
+})
+```
+
 ## `out`
 
 The typical way r.js is used is to output a file, determined by providing
 a filename string as the `out` option.
 
-Beefy doesn't operate on files, and instead expects to receive data on
+beefy doesn't operate on files, and instead expects to receive data on
 `process.stdout`.
 
 The `out` option can also take a function that will receive the output
@@ -178,7 +197,8 @@ to `process.stdout`.
   baseUrl: './',
   name: 'main',
   insertRequire: ['main'],
-  optimize: 'none'
+  optimize: 'none',
+  useSourceUrl: true,
   out: console.log // console.log outputs to process.stdout and is tightly bound in node
 })
 ```
@@ -186,7 +206,7 @@ to `process.stdout`.
 ## `logLevel`
 
 By default, r.js logs info about the build process.  This gets intercepted
-by beefy on stdout and is added to the output served.  r.js provides a `logLevel`
+by beefy on `process.stdout` and is added to the output served.  r.js provides a `logLevel`
 option that can be used to disable logging.  Log level 3 is the level that logs only errors.
 
 ```javascript
@@ -195,7 +215,8 @@ option that can be used to disable logging.  Log level 3 is the level that logs 
   baseUrl: './',
   name: 'main',
   insertRequire: ['main'],
-  optimize: 'none'
+  optimize: 'none',
+  useSourceUrl: true,
   out: console.log,
   logLevel: 3
 })
@@ -206,7 +227,7 @@ option that can be used to disable logging.  Log level 3 is the level that logs 
 The last thing we need is an `index.html` file that includes Require.js. If an `index.html`
 file doesn't exist, beefy serves up a default page that just injects a script tag for your
 entrypoint file. This won't work with the workflow outlined above because we assume the
-require machinery will be available (see the Almond section for a different approach).
+require machinery will be available.
 
 ```html
 <!DOCTYPE html>
@@ -221,15 +242,15 @@ require machinery will be available (see the Almond section for a different appr
 </html>
 ```
 
-## Run Beefy
+## Run beefy
 
-The beefy command takes a filename as the first argument, or a input filename and output filename combination
+The beefy command takes a filename as the first argument, or an input filename/output filename combination
 in the form of `input-filename.js:output-filename.js`. If you don't specify an input filename, like `:output-filename.js`
 beefy won't pass a filename to the bundler, but it will still make the result of the bundler command available as
 `output-filename.js`.
 
-r.js assumes it is supposed to run a file if it passed as the first argument to the command, and skips the optimization
-tool. We will specify the first beefy argument as `:main.js`.
+r.js assumes it is supposed to run a file if one is passed as the first argument to the command, and skips the optimization
+tool. To avoid this, we will specify the first beefy argument as `:main.js`.
 
 Next, we want to reference the r.js compiler as the bundler: `--bundler ./node_modules/.bin/r.js`
 
