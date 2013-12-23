@@ -59,6 +59,229 @@
 
 <article class="post">
   <div class="title">
+    <h1><a href="./2013-12-23-beefy-workflow-with-requirejs.html">beefy workflow with requirejs</a></h1>
+    <p class="post-date">december 23rd 2013</p>
+  </div>
+  <div class="post-content">
+    <p>Sometimes you want to work on your AMD code as a single bundle; the same way it will
+be deployed in production, with automatic bundling and live reload. Thanks to
+<a href="https://twitter.com/isntitvacant">Chris Dickinson&#39;s</a> recent work on the beefy development
+server, it&#39;s now easier to use r.js as a custom bundler.</p>
+<p>Let’s get it configured.</p>
+<h2>What is beefy?</h2>
+<p><a href="https://github.com/chrisdickinson/beefy">beefy</a> is a static web server with built-in JavaScript bundling.</p>
+<p>It was made to work with browserify by default, but if you use the <code>--bundler</code>
+command line argument, you can specify r.js as your bundler of choice.</p>
+<p>We are going to use this to run r.js each time our <code>main.js</code> file is requested.</p>
+<p>Get beefy by using the command:</p>
+<pre><code class="lang-bash">npm install -g beefy</code></pre>
+<h2>What is r.js?</h2>
+<p><a href="https://github.com/jrburke/r.js">r.js</a> is a command line utility designed for running
+<a href="https://github.com/amdjs/amdjs-api/wiki">AMD</a>-based projects in node.js, Rhino, and xpcshell.
+It also includes an optimizer for combining your AMD files into a bundle.</p>
+<p>By using the optimizer functionality of r.js, in combination with beefy, we can
+bundle our JavaScript on each page refresh.</p>
+<p>We need to install r.js into our project using the command:</p>
+<pre><code class="lang-bash">npm install requirejs</code></pre>
+<p>If you have a <code>package.json</code> and want to add it to your devDependencies, add <code>--save-dev</code>
+to the command:</p>
+<pre><code class="lang-bash">npm install --save-dev requirejs</code></pre>
+<h2>Minimum Viable Config</h2>
+<p>There are seven options we need to set in our r.js config file that will allow us to use
+it with beefy (actually, two are just nice to have).  They are <code>baseUrl</code>, <code>name</code>, <code>insertRequire</code>,
+<code>optimize</code>, <code>useSourceUrl</code>, <code>out</code> and <code>logLevel</code> and each one is explained below.</p>
+<p>These options will be set in a file named <code>config.js</code>, which will be passed to the beefy
+command.</p>
+<p>You can find an example project at <a href="https://github.com/iceddev/beefy-requirejs-example">https://github.com/iceddev/beefy-requirejs-example</a></p>
+<h2><code>baseUrl</code></h2>
+<p>As with every Require.js project, you are going to want to set your <code>baseUrl</code>.</p>
+<p>This could be any place you want to begin resolving. Typically, it will be
+your vendor or application directory. Since we are doing a simple example,
+let&#39;s just use our current directory and we will put our JS files at the root
+of our project.</p>
+<pre><code class="lang-javascript"><span class="comment">// config.js</span>
+({
+  baseUrl: <span class="string">'./'</span>
+})</code></pre>
+<h2><code>name</code></h2>
+<p>To specify the module (and all of its dependencies) we want to optimize,
+we use the <code>name</code> option. This option indicates an entry point for r.js
+to begin resolving dependencies.</p>
+<p>We are going to name our entry module <code>main.js</code>, an AMD package convention,
+and it will be in the root of our project.</p>
+<pre><code class="lang-javascript"><span class="comment">// config.js</span>
+({
+  baseUrl: <span class="string">'./'</span>,
+  name: <span class="string">'main'</span> <span class="comment">// drop the .js, as AMD moduleId resolution appends it</span>
+})</code></pre>
+<h3><code>main.js</code></h3>
+<p>Create a file in the root of your project named <code>main.js</code>.</p>
+<p>This file will be the entry point for your applicaton, and will be wrapped
+in a <code>define</code> function call.</p>
+<pre><code class="lang-javascript"><span class="comment">// main.js</span>
+define([
+  <span class="string">'./another-module'</span>
+], <span class="keyword">function</span>(another){
+
+  console.log(<span class="string">'inside main.js'</span>);
+
+  console.log(<span class="string">'another-module dependency:'</span>, another);
+
+});</code></pre>
+<h3><code>another-module.js</code></h3>
+<p>Create another file in the root of your project, but name this one <code>another-module.js</code>.</p>
+<p>This file is a dependency of your <code>main.js</code> module and is just used to demonstrate that
+we are, in fact, bundling all the dependencies together.</p>
+<pre><code class="lang-javascript"><span class="comment">// another-module.js</span>
+define(<span class="keyword">function</span>(){
+
+  console.log(<span class="string">'inside another-module.js'</span>);
+
+  <span class="keyword">return</span> {
+    something: <span class="string">'yup, another module'</span>
+  };
+
+});</code></pre>
+<h2><code>insertRequire</code></h2>
+<p>We can specify the <code>insertRequire</code> option, to insert a <code>require</code> function call at the bottom of
+our bundle, which will initialize your application.</p>
+<p>Note: This isn&#39;t needed if your <code>data-main</code> filename is the same as the module entrypoint name
+because Require.js will do an implicit <code>require</code>. We will add it here because it doesn&#39;t hurt
+anything and will help in situations like naming the files differently or using something like
+<a href="https://github.com/jrburke/almond">almond</a>.</p>
+<pre><code class="lang-javascript"><span class="comment">// config.js</span>
+({
+  baseUrl: <span class="string">'./'</span>,
+  name: <span class="string">'main'</span>,
+  insertRequire: [<span class="string">'main'</span>] <span class="comment">// will add `require(['main'])` to the end of your bundle</span>
+})</code></pre>
+<h2><code>optimize</code></h2>
+<p>During development, you probably want to disable optimization/uglification, so you will
+be able to debug your bundle and builds will happen quicker. This is done by setting
+the <code>optimize</code> option to <code>&#39;none&#39;</code>.</p>
+<pre><code class="lang-javascript"><span class="comment">// config.js</span>
+({
+  baseUrl: <span class="string">'./'</span>,
+  name: <span class="string">'main'</span>,
+  insertRequire: [<span class="string">'main'</span>],
+  optimize: <span class="string">'none'</span>
+})</code></pre>
+<h2><code>useSourceUrl</code> - Source Maps</h2>
+<p>When using the <code>optimize: &#39;none&#39;</code> option, we can get source maps, using <code>//# sourceURL=</code>
+and an <code>eval</code> call.</p>
+<p>Setting the <code>useSourceUrl</code> option to <code>true</code> will auto insert these for you, but it should
+be disabled when bundling for production.</p>
+<pre><code class="lang-javascript"><span class="comment">// config.js</span>
+({
+  baseUrl: <span class="string">'./'</span>,
+  name: <span class="string">'main'</span>,
+  insertRequire: [<span class="string">'main'</span>],
+  optimize: <span class="string">'none'</span>,
+  useSourceUrl: <span class="literal">true</span>
+})</code></pre>
+<h2><code>out</code></h2>
+<p>The typical way r.js is used is to output a file, determined by providing
+a filename string as the <code>out</code> option.</p>
+<p>beefy doesn&#39;t operate on files, and instead expects to receive data on
+<code>process.stdout</code>.</p>
+<p>The <code>out</code> option can also take a function that will receive the output
+text as its only parameter.</p>
+<p>We are going to leverage the <code>out</code> function to redirect the r.js output
+to <code>process.stdout</code>.</p>
+<pre><code class="lang-javascript"><span class="comment">// config.js</span>
+({
+  baseUrl: <span class="string">'./'</span>,
+  name: <span class="string">'main'</span>,
+  insertRequire: [<span class="string">'main'</span>],
+  optimize: <span class="string">'none'</span>,
+  useSourceUrl: <span class="literal">true</span>,
+  out: console.log <span class="comment">// console.log outputs to process.stdout and is tightly bound in node</span>
+})</code></pre>
+<h2><code>logLevel</code></h2>
+<p>By default, r.js logs info about the build process.  This gets intercepted
+by beefy on <code>process.stdout</code> and is added to the output served.</p>
+<p>r.js provides a <code>logLevel</code> option that can be used to disable logging.  Log level 3 is
+the level that logs only errors.</p>
+<pre><code class="lang-javascript"><span class="comment">// config.js</span>
+({
+  baseUrl: <span class="string">'./'</span>,
+  name: <span class="string">'main'</span>,
+  insertRequire: [<span class="string">'main'</span>],
+  optimize: <span class="string">'none'</span>,
+  useSourceUrl: <span class="literal">true</span>,
+  out: console.log,
+  logLevel: <span class="number">3</span>
+})</code></pre>
+<h2><code>index.html</code></h2>
+<p>The last thing we need is an <code>index.html</code> file that includes Require.js. If an <code>index.html</code>
+file doesn&#39;t exist, beefy serves up a default page that just injects a script tag for your
+entrypoint file. This won&#39;t work with the workflow outlined above because we assume the
+require machinery will be available.</p>
+<p>Create an <code>index.html</code> file in the root of your project that contains:</p>
+<pre><code class="lang-html"><span class="doctype">&lt;!DOCTYPE html&gt;</span>
+<span class="tag">&lt;<span class="title">html</span> <span class="attribute">lang</span>=<span class="value">"en"</span>&gt;</span>
+<span class="tag">&lt;<span class="title">head</span>&gt;</span>
+  <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">charset</span>=<span class="value">"UTF-8"</span>&gt;</span>
+  <span class="tag">&lt;<span class="title">title</span>&gt;</span>Beefy + Require.js<span class="tag">&lt;/<span class="title">title</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">head</span>&gt;</span>
+<span class="tag">&lt;<span class="title">body</span>&gt;</span>
+  <span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"/node_modules/requirejs/require.js"</span> <span class="attribute">data-main</span>=<span class="value">"main"</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">body</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">html</span>&gt;</span></code></pre>
+<h2>Run beefy</h2>
+<p>The beefy command takes a filename as the first argument, or an input filename/output filename combination
+in the form of <code>input-filename.js:output-filename.js</code>. If you don&#39;t specify an input filename but specify an
+output filename, in the format <code>:output-filename.js</code>, beefy won&#39;t pass a filename to the bundler, but it will
+still make the result of the bundler command available as <code>output-filename.js</code>.</p>
+<p>r.js assumes it is supposed to run a file if one is passed as the first argument to the command, and skips the optimization
+tool. To avoid this, we will specify the first beefy argument as <code>:main.js</code>.</p>
+<p>Next, we want to reference the r.js compiler as the bundler: <code>--bundler ./node_modules/.bin/r.js</code></p>
+<p>Finally, r.js expects the <code>-o config.js</code> argument to start the optimize tool with the <code>config.js</code> file. Anything
+after the <code>--</code> argument to beefy is passed directly to the bundler command.</p>
+<p>Putting it all together, the command looks like:</p>
+<pre><code class="lang-bash">beefy :main.js --bundler ./node_modules/.bin/r.js -- -o config.js</code></pre>
+<h2>Accessing your bundle</h2>
+<p>Open your browser and go to the location that the beefy command said it is listening on,
+e.g. <code>listening on http://localhost:9966/</code>.</p>
+<p>You should see logging in your console if your modules loaded correctly. You should also
+be able to view the individual files in the <code>sources</code> pane, probably under (no domain)
+since we were using the <code>useSourceUrl</code> option.</p>
+<h2>What else can we do?</h2>
+<p>This configuration will allow you easily to swap dependencies with a single line change.</p>
+<pre><code class="lang-javascript"><span class="comment">// config.js</span>
+({
+  <span class="comment">// rest of the config</span>
+  paths: {
+    underscore: <span class="string">'node_modules/underscore/underscore'</span>
+  }
+})</code></pre>
+<p>Can be changed to:</p>
+<pre><code class="lang-javascript"><span class="comment">// config.js</span>
+({
+  <span class="comment">// rest of the config</span>
+  paths: {
+    underscore: <span class="string">'node_modules/lodash/dist/lodash'</span>
+  }
+})</code></pre>
+<p>And your underscore references will resolve to Lo-Dash on the next refresh of your page.</p>
+<p>Watch out for part two of this article for some advanced techniques and any other interesting
+stuff I find related to AMD and beefy.</p>
+<p>-Blaine</p>
+
+  </div>
+  <div class="post-navigation">
+  
+    <span class="comment-link"><a href="./2013-12-23-beefy-workflow-with-requirejs.html#comments">View Comments</a></span>
+  
+  </div>
+</article>
+
+  
+  <hr />
+  
+
+<article class="post">
+  <div class="title">
     <h1><a href="./2013-07-30-controlling-drones-with-google-glass-and-javascript.html">controlling drones with google glass and javascript</a></h1>
     <p class="post-date">july 30th 2013</p>
   </div>
