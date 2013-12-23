@@ -274,7 +274,7 @@ e.g. `listening on http://localhost:9966/`.
 
 You should see logging in your console if your modules loaded correctly. You should also
 be able to view the individual files in the `sources` pane, probably under (no domain)
-since we were using `sourceUrl`.
+since we were using the `useSourceUrl` option.
 
 Watch out for part two of this article for some advanced techniques and any other interesting
 stuff I find related to AMD and beefy.
