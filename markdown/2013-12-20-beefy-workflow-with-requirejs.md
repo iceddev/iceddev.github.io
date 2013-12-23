@@ -277,6 +277,46 @@ You should see logging in your console if your modules loaded correctly. You sho
 be able to view the individual files in the `sources` pane, probably under (no domain)
 since we were using the `useSourceUrl` option.
 
+## What else can we do?
+
+This configuration will allow you easily to swap dependencies with a single line change.
+
+```javascript
+// config.js
+({
+  baseUrl: './',
+  name: 'main',
+  insertRequire: ['main'],
+  optimize: 'none',
+  useSourceUrl: true,
+  out: console.log,
+  logLevel: 3,
+  paths: {
+    underscore: 'node_modules/underscore/underscore'
+  }
+})
+```
+
+Can be changed to:
+
+```javascript
+// config.js
+({
+  baseUrl: './',
+  name: 'main',
+  insertRequire: ['main'],
+  optimize: 'none',
+  useSourceUrl: true,
+  out: console.log,
+  logLevel: 3,
+  paths: {
+    underscore: 'node_modules/lodash/dist/lodash'
+  }
+})
+```
+
+And your underscore references will resolve to Lo-Dash on the next refresh of your page.
+
 Watch out for part two of this article for some advanced techniques and any other interesting
 stuff I find related to AMD and beefy.
 
