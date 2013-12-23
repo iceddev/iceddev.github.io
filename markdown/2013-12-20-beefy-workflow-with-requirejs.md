@@ -202,11 +202,11 @@ require machinery will be available (see the Almond section for a different appr
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Beefy + Require.js</title>
+  <meta charset="UTF-8">
+  <title>Beefy + Require.js</title>
 </head>
 <body>
-    <script src="/node_modules/requirejs/require.js" data-main="main" type="text/javascript"></script>
+  <script src="/node_modules/requirejs/require.js" data-main="main" type="text/javascript"></script>
 </body>
 </html>
 ```
