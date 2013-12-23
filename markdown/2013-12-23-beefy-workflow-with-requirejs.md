@@ -236,7 +236,7 @@ require machinery will be available.
 
 Create an `index.html` file in the root of your project that contains:
 
-```html
+```markup
 <!DOCTYPE html>
 <html lang="en">
 <head>
