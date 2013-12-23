@@ -70,7 +70,7 @@ of our project.
 
 To specify the module (and all of its dependencies) we want to optimize,
 we use the `name` option. This option indicates an entry point for r.js
-to begin from.
+to begin resolving dependencies.
 
 We are going to name our entry module `main.js`, an AMD package convention,
 and it will be in the root of our project.
@@ -126,7 +126,7 @@ define(function(){
 ## `insertRequire`
 
 When bundling files that only contain `define` function calls, loaded by `data-main`,
-you need to bootstrap your application with a `require` function call.  We can specify
+you might need to bootstrap your application with a `require` function call.  We can specify
 the `insertRequire` option, to insert a `require` function call at the bottom of our bundle.
 
 Note: This isn't needed if your `data-main` filename is the same as the module entrypoint name.
@@ -206,8 +206,10 @@ to `process.stdout`.
 ## `logLevel`
 
 By default, r.js logs info about the build process.  This gets intercepted
-by beefy on `process.stdout` and is added to the output served.  r.js provides a `logLevel`
-option that can be used to disable logging.  Log level 3 is the level that logs only errors.
+by beefy on `process.stdout` and is added to the output served.
+
+r.js provides a `logLevel` option that can be used to disable logging.  Log level 3 is
+the level that logs only errors.
 
 ```javascript
 // config.js
@@ -228,6 +230,8 @@ The last thing we need is an `index.html` file that includes Require.js. If an `
 file doesn't exist, beefy serves up a default page that just injects a script tag for your
 entrypoint file. This won't work with the workflow outlined above because we assume the
 require machinery will be available.
+
+Create an `index.html` file in the root of your project that contains:
 
 ```html
 <!DOCTYPE html>
