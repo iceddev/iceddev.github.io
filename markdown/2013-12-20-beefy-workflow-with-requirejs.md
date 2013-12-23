@@ -250,9 +250,9 @@ Create an `index.html` file in the root of your project that contains:
 ## Run beefy
 
 The beefy command takes a filename as the first argument, or an input filename/output filename combination
-in the form of `input-filename.js:output-filename.js`. If you don't specify an input filename, like `:output-filename.js`,
-beefy won't pass a filename to the bundler, but it will still make the result of the bundler command available as
-`output-filename.js`.
+in the form of `input-filename.js:output-filename.js`. If you don't specify an input filename but specify an
+output filename, in the format `:output-filename.js`, beefy won't pass a filename to the bundler, but it will
+still make the result of the bundler command available as `output-filename.js`.
 
 r.js assumes it is supposed to run a file if one is passed as the first argument to the command, and skips the optimization
 tool. To avoid this, we will specify the first beefy argument as `:main.js`.
