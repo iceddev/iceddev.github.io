@@ -51,6 +51,8 @@ it with beefy (actually, two are just nice to have).  They are `baseUrl`, `name`
 These options will be set in a file named `config.js`, which will be passed to the beefy
 command.
 
+You can find an example project at https://github.com/iceddev/beefy-requirejs-example
+
 ## `baseUrl`
 
 As with every Require.js project, you are going to want to set your `baseUrl`.
