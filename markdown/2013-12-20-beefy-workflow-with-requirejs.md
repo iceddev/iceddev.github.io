@@ -129,6 +129,10 @@ When bundling files that only contain `define` function calls, loaded by `data-m
 you need to bootstrap your application with a `require` function call.  We can specify
 the `insertRequire` option, to insert a `require` function call at the bottom of our bundle.
 
+Note: This isn't needed if your `data-main` filename is the same as the module entrypoint name.
+We will add it here because it doesn't hurt anything and will help in situations like naming
+the files differently or using something like [almond](https://github.com/jrburke/almond).
+
 ```javascript
 // config.js
 ({
