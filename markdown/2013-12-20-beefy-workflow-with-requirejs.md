@@ -1,8 +1,14 @@
+I hear a lot of talking points by people that use [browserify](http://browserify.org/) about
+not wanting to bundle their JavaScript modules only in production, which is the common strategy
+that [Require.js](http://requirejs.org/) promotes. It is possible, using beefy and r.js to
+emulate the bundle during development workflow. This post will take you through the steps needed
+to set up that type of environment.
+
 ## What is beefy?
 
 [beefy](https://github.com/chrisdickinson/beefy) is a static web server with built-in JavaScript bundling.
 
-It was made to work with [browserify](https://github.com/substack/node-browserify) by default, but if you use the `--bundler`
+It was made to work with browserify by default, but if you use the `--bundler`
 command line argument, you can specify r.js as your bundler of choice.
 
 We are going to use this to run r.js each time our `main.js` file is requested.
