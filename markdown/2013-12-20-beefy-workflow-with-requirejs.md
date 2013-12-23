@@ -126,9 +126,8 @@ define(function(){
 
 ## `insertRequire`
 
-When bundling files that only contain `define` function calls, loaded by `data-main`,
-you might need to bootstrap your application with a `require` function call.  We can specify
-the `insertRequire` option, to insert a `require` function call at the bottom of our bundle.
+We can specify the `insertRequire` option, to insert a `require` function call at the bottom of
+our bundle, which will initialize your application.
 
 Note: This isn't needed if your `data-main` filename is the same as the module entrypoint name.
 We will add it here because it doesn't hurt anything and will help in situations like naming
