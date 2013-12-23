@@ -1,8 +1,8 @@
 ## What is beefy?
 
-beefy is a static web server with built-in JavaScript bundling.
+[beefy](https://github.com/chrisdickinson/beefy) is a static web server with built-in JavaScript bundling.
 
-It was made to work with Browserify by default, but if you use the `--bundler`
+It was made to work with [browserify](https://github.com/substack/node-browserify) by default, but if you use the `--bundler`
 command line argument, you can specify r.js as your bundler of choice.
 
 We are going to use this to run r.js each time our `main.js` file is requested.
@@ -15,7 +15,7 @@ npm install -g beefy
 
 ## What is r.js?
 
-r.js is a command line utility designed for running AMD-based projects in node.js,
+[r.js](https://github.com/jrburke/r.js) is a command line utility designed for running [AMD](https://github.com/amdjs/amdjs-api/wiki)-based projects in node.js,
 Rhino, and xpcshell. It also includes an optimizer for combining your AMD files
 into a bundle.
 
