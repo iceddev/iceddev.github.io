@@ -1,8 +1,10 @@
-I hear a lot of talking points by people that use [browserify](http://browserify.org/) about
-not wanting to bundle their JavaScript modules only in production, which is the common strategy
-that [Require.js](http://requirejs.org/) promotes. It is possible, using beefy and r.js, to
-achieve the bundle-during-development workflow while using AMD modules. This post will take you
-through the steps needed to set up that type of environment.
+A common reason [browserify](http://browserify.org/) users avoid
+[Require.js](http://requirejs.org/) is that they dislike bundling their JavaScript
+modules only in production. Recently, [Chris Dickinson](https://twitter.com/isntitvacant) and I did some testing and, with
+some changes to beefy, it’s now easier to use r.js as a custom bundler to achieve the
+bundle-during-development workflow while using AMD modules.
+
+Let’s get it configured.
 
 ## What is beefy?
 
@@ -278,3 +280,5 @@ since we were using the `useSourceUrl` option.
 
 Watch out for part two of this article for some advanced techniques and any other interesting
 stuff I find related to AMD and beefy.
+
+-Blaine
