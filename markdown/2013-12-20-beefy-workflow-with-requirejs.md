@@ -1,6 +1,6 @@
 I hear a lot of talking points by people that use [browserify](http://browserify.org/) about
 not wanting to bundle their JavaScript modules only in production, which is the common strategy
-that [Require.js](http://requirejs.org/) promotes. It is possible, using beefy and r.js to
+that [Require.js](http://requirejs.org/) promotes. It is possible, using beefy and r.js, to
 emulate the bundle-during-development workflow. This post will take you through the steps needed
 to set up that type of environment.
 
