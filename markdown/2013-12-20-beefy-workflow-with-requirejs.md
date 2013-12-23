@@ -213,6 +213,21 @@ require machinery will be available (see the Almond section for a different appr
 
 ## Run Beefy
 
+The beefy command takes a filename as the first argument, or a input filename and output filename combination
+in the form of `input-filename.js:output-filename.js`. If you don't specify an input filename, like `:output-filename.js`
+beefy won't pass a filename to the bundler, but it will still make the result of the bundler command available as
+`output-filename.js`.
+
+r.js assumes it is supposed to run a file if it passed as the first argument to the command, and skips the optimization
+tool. We will specify the first beefy argument as `:main.js`.
+
+Next, we want to reference the r.js compiler as the bundler: `--bundler ./node_modules/.bin/r.js`
+
+Finally, r.js expects the `-o config.js` argument to start the optimize tool with the `config.js` file. Anything
+after the `--` argument to beefy is passed directly to the bundler command.
+
+Putting it all together, the command looks like:
+
 ```bash
 beefy :main.js --bundler ./node_modules/.bin/r.js -- -o config.js
 ```
