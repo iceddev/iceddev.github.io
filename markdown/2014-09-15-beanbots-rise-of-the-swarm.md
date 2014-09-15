@@ -4,6 +4,7 @@ That was until I finally read Chris Williams' excellent post: [NodeBots - The Ri
 
 We now have some really cool building blocks such as node serialport, firmata.js, and Johnny-five.  While we're not quite at the point of Michael Chrichton's solar-powered, self-replicating, networked, cloud of [nanobots](http://en.wikipedia.org/wiki/Prey_(novel)), we're definitely moving towards it :)
 
+
 ## Enter the Bean
 
 A really cool piece of hardware to come out recently is Punchthrough's LightBlue Bean.
@@ -13,6 +14,7 @@ A really cool piece of hardware to come out recently is Punchthrough's LightBlue
 The reason I'm digging this little guy is that it's basically a low cost Arduino Uno plus Bluetooth Low Energy (BLE) powered by a coin cell battery.  BLE lets us talk to the device while only using a tiny fraction of the power that would otherwise be required with WiFi.
 
 So the next logical step would be to load firmata onto the bean, connect to it with node and the noble BLE library, and build our new insect overlords.
+
 
 ## What is firmata?
 
@@ -29,7 +31,9 @@ Firmata is a few things.
 
 In order to make this easier to get started with, I've put together an IO class called [Bean-IO](https://github.com/monteslu/bean-io).
 
-`npm install bean-io`
+```bash
+npm install bean-io
+```
 
 Being able to read and write pin values is essential to making the robots be robots, however there is a significant amount of complex algorithms involved in doing things such as having the robot go to the kitchen and get you a cold beer from the fridge.  For this, we have Rick Waldron's amazing [Johnny-Five](https://github.com/rwaldron/johnny-five) project.
 
@@ -43,7 +47,7 @@ Bean device. The [Punchthrough's Getting Started guide](http://punchthrough.com/
 
 Then just plug the bean-io into johhny-five and get to roboting:
 
-```js
+```javascript
 var five = require("johnny-five");
 var beanio = require("bean-io");
 var board = new five.Board({

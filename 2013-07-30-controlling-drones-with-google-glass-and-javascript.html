@@ -76,7 +76,7 @@ I was also hoping someone would bring a NodeCopter.</p>
 <p>The goal was to use the input devices to control the bots, all using JavaScript.</p>
 <p><img src="https://pbs.twimg.com/media/BQN9iHbCYAAJOo1.jpg" alt="Flying a Drone with Glass #1"></p>
 <p>Photo by <a href="https://twitter.com/alicegoldfuss/status/361270420172857344">Alice Goldfuss</a></p>
-<h2>Leap + Bots</h2>
+<h2 id="leap-bots">Leap + Bots</h2>
 <p>I got started a day early with <a href="https://twitter.com/thoward37">Troy</a> and
 <a href="https://twitter.com/nickniemeir">Nick</a> while hacking at the
 <a href="https://twitter.com/newrelic">New Relic</a> offices.</p>
@@ -148,7 +148,7 @@ forward and backwards.</p>
 prevX = x;</code></pre>
 <p>Other plans included using the finders to stop the bot running into things or off tables, but
 I was unable to implement these because I quickly moved on to my next input device, Google Glass.</p>
-<h2>Glass + Bots</h2>
+<h2 id="glass-bots">Glass + Bots</h2>
 <p>For his <a href="https://github.com/jsconf/jsconfus2013/issues/13">JSConf</a> talk, Luis created a
 sideloadable app, <a href="https://github.com/monteslu/Face">Face</a>, for Glass that broadcast
 the sensor data over WebSockets.  With this, I was able to get pitch and roll, which
@@ -223,7 +223,7 @@ controlling it.  Luckily, <a href="https://twitter.com/carterrabasa">Carter</a> 
 
 <p><iframe src="http://player.vimeo.com/video/71408246" width="600" height="338" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></p>
 
-<h2>Glass + NodeCopter</h2>
+<h2 id="glass-nodecopter">Glass + NodeCopter</h2>
 <p>If it was so easy to switch the LeapMotion logic to use the Glass data, I figured it
 would be just as easy to swap the ShieldBot logic for the NodeCopter&#39;s.  After
 discussing the idea with a few people, it was suggested I use the <a href="https://github.com/shama/voxel-drone">Voxel Drone</a>
@@ -294,7 +294,7 @@ socket.on(<span class="string">'broadcast'</span>, <span class="keyword">functio
 <span class="keyword">var</span> drone  = arDrone.createClient({
   ip: <span class="string">'192.168.1.10'</span>
 });</code></pre>
-<h2>Demos</h2>
+<h2 id="demos">Demos</h2>
 <p><img src="https://pbs.twimg.com/media/BQOckcxCAAMZtLA.jpg" alt="Flying a Drone with Glass #2"></p>
 <p>Photo by <a href="https://twitter.com/cxhansen/status/361304545126645760">Chris Hansen</a></p>
 <p><iframe width="600" height="450" src="//www.youtube.com/embed/BSXWkidgA1Q?rel=0" frameborder="0" allowfullscreen></iframe></p>
@@ -305,7 +305,7 @@ socket.on(<span class="string">'broadcast'</span>, <span class="keyword">functio
 I should have had the speed at about 0.3 instead of 1.  Lesson learned.  I would have also
 liked to add the ability to rotate the drone left and right based on the Glass&#39; azimuth value,
 but I guess that will have to be in the future.</p>
-<h2>Wrapping Up</h2>
+<h2 id="wrapping-up">Wrapping Up</h2>
 <p>With JavaScript, we are able to write a relatively small amount of code that can serve as a basis for swappable hardware components.</p>
 <p>I was able to start with a LeapMotion and Shieldbot and end up using Google Glass and a NodeCopter with quite similar code.</p>
 <p>After such an amazing Nodebots Day, I have all sorts of ideas swimming around in my head for taking these types of interactions further!</p>
@@ -353,7 +353,7 @@ but I guess that will have to be in the future.</p>
   </div>
 
   <footer>
-    Copyright Iced Dev, 2013.
+    Copyright Iced Dev, 2014.
   </footer>
 
   <script src="static/scripts/prism.js"> </script>

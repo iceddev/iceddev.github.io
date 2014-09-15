@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Iced Blog]]></title><description><![CDATA[Blog for and by Iced Dev]]></description><link>http://blog.iceddev.com</link><generator>NodeJS RSS Module</generator><lastBuildDate>Mon, 23 Dec 2013 20:52:25 GMT</lastBuildDate><atom:link href="http://blog.iceddev.com/index.xml" rel="self" type="application/rss+xml"/><item><title><![CDATA[create and deploy a nodester app without installing git using cloud9 ide]]></title><description><![CDATA[<p>At Iced Dev, our main business is consulting for Node.js and building
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Iced Blog]]></title><description><![CDATA[Blog for and by Iced Dev]]></description><link>http://blog.iceddev.com</link><generator>NodeJS RSS Module</generator><lastBuildDate>Mon, 15 Sep 2014 18:38:04 GMT</lastBuildDate><atom:link href="http://blog.iceddev.com/index.xml" rel="self" type="application/rss+xml"/><item><title><![CDATA[create and deploy a nodester app without installing git using cloud9 ide]]></title><description><![CDATA[<p>At Iced Dev, our main business is consulting for Node.js and building
 great web applications using it with HTML5 technologies. Our favorite
 hosting platform is <a href="http://nodester.com" title="Nodester">Nodester</a> (<a href="http://twitter.com/nodester" title="Nodester">@Nodester</a>) because it is the only
 Open-Source PaaS for Node.js and maintained by a great group of
@@ -18,7 +18,7 @@ available to the user.  Using the new Nodester API Explorer and Cloud9’s
 Git implementation, I am going to walk you through publishing your first
 Node.js app to Nodester from <del>any</del> <span><strong>every</strong></span> operating
 system with a web browser.</p>
-<h2>Set up your Cloud9 account.</h2>
+<h2 id="set-up-your-cloud9-account-">Set up your Cloud9 account.</h2>
 <ol>
 <li>Go to <a href="http://c9.io"><a href="http://c9.io/">http://c9.io/</a></a></li>
 <li>Choose a username</li>
@@ -32,7 +32,7 @@ system with a web browser.</p>
 <li>Click Activate</li>
 <li>You will be redirected to your Cloud9 Dashboard (Keep this tab open for now)</li>
 </ol>
-<h2>Request a Nodester Registration Coupon.</h2>
+<h2 id="request-a-nodester-registration-coupon-">Request a Nodester Registration Coupon.</h2>
 <ol>
 <li>Open (in a new tab) <a href="http://nodester.com"><a href="http://nodester.com/">http://nodester.com/</a></a></li>
 <li>Once on Nodester.com, Request your Registration Coupon by clicking
@@ -43,7 +43,7 @@ sent out daily)</li>
 <li>Once you receive your Nodester Coupon, you will be able to sign up
 for an account at <a href="http://nodester.com/api.html\#explorer" title="Nodester API Explorer"><a href="http://nodester.com/api.html\#explorer">http://nodester.com/api.html\#explorer</a></a></li>
 </ol>
-<h2>Set up your Nodester account</h2>
+<h2 id="set-up-your-nodester-account">Set up your Nodester account</h2>
 <ol>
 <li>Expand the “User” option</li>
 <li>Click “CreateUser”</li>
@@ -95,11 +95,11 @@ else funky happened).</p>
 Nodester app!!!!</p>
 </li>
 </ol>
-<h2>Create a Nodester App</h2>
+<h2 id="create-a-nodester-app">Create a Nodester App</h2>
 <p>There are 2 options for creating a Nodester app with the API, I will
 walk you through the Nodester Admin Panel (The option I like better) and
 then I will walk you through using the Nodester API Explorer.</p>
-<h3>Nodester Admin Panel</h3>
+<h3 id="nodester-admin-panel">Nodester Admin Panel</h3>
 <ol>
 <li><p>Since you have a Nodester account, you can access the Admin Panel by
 entering your username and password at the top of the page.</p>
@@ -124,7 +124,7 @@ start file with Nodester.</li>
 </ul>
 </li>
 <li><p>Once your Nodester app is created, you will see something similar
-to: [Nodester Admin Panel Clipping](<img src="http://iceddev.com/wp-content/uploads/2011/12/nodester-admin-panel.jpg" alt="Nodester Admin Panel Clipping">)</p>
+to: <a href="![Nodester Admin Panel Clipping](http://iceddev.com/wp-content/uploads/2011/12/nodester-admin-panel.jpg">Nodester Admin Panel Clipping</a>)</p>
 <ul>
 <li>The port is the port that your app listens on (this will need to
 be hardcoded into your app) and the app-status is false because
@@ -132,7 +132,7 @@ there is no code inside the app yet.</li>
 </ul>
 </li>
 </ol>
-<h3>Nodester API Explorer</h3>
+<h3 id="nodester-api-explorer">Nodester API Explorer</h3>
 <ol>
 <li>If you would rather use the API Explorer, the steps are below:</li>
 <li>Expand the “App” option</li>
@@ -168,7 +168,7 @@ Express
 running!</p>
 </li>
 </ol>
-<h2>Import Nodester App into Cloud9</h2>
+<h2 id="import-nodester-app-into-cloud9">Import Nodester App into Cloud9</h2>
 <ol>
 <li>Click “Info” and copy the “gitrepo” value from the dialogue box that
 opens</li>
@@ -182,7 +182,7 @@ project and clicking “Start Editing”</li>
 <li>Now that you have your project cloned into Cloud9, let’s add some
 code!</li>
 </ol>
-<h2>Add “Hello World” Code</h2>
+<h2 id="add-hello-world-code">Add “Hello World” Code</h2>
 <ol>
 <li>When your project opens, we need to create the start file specified
 when creating your Nodester app (I used <code>server.js</code>) by clicking the
@@ -220,7 +220,7 @@ and you should see “Hello World” printed to the screen.</li>
 <li>Now that you have your app working in Cloud9, let’s get it onto
 Nodester!</li>
 </ol>
-<h2>Pushing your App to Nodester</h2>
+<h2 id="pushing-your-app-to-nodester">Pushing your App to Nodester</h2>
 <ol>
 <li>Pushing your app to Nodester requires a little knowledge of Git
 (even though you don’t install it on your local machine, Cloud9 is
@@ -243,7 +243,7 @@ of your app with the committed changes</p>
 </li>
 <li>If everything went as expected, your app will now be online!</li>
 </ol>
-<h2>Test Your Nodester App</h2>
+<h2 id="test-your-nodester-app">Test Your Nodester App</h2>
 <ol>
 <li>Direct your web browser to YOUR_APPNAME.nodester.com (my test app
 was c9deploy1.nodester.com) to make sure your app is running.</li>
@@ -253,7 +253,7 @@ something isn’t working correctly.</li>
 to remember are the Git commands to add, commit, and push your
 changes to your Nodester apps!!</li>
 </ol>
-<h2>That’s All Folks!</h2>
+<h2 id="that-s-all-folks-">That’s All Folks!</h2>
 <p>I hope this post helps some people (especially ones developing on
 Windows or ChromeOS) with the difficult task of getting your apps hosted
 on the Nodester platform using the equally awesome Cloud9 IDE.</p>
@@ -266,22 +266,22 @@ http.createServer(<span class="function"><span class="keyword">function</span> <
     res.end(<span class="string">'Hello World\n'</span>);
 }).listen(<span class="number">1337</span>, <span class="string">'127.0.0.1'</span>);
 console.log(<span class="string">'Server running at http://127.0.0.1:1337/'</span>);</code></pre>
-<h2>This is actually Node.js code running the http listener on Chrome&#39;s Javascript VM!</h2>
+<h2 id="this-is-actually-node-js-code-running-the-http-listener-on-chrome-s-javascript-vm-">This is actually Node.js code running the http listener on Chrome&#39;s Javascript VM!</h2>
 <p>While we like the <a href="http://browserver.org/">Browserver project</a>, it uses a reverse proxy and pushes requests down to the client via a websocket.  Node-chromify took a different approach, and has no external server dependency.</p>
 <p>You can get the source to the demo app, and a build of node.js (the script, not the whole node project) here:  <a href="https://github.com/iceddev/node-chromify"><a href="https://github.com/iceddev/node-chromify">https://github.com/iceddev/node-chromify</a></a></p>
-<h2>So, how did we do this?</h2>
+<h2 id="so-how-did-we-do-this-">So, how did we do this?</h2>
 <p><a href="https://github.com/iceddev/node-chromify">node-chromify</a> is built on top of <a href="https://github.com/substack/node-browserify">browserify</a>, which allows node modules to be converted into a format that can be run in a browser.
 Browsers can&#39;t normally created TCP listeners, but Chrome Apps can in Canary with the experimental extension APIs flag enabled.</p>
 <p>Google&#39;s Paul Kinlan created a net-browserify module which wraps the Chrome API calls to the node.js &quot;net&quot; package.  This gets us quite a bit further. We&#39;ve <a href="https://github.com/iceddev/net-chromify">patched</a> a few things on this to help us out.</p>
 <p>We&#39;ve created an <a href="https://github.com/iceddev/http-chromify">http-chromify</a> module which is based on Node.js&#39; &quot;http&quot; module.  The Node.js version uses native C++ code to parse the HTTP messages between client and server.  We replaced that with the pure JS <a href="https://github.com/creationix/http-parser-js">http-parser-js</a> module.</p>
 <p>There were also couple of other pure JS modules that weren&#39;t browserified yet, namely <a href="https://github.com/iceddev/freelist-chromify">freelist</a> and <a href="https://github.com/iceddev/string_decoder-chromify">string_decoder</a>.  We created repos for those so that browserify could pull them in.</p>
 <p>Finally we used the excellent <a href="http://gruntjs.com/">Grunt.js</a> to build and package this all up into <a href="https://github.com/iceddev/node-chromify">node-chromify</a>.</p>
-<h2>How do you run it?</h2>
+<h2 id="how-do-you-run-it-">How do you run it?</h2>
 <p>You&#39;ll need Chrome Canary to run the demo.  Canary has recently allowed developers the ability to open TCP socket listeners in apps and extensions.</p>
 <p>Also, this requires enabling &quot;Experimental Extension APIs&quot; from chrome://flags</p>
 <p>Then, in chrome://extensions  use the &quot;Load unpacked extension...&quot; to point to the examples/plugin folder in the <a href="https://github.com/iceddev/node-chromify">node-chromify</a> source.</p>
 <p>We&#39;re accepting pull request to <a href="https://github.com/iceddev/node-chromify">node-chromify</a>, please help us fix this :)</p>
-<h2>Why did we do this?</h2>
+<h2 id="why-did-we-do-this-">Why did we do this?</h2>
 <p>&quot;any application that can be written in JavaScript, will eventually be written in JavaScript.&quot;</p>
 <p>It&#39;s the law.  Obey the law.</p>
 ]]></description><link>http://blog.iceddev.com/./2012-11-05-node-js-in-chrome.html</link><guid isPermaLink="true">http://blog.iceddev.com/./2012-11-05-node-js-in-chrome.html</guid><dc:creator><![CDATA[Iced Dev]]></dc:creator><pubDate>Mon, 05 Nov 2012 00:00:00 GMT</pubDate></item><item><title><![CDATA[controlling drones with google glass and javascript]]></title><description><![CDATA[<p>This past weekend (July 27, 2013) was <a href="http://nodebotsday.com">International Nodebots Day</a> and I decided
@@ -299,7 +299,7 @@ I was also hoping someone would bring a NodeCopter.</p>
 <p>The goal was to use the input devices to control the bots, all using JavaScript.</p>
 <p><img src="https://pbs.twimg.com/media/BQN9iHbCYAAJOo1.jpg" alt="Flying a Drone with Glass #1"></p>
 <p>Photo by <a href="https://twitter.com/alicegoldfuss/status/361270420172857344">Alice Goldfuss</a></p>
-<h2>Leap + Bots</h2>
+<h2 id="leap-bots">Leap + Bots</h2>
 <p>I got started a day early with <a href="https://twitter.com/thoward37">Troy</a> and
 <a href="https://twitter.com/nickniemeir">Nick</a> while hacking at the
 <a href="https://twitter.com/newrelic">New Relic</a> offices.</p>
@@ -371,7 +371,7 @@ forward and backwards.</p>
 prevX = x;</code></pre>
 <p>Other plans included using the finders to stop the bot running into things or off tables, but
 I was unable to implement these because I quickly moved on to my next input device, Google Glass.</p>
-<h2>Glass + Bots</h2>
+<h2 id="glass-bots">Glass + Bots</h2>
 <p>For his <a href="https://github.com/jsconf/jsconfus2013/issues/13">JSConf</a> talk, Luis created a
 sideloadable app, <a href="https://github.com/monteslu/Face">Face</a>, for Glass that broadcast
 the sensor data over WebSockets.  With this, I was able to get pitch and roll, which
@@ -446,7 +446,7 @@ controlling it.  Luckily, <a href="https://twitter.com/carterrabasa">Carter</a> 
 
 <p><iframe src="http://player.vimeo.com/video/71408246" width="600" height="338" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></p>
 
-<h2>Glass + NodeCopter</h2>
+<h2 id="glass-nodecopter">Glass + NodeCopter</h2>
 <p>If it was so easy to switch the LeapMotion logic to use the Glass data, I figured it
 would be just as easy to swap the ShieldBot logic for the NodeCopter&#39;s.  After
 discussing the idea with a few people, it was suggested I use the <a href="https://github.com/shama/voxel-drone">Voxel Drone</a>
@@ -517,7 +517,7 @@ socket.on(<span class="string">'broadcast'</span>, <span class="keyword">functio
 <span class="keyword">var</span> drone  = arDrone.createClient({
   ip: <span class="string">'192.168.1.10'</span>
 });</code></pre>
-<h2>Demos</h2>
+<h2 id="demos">Demos</h2>
 <p><img src="https://pbs.twimg.com/media/BQOckcxCAAMZtLA.jpg" alt="Flying a Drone with Glass #2"></p>
 <p>Photo by <a href="https://twitter.com/cxhansen/status/361304545126645760">Chris Hansen</a></p>
 <p><iframe width="600" height="450" src="//www.youtube.com/embed/BSXWkidgA1Q?rel=0" frameborder="0" allowfullscreen></iframe></p>
@@ -528,7 +528,7 @@ socket.on(<span class="string">'broadcast'</span>, <span class="keyword">functio
 I should have had the speed at about 0.3 instead of 1.  Lesson learned.  I would have also
 liked to add the ability to rotate the drone left and right based on the Glass&#39; azimuth value,
 but I guess that will have to be in the future.</p>
-<h2>Wrapping Up</h2>
+<h2 id="wrapping-up">Wrapping Up</h2>
 <p>With JavaScript, we are able to write a relatively small amount of code that can serve as a basis for swappable hardware components.</p>
 <p>I was able to start with a LeapMotion and Shieldbot and end up using Google Glass and a NodeCopter with quite similar code.</p>
 <p>After such an amazing Nodebots Day, I have all sorts of ideas swimming around in my head for taking these types of interactions further!</p>
@@ -538,14 +538,14 @@ be deployed in production, with automatic bundling and live reload. Thanks to
 <a href="https://twitter.com/isntitvacant">Chris Dickinson&#39;s</a> recent work on the beefy development
 server, it&#39;s now easier to use r.js as a custom bundler.</p>
 <p>Let’s get it configured.</p>
-<h2>What is beefy?</h2>
+<h2 id="what-is-beefy-">What is beefy?</h2>
 <p><a href="https://github.com/chrisdickinson/beefy">beefy</a> is a static web server with built-in JavaScript bundling.</p>
 <p>It was made to work with browserify by default, but if you use the <code>--bundler</code>
 command line argument, you can specify r.js as your bundler of choice.</p>
 <p>We are going to use this to run r.js each time our <code>main.js</code> file is requested.</p>
 <p>Get beefy by using the command:</p>
 <pre><code class="lang-bash">npm install -g beefy</code></pre>
-<h2>What is r.js?</h2>
+<h2 id="what-is-r-js-">What is r.js?</h2>
 <p><a href="https://github.com/jrburke/r.js">r.js</a> is a command line utility designed for running
 <a href="https://github.com/amdjs/amdjs-api/wiki">AMD</a>-based projects in node.js, Rhino, and xpcshell.
 It also includes an optimizer for combining your AMD files into a bundle.</p>
@@ -556,14 +556,14 @@ bundle our JavaScript on each page refresh.</p>
 <p>If you have a <code>package.json</code> and want to add it to your devDependencies, add <code>--save-dev</code>
 to the command:</p>
 <pre><code class="lang-bash">npm install --save-dev requirejs</code></pre>
-<h2>Minimum Viable Config</h2>
+<h2 id="minimum-viable-config">Minimum Viable Config</h2>
 <p>There are seven options we need to set in our r.js config file that will allow us to use
 it with beefy (actually, two are just nice to have).  They are <code>baseUrl</code>, <code>name</code>, <code>insertRequire</code>,
 <code>optimize</code>, <code>useSourceUrl</code>, <code>out</code> and <code>logLevel</code> and each one is explained below.</p>
 <p>These options will be set in a file named <code>config.js</code>, which will be passed to the beefy
 command.</p>
 <p>You can find an example project at <a href="https://github.com/iceddev/beefy-requirejs-example">https://github.com/iceddev/beefy-requirejs-example</a></p>
-<h2><code>baseUrl</code></h2>
+<h2 id="-baseurl-"><code>baseUrl</code></h2>
 <p>As with every Require.js project, you are going to want to set your <code>baseUrl</code>.</p>
 <p>This could be any place you want to begin resolving. Typically, it will be
 your vendor or application directory. Since we are doing a simple example,
@@ -573,7 +573,7 @@ of our project.</p>
 ({
   baseUrl: <span class="string">'./'</span>
 })</code></pre>
-<h2><code>name</code></h2>
+<h2 id="-name-"><code>name</code></h2>
 <p>To specify the module (and all of its dependencies) we want to optimize,
 we use the <code>name</code> option. This option indicates an entry point for r.js
 to begin resolving dependencies.</p>
@@ -584,7 +584,7 @@ and it will be in the root of our project.</p>
   baseUrl: <span class="string">'./'</span>,
   name: <span class="string">'main'</span> <span class="comment">// drop the .js, as AMD moduleId resolution appends it</span>
 })</code></pre>
-<h3><code>main.js</code></h3>
+<h3 id="-main-js-"><code>main.js</code></h3>
 <p>Create a file in the root of your project named <code>main.js</code>.</p>
 <p>This file will be the entry point for your applicaton, and will be wrapped
 in a <code>define</code> function call.</p>
@@ -598,7 +598,7 @@ define([
   console.log(<span class="string">'another-module dependency:'</span>, another);
 
 });</code></pre>
-<h3><code>another-module.js</code></h3>
+<h3 id="-another-module-js-"><code>another-module.js</code></h3>
 <p>Create another file in the root of your project, but name this one <code>another-module.js</code>.</p>
 <p>This file is a dependency of your <code>main.js</code> module and is just used to demonstrate that
 we are, in fact, bundling all the dependencies together.</p>
@@ -612,7 +612,7 @@ define(<span class="keyword">function</span>(){
   };
 
 });</code></pre>
-<h2><code>insertRequire</code></h2>
+<h2 id="-insertrequire-"><code>insertRequire</code></h2>
 <p>We can specify the <code>insertRequire</code> option, to insert a <code>require</code> function call at the bottom of
 our bundle, which will initialize your application.</p>
 <p>Note: This isn&#39;t needed if your <code>data-main</code> filename is the same as the module entrypoint name
@@ -625,7 +625,7 @@ anything and will help in situations like naming the files differently or using 
   name: <span class="string">'main'</span>,
   insertRequire: [<span class="string">'main'</span>] <span class="comment">// will add `require(['main'])` to the end of your bundle</span>
 })</code></pre>
-<h2><code>optimize</code></h2>
+<h2 id="-optimize-"><code>optimize</code></h2>
 <p>During development, you probably want to disable optimization/uglification, so you will
 be able to debug your bundle and builds will happen quicker. This is done by setting
 the <code>optimize</code> option to <code>&#39;none&#39;</code>.</p>
@@ -636,7 +636,7 @@ the <code>optimize</code> option to <code>&#39;none&#39;</code>.</p>
   insertRequire: [<span class="string">'main'</span>],
   optimize: <span class="string">'none'</span>
 })</code></pre>
-<h2><code>useSourceUrl</code> - Source Maps</h2>
+<h2 id="-usesourceurl-source-maps"><code>useSourceUrl</code> - Source Maps</h2>
 <p>When using the <code>optimize: &#39;none&#39;</code> option, we can get source maps, using <code>//# sourceURL=</code>
 and an <code>eval</code> call.</p>
 <p>Setting the <code>useSourceUrl</code> option to <code>true</code> will auto insert these for you, but it should
@@ -649,7 +649,7 @@ be disabled when bundling for production.</p>
   optimize: <span class="string">'none'</span>,
   useSourceUrl: <span class="literal">true</span>
 })</code></pre>
-<h2><code>out</code></h2>
+<h2 id="-out-"><code>out</code></h2>
 <p>The typical way r.js is used is to output a file, determined by providing
 a filename string as the <code>out</code> option.</p>
 <p>beefy doesn&#39;t operate on files, and instead expects to receive data on
@@ -667,7 +667,7 @@ to <code>process.stdout</code>.</p>
   useSourceUrl: <span class="literal">true</span>,
   out: console.log <span class="comment">// console.log outputs to process.stdout and is tightly bound in node</span>
 })</code></pre>
-<h2><code>logLevel</code></h2>
+<h2 id="-loglevel-"><code>logLevel</code></h2>
 <p>By default, r.js logs info about the build process.  This gets intercepted
 by beefy on <code>process.stdout</code> and is added to the output served.</p>
 <p>r.js provides a <code>logLevel</code> option that can be used to disable logging.  Log level 3 is
@@ -682,7 +682,7 @@ the level that logs only errors.</p>
   out: console.log,
   logLevel: <span class="number">3</span>
 })</code></pre>
-<h2><code>index.html</code></h2>
+<h2 id="-index-html-"><code>index.html</code></h2>
 <p>The last thing we need is an <code>index.html</code> file that includes Require.js. If an <code>index.html</code>
 file doesn&#39;t exist, beefy serves up a default page that just injects a script tag for your
 entrypoint file. This won&#39;t work with the workflow outlined above because we assume the
@@ -698,7 +698,7 @@ require machinery will be available.</p>
   <span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"/node_modules/requirejs/require.js"</span> <span class="attribute">data-main</span>=<span class="value">"main"</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
 <span class="tag">&lt;/<span class="title">body</span>&gt;</span>
 <span class="tag">&lt;/<span class="title">html</span>&gt;</span></code></pre>
-<h2>Run beefy</h2>
+<h2 id="run-beefy">Run beefy</h2>
 <p>The beefy command takes a filename as the first argument, or an input filename/output filename combination
 in the form of <code>input-filename.js:output-filename.js</code>. If you don&#39;t specify an input filename but specify an
 output filename, in the format <code>:output-filename.js</code>, beefy won&#39;t pass a filename to the bundler, but it will
@@ -710,13 +710,13 @@ tool. To avoid this, we will specify the first beefy argument as <code>:main.js<
 after the <code>--</code> argument to beefy is passed directly to the bundler command.</p>
 <p>Putting it all together, the command looks like:</p>
 <pre><code class="lang-bash">beefy :main.js --bundler ./node_modules/.bin/r.js -- -o config.js</code></pre>
-<h2>Accessing your bundle</h2>
+<h2 id="accessing-your-bundle">Accessing your bundle</h2>
 <p>Open your browser and go to the location that the beefy command said it is listening on,
 e.g. <code>listening on http://localhost:9966/</code>.</p>
 <p>You should see logging in your console if your modules loaded correctly. You should also
 be able to view the individual files in the <code>sources</code> pane, probably under (no domain)
 since we were using the <code>useSourceUrl</code> option.</p>
-<h2>What else can we do?</h2>
+<h2 id="what-else-can-we-do-">What else can we do?</h2>
 <p>This configuration will allow you easily to swap dependencies with a single line change.</p>
 <pre><code class="lang-javascript"><span class="comment">// config.js</span>
 ({
@@ -737,4 +737,64 @@ since we were using the <code>useSourceUrl</code> option.</p>
 <p>Watch out for part two of this article for some advanced techniques and any other interesting
 stuff I find related to AMD and beefy.</p>
 <p>-Blaine</p>
-]]></description><link>http://blog.iceddev.com/./2013-12-23-beefy-workflow-with-requirejs.html</link><guid isPermaLink="true">http://blog.iceddev.com/./2013-12-23-beefy-workflow-with-requirejs.html</guid><dc:creator><![CDATA[Iced Dev]]></dc:creator><pubDate>Mon, 23 Dec 2013 00:00:00 GMT</pubDate></item></channel></rss>
+]]></description><link>http://blog.iceddev.com/./2013-12-23-beefy-workflow-with-requirejs.html</link><guid isPermaLink="true">http://blog.iceddev.com/./2013-12-23-beefy-workflow-with-requirejs.html</guid><dc:creator><![CDATA[Iced Dev]]></dc:creator><pubDate>Mon, 23 Dec 2013 00:00:00 GMT</pubDate></item><item><title><![CDATA[beanbots rise of the swarm]]></title><description><![CDATA[<p>I spent a good deal of my time over the last few years at a hackerspace called <a href="http://heatsynclabs.org">HeatSync Labs</a>. While I would constantly see members wiring up things like an Arduino Uno or a Raspberry Pi, I tended to just stay in my Node.js and HTML5 world for the most part.</p>
+<p>That was until I finally read Chris Williams&#39; excellent post: <a href="hhttp://www.voodootikigod.com/nodebots-the-rise-of-js-robotics/">NodeBots - The Rise of JS Robotics</a> </p>
+<p>We now have some really cool building blocks such as node serialport, firmata.js, and Johnny-five.  While we&#39;re not quite at the point of Michael Chrichton&#39;s solar-powered, self-replicating, networked, cloud of <a href="http://en.wikipedia.org/wiki/Prey_(novel">nanobots</a>), we&#39;re definitely moving towards it :)</p>
+<h2 id="enter-the-bean">Enter the Bean</h2>
+<p>A really cool piece of hardware to come out recently is Punchthrough&#39;s LightBlue Bean.</p>
+<p><img src="images/bean.png" alt="Bean"></p>
+<p>The reason I&#39;m digging this little guy is that it&#39;s basically a low cost Arduino Uno plus Bluetooth Low Energy (BLE) powered by a coin cell battery.  BLE lets us talk to the device while only using a tiny fraction of the power that would otherwise be required with WiFi.</p>
+<p>So the next logical step would be to load firmata onto the bean, connect to it with node and the noble BLE library, and build our new insect overlords.</p>
+<h2 id="what-is-firmata-">What is firmata?</h2>
+<p>Firmata is a few things.</p>
+<ul>
+<li><p>First, it&#39;s a <a href="http://www.firmata.org/wiki/Main_Page">protocol</a> that enables us to communicate to a microcontroller in a generic way.  Typically this is done over a serial port.</p>
+</li>
+<li><p>Second, it&#39;s an Arduino sketch that can be loaded onto various types of Arduino microcontrollers exposing the functionality to the hardware&#39;s serial input.  <a href="http://twitter.com/jacobrosenthal">Jacob Rosenthal</a> has recently put together a <a href="https://github.com/jacobrosenthal/arduino/blob/bean/examples/StandardFirmata/StandardFirmata.ino">fork</a> of this code that works well on the Bean. He also wrote up an interesting <a href="http://citizengadget.com/post/96226562047/firmata-on-lightblue-bean">blog post</a> about it.</p>
+</li>
+<li><p>Third, there&#39;s firmata.js.  This is a javascript/node library that can talk via node serialport to a device running a firmata sketch and read/write values to the pins on the board.  The current implementaion requires a small amount of handshaking at start up that I personally felt was unecessary, so for now I&#39;m using <a href="">my fork</a> of firmata.js for this project. </p>
+</li>
+</ul>
+<h2 id="let-s-add-some-bean-io">Let&#39;s add some Bean-IO</h2>
+<p>In order to make this easier to get started with, I&#39;ve put together an IO class called <a href="https://github.com/monteslu/bean-io">Bean-IO</a>.</p>
+<pre><code class="lang-bash">npm install bean-io</code></pre>
+<p>Being able to read and write pin values is essential to making the robots be robots, however there is a significant amount of complex algorithms involved in doing things such as having the robot go to the kitchen and get you a cold beer from the fridge.  For this, we have Rick Waldron&#39;s amazing <a href="https://github.com/rwaldron/johnny-five">Johnny-Five</a> project.</p>
+<p>By default, you can plug in an Arduino Uno to your computer and fire up a johnny-five example to talk to it.  The hardware input and output handling is firmata and node serialport.  However, there are multiple types of hardware we can use.  Each new type of hardware is handled through an IO class.  There are IO classes for BeagleBone, Raspberry Pi, Galileo, Pinoccio, Spark Core, and now LightBlue Bean.</p>
+<p>Using Bean-IO is pretty straight forward.</p>
+<p>Make sure you have Jacob&#39;s
+<a href="https://github.com/jacobrosenthal/arduino/blob/bean/examples/StandardFirmata/StandardFirmata.ino">StandardFirmata.ino</a> firmware loaded onto your
+Bean device. The <a href="http://punchthrough.com/bean/getting-started/">Punchthrough&#39;s Getting Started guide</a> can help you with that.</p>
+<p>Then just plug the bean-io into johhny-five and get to roboting:</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> five = require(<span class="string">"johnny-five"</span>);
+<span class="keyword">var</span> beanio = require(<span class="string">"bean-io"</span>);
+<span class="keyword">var</span> board = <span class="keyword">new</span> five.Board({
+  io: <span class="keyword">new</span> beanio.Board()
+});
+
+board.on(<span class="string">"ready"</span>, <span class="keyword">function</span>() {
+  <span class="keyword">var</span> led = <span class="keyword">new</span> five.Led({pin: <span class="number">13</span>});
+  led.blink();
+});</code></pre>
+<h2 id="but-what-about-mobile-">But what about mobile?</h2>
+<p>Funny you should ask.</p>
+<p>I&#39;ve done <a href="https://github.com/octoblu/noble">some work</a> with <a href="http://octoblu.com">Octoblu</a> on noble (node BLE) to allow the same API to be used in node.js or a phonegap/cordova app.</p>
+<p>This means we can get Bean-IO onto Android and iOS in a simple cross-platform way.</p>
+<p>For an example I put together a <a href="https://github.com/monteslu/beancontrol">simple cordova application</a> that allows you to click buttons to toggle the digital pin states on a bean.</p>
+<p><img src="images/beancontrol.png" alt="BeanControl"></p>
+<p>(yes that is a horrific UI. Just threw something together, PRs appreciated :) )</p>
+<h2 id="but-what-about-tvs-">But what about TVs?</h2>
+<p>OK nobody asked that, but Google sent me a developer device(ADT-1) and it has bluetooth 4, so figured I&#39;d give it a shot...</p>
+<p><img src="images/beantv.jpg" alt="TvBean"></p>
+<p>Pretty close, but no dice.  Should be fixable.  I&#39;m really happy that the tv took a cordova app to begin with.  Here&#39;s a <a href="">bug report</a> I&#39; have open on the underlying cordova BLE library.</p>
+<p>The sooner every home has benevolent nodebots watching over us the better.</p>
+<p><img src="images/skynet.png" alt="skynet"></p>
+<h2 id="next-steps">Next Steps</h2>
+<p>Jacob Rosenthal has already put together a very low power BeanBot prototype that we can control with javascript:</p>
+<p><iframe width="600" height="450" src="//www.youtube.com/embed/i1pIDjbR6YY?rel=0" frameborder="0" allowfullscreen></iframe></p>
+
+<p>He&#39;s detailed the construction of it <a href="http://citizengadget.com/post/97178122972/lightblue-beanbot">here</a>.</p>
+<p>Now perhaps a Pi/Galileo/BeagleBone/Edison with a BLE dongle could be the hive overlord controlling a swarm of Beanbots?</p>
+<p>Maybe the BeanBots could lie in wait while they charge up with solar power, ready to save the day when called on?</p>
+<p>Exciting times :)</p>
+<p>-<a href="https://twitter.com/monteslu">Luis</a></p>
+]]></description><link>http://blog.iceddev.com/./2014-09-15-beanbots-rise-of-the-swarm.html</link><guid isPermaLink="true">http://blog.iceddev.com/./2014-09-15-beanbots-rise-of-the-swarm.html</guid><dc:creator><![CDATA[Iced Dev]]></dc:creator><pubDate>Mon, 15 Sep 2014 00:00:00 GMT</pubDate></item></channel></rss>

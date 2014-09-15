@@ -70,22 +70,22 @@ http.createServer(<span class="function"><span class="keyword">function</span> <
     res.end(<span class="string">'Hello World\n'</span>);
 }).listen(<span class="number">1337</span>, <span class="string">'127.0.0.1'</span>);
 console.log(<span class="string">'Server running at http://127.0.0.1:1337/'</span>);</code></pre>
-<h2>This is actually Node.js code running the http listener on Chrome&#39;s Javascript VM!</h2>
+<h2 id="this-is-actually-node-js-code-running-the-http-listener-on-chrome-s-javascript-vm-">This is actually Node.js code running the http listener on Chrome&#39;s Javascript VM!</h2>
 <p>While we like the <a href="http://browserver.org/">Browserver project</a>, it uses a reverse proxy and pushes requests down to the client via a websocket.  Node-chromify took a different approach, and has no external server dependency.</p>
 <p>You can get the source to the demo app, and a build of node.js (the script, not the whole node project) here:  <a href="https://github.com/iceddev/node-chromify"><a href="https://github.com/iceddev/node-chromify">https://github.com/iceddev/node-chromify</a></a></p>
-<h2>So, how did we do this?</h2>
+<h2 id="so-how-did-we-do-this-">So, how did we do this?</h2>
 <p><a href="https://github.com/iceddev/node-chromify">node-chromify</a> is built on top of <a href="https://github.com/substack/node-browserify">browserify</a>, which allows node modules to be converted into a format that can be run in a browser.
 Browsers can&#39;t normally created TCP listeners, but Chrome Apps can in Canary with the experimental extension APIs flag enabled.</p>
 <p>Google&#39;s Paul Kinlan created a net-browserify module which wraps the Chrome API calls to the node.js &quot;net&quot; package.  This gets us quite a bit further. We&#39;ve <a href="https://github.com/iceddev/net-chromify">patched</a> a few things on this to help us out.</p>
 <p>We&#39;ve created an <a href="https://github.com/iceddev/http-chromify">http-chromify</a> module which is based on Node.js&#39; &quot;http&quot; module.  The Node.js version uses native C++ code to parse the HTTP messages between client and server.  We replaced that with the pure JS <a href="https://github.com/creationix/http-parser-js">http-parser-js</a> module.</p>
 <p>There were also couple of other pure JS modules that weren&#39;t browserified yet, namely <a href="https://github.com/iceddev/freelist-chromify">freelist</a> and <a href="https://github.com/iceddev/string_decoder-chromify">string_decoder</a>.  We created repos for those so that browserify could pull them in.</p>
 <p>Finally we used the excellent <a href="http://gruntjs.com/">Grunt.js</a> to build and package this all up into <a href="https://github.com/iceddev/node-chromify">node-chromify</a>.</p>
-<h2>How do you run it?</h2>
+<h2 id="how-do-you-run-it-">How do you run it?</h2>
 <p>You&#39;ll need Chrome Canary to run the demo.  Canary has recently allowed developers the ability to open TCP socket listeners in apps and extensions.</p>
 <p>Also, this requires enabling &quot;Experimental Extension APIs&quot; from chrome://flags</p>
 <p>Then, in chrome://extensions  use the &quot;Load unpacked extension...&quot; to point to the examples/plugin folder in the <a href="https://github.com/iceddev/node-chromify">node-chromify</a> source.</p>
 <p>We&#39;re accepting pull request to <a href="https://github.com/iceddev/node-chromify">node-chromify</a>, please help us fix this :)</p>
-<h2>Why did we do this?</h2>
+<h2 id="why-did-we-do-this-">Why did we do this?</h2>
 <p>&quot;any application that can be written in JavaScript, will eventually be written in JavaScript.&quot;</p>
 <p>It&#39;s the law.  Obey the law.</p>
 
@@ -131,7 +131,7 @@ Browsers can&#39;t normally created TCP listeners, but Chrome Apps can in Canary
   </div>
 
   <footer>
-    Copyright Iced Dev, 2013.
+    Copyright Iced Dev, 2014.
   </footer>
 
   <script src="static/scripts/prism.js"> </script>
