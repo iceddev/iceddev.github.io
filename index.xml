@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Iced Blog]]></title><description><![CDATA[Blog for and by Iced Dev]]></description><link>http://blog.iceddev.com</link><generator>NodeJS RSS Module</generator><lastBuildDate>Mon, 15 Sep 2014 18:44:50 GMT</lastBuildDate><atom:link href="http://blog.iceddev.com/index.xml" rel="self" type="application/rss+xml"/><item><title><![CDATA[create and deploy a nodester app without installing git using cloud9 ide]]></title><description><![CDATA[<p>At Iced Dev, our main business is consulting for Node.js and building
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Iced Blog]]></title><description><![CDATA[Blog for and by Iced Dev]]></description><link>http://blog.iceddev.com</link><generator>NodeJS RSS Module</generator><lastBuildDate>Mon, 15 Sep 2014 19:30:00 GMT</lastBuildDate><atom:link href="http://blog.iceddev.com/index.xml" rel="self" type="application/rss+xml"/><item><title><![CDATA[create and deploy a nodester app without installing git using cloud9 ide]]></title><description><![CDATA[<p>At Iced Dev, our main business is consulting for Node.js and building
 great web applications using it with HTML5 technologies. Our favorite
 hosting platform is <a href="http://nodester.com" title="Nodester">Nodester</a> (<a href="http://twitter.com/nodester" title="Nodester">@Nodester</a>) because it is the only
 Open-Source PaaS for Node.js and maintained by a great group of
@@ -785,7 +785,7 @@ board.on(<span class="string">"ready"</span>, <span class="keyword">function</sp
 <h2 id="but-what-about-tvs-">But what about TVs?</h2>
 <p>OK nobody asked that, but Google sent me a developer device(ADT-1) and it has bluetooth 4, so figured I&#39;d give it a shot...</p>
 <p><img src="images/beantv.jpg" alt="TvBean"></p>
-<p>Pretty close, but no dice.  Should be fixable.  I&#39;m really happy that the tv took a cordova app to begin with.  Here&#39;s a <a href="">bug report</a> I&#39; have open on the underlying cordova BLE library.</p>
+<p>Pretty close, but no dice.  Should be fixable.  I&#39;m really happy that the tv took a cordova app to begin with.  Here&#39;s a <a href="https://github.com/randdusing/BluetoothLE/issues/82">bug report</a> I&#39; have open on the underlying cordova BLE library.</p>
 <p>The sooner every home has benevolent nodebots watching over us the better.</p>
 <p><img src="images/skynet.png" alt="skynet"></p>
 <h2 id="next-steps">Next Steps</h2>

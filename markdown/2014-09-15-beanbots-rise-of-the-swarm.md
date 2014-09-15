@@ -80,7 +80,7 @@ OK nobody asked that, but Google sent me a developer device(ADT-1) and it has bl
 
 ![TvBean](images/beantv.jpg)
 
-Pretty close, but no dice.  Should be fixable.  I'm really happy that the tv took a cordova app to begin with.  Here's a [bug report]() I' have open on the underlying cordova BLE library.
+Pretty close, but no dice.  Should be fixable.  I'm really happy that the tv took a cordova app to begin with.  Here's a [bug report](https://github.com/randdusing/BluetoothLE/issues/82) I' have open on the underlying cordova BLE library.
 
 The sooner every home has benevolent nodebots watching over us the better.
 
