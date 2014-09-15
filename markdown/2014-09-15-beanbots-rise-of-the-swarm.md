@@ -7,7 +7,7 @@ We now have some really cool building blocks such as node serialport, firmata.js
 
 ## Enter the Bean
 
-A really cool piece of hardware to come out recently is Punchthrough's LightBlue Bean.
+A really cool piece of hardware to come out recently is Punchthrough's [LightBlue Bean](http://punchthrough.com/bean/).
 
 ![Bean](images/bean.png)
 
