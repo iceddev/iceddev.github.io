@@ -1,310 +1,100 @@
-I spent a good deal of my time over the last few years at a hackerspace called [HeatSync Labs](http://heatsynclabs.org). While I would constantly see members wiring up things like and Arduino Uno or a Raspberry Pi, I tended to just stay in my Node.js and HTML5 world for the most part.
+I spent a good deal of my time over the last few years at a hackerspace called [HeatSync Labs](http://heatsynclabs.org). While I would constantly see members wiring up things like an Arduino Uno or a Raspberry Pi, I tended to just stay in my Node.js and HTML5 world for the most part.
 
-Let’s get it configured.
+That was until I finally read Chris Williams' excellent post: [NodeBots - The Rise of JS Robotics](hhttp://www.voodootikigod.com/nodebots-the-rise-of-js-robotics/) 
+
+We now have some really cool building blocks such as node serialport, firmata.js, and Johnny-five.  While we're not quite at the point of Michael Chrichton's solar-powered, self-replicating, networked, cloud of [nanobots](http://en.wikipedia.org/wiki/Prey_(novel)), we're definitely moving towards it :)
+
+## Enter the Bean
+
+A really cool piece of hardware to come out recently is Punchthrough's LightBlue Bean.
+
+![Bean](images/bean.png)
+
+The reason I'm digging this little guy is that it's basically a low cost Arduino Uno plus Bluetooth Low Energy (BLE) powered by a coin cell battery.  BLE lets us talk to the device while only using a tiny fraction of the power that would otherwise be required with WiFi.
+
+So the next logical step would be to load firmata onto the bean, connect to it with node and the noble BLE library, and build our new insect overlords.
 
 ## What is firmata?
 
-[beefy](https://github.com/chrisdickinson/beefy) is a static web server with built-in JavaScript bundling.
+Firmata is a few things.
 
-It was made to work with browserify by default, but if you use the `--bundler`
-command line argument, you can specify r.js as your bundler of choice.
+* First, it's a [protocol](http://www.firmata.org/wiki/Main_Page) that enables us to communicate to a microcontroller in a generic way.  Typically this is done over a serial port.
 
-We are going to use this to run r.js each time our `main.js` file is requested.
+* Second, it's an Arduino sketch that can be loaded onto various types of Arduino microcontrollers exposing the functionality to the hardware's serial input.  [Jacob Rosenthal](http://twitter.com/jacobrosenthal) has recently put together a [fork](https://github.com/jacobrosenthal/arduino/blob/bean/examples/StandardFirmata/StandardFirmata.ino) of this code that works well on the Bean. He also wrote up an interesting [blog post](http://citizengadget.com/post/96226562047/firmata-on-lightblue-bean) about it.
 
-Get beefy by using the command:
+* Third, there's firmata.js.  This is a javascript/node library that can talk via node serialport to a device running a firmata sketch and read/write values to the pins on the board.  The current implementaion requires a small amount of handshaking at start up that I personally felt was unecessary, so for now I'm using [my fork]() of firmata.js for this project. 
 
-```bash
-npm install -g beefy
-```
 
-## What is r.js?
+## Let's add some Bean-IO
 
-[r.js](https://github.com/jrburke/r.js) is a command line utility designed for running
-[AMD](https://github.com/amdjs/amdjs-api/wiki)-based projects in node.js, Rhino, and xpcshell.
-It also includes an optimizer for combining your AMD files into a bundle.
+In order to make this easier to get started with, I've put together an IO class called [Bean-IO](https://github.com/monteslu/bean-io).
 
-By using the optimizer functionality of r.js, in combination with beefy, we can
-bundle our JavaScript on each page refresh.
+`npm install bean-io`
 
-We need to install r.js into our project using the command:
+Being able to read and write pin values is essential to making the robots be robots, however there is a significant amount of complex algorithms involved in doing things such as having the robot go to the kitchen and get you a cold beer from the fridge.  For this, we have Rick Waldron's amazing [Johnny-Five](https://github.com/rwaldron/johnny-five) project.
 
-```bash
-npm install requirejs
-```
+By default, you can plug in an Arduino Uno to your computer and fire up a johnny-five example to talk to it.  The hardware input and output handling is firmata and node serialport.  However, there are multiple types of hardware we can use.  Each new type of hardware is handled through an IO class.  There are IO classes for BeagleBone, Raspberry Pi, Galileo, Pinoccio, Spark Core, and now LightBlue Bean.
 
-If you have a `package.json` and want to add it to your devDependencies, add `--save-dev`
-to the command:
+Using Bean-IO is pretty straight forward.
 
-```bash
-npm install --save-dev requirejs
-```
+Make sure you have Jacob's
+[StandardFirmata.ino](https://github.com/jacobrosenthal/arduino/blob/bean/examples/StandardFirmata/StandardFirmata.ino) firmware loaded onto your
+Bean device. The [Punchthrough's Getting Started guide](http://punchthrough.com/bean/getting-started/) can help you with that.
 
-## Minimum Viable Config
+Then just plug the bean-io into johhny-five and get to roboting:
 
-There are seven options we need to set in our r.js config file that will allow us to use
-it with beefy (actually, two are just nice to have).  They are `baseUrl`, `name`, `insertRequire`,
-`optimize`, `useSourceUrl`, `out` and `logLevel` and each one is explained below.
+```js
+var five = require("johnny-five");
+var beanio = require("bean-io");
+var board = new five.Board({
+  io: new beanio.Board()
+});
 
-These options will be set in a file named `config.js`, which will be passed to the beefy
-command.
-
-You can find an example project at https://github.com/iceddev/beefy-requirejs-example
-
-## `baseUrl`
-
-As with every Require.js project, you are going to want to set your `baseUrl`.
-
-This could be any place you want to begin resolving. Typically, it will be
-your vendor or application directory. Since we are doing a simple example,
-let's just use our current directory and we will put our JS files at the root
-of our project.
-
-```javascript
-// config.js
-({
-  baseUrl: './'
-})
-```
-
-## `name`
-
-To specify the module (and all of its dependencies) we want to optimize,
-we use the `name` option. This option indicates an entry point for r.js
-to begin resolving dependencies.
-
-We are going to name our entry module `main.js`, an AMD package convention,
-and it will be in the root of our project.
-
-```javascript
-// config.js
-({
-  baseUrl: './',
-  name: 'main' // drop the .js, as AMD moduleId resolution appends it
-})
-```
-
-### `main.js`
-
-Create a file in the root of your project named `main.js`.
-
-This file will be the entry point for your applicaton, and will be wrapped
-in a `define` function call.
-
-```javascript
-// main.js
-define([
-  './another-module'
-], function(another){
-
-  console.log('inside main.js');
-
-  console.log('another-module dependency:', another);
-
+board.on("ready", function() {
+  var led = new five.Led({pin: 13});
+  led.blink();
 });
 ```
 
-### `another-module.js`
+## But what about mobile?
 
-Create another file in the root of your project, but name this one `another-module.js`.
+Funny you should ask.
 
-This file is a dependency of your `main.js` module and is just used to demonstrate that
-we are, in fact, bundling all the dependencies together.
+I've done [some work](https://github.com/octoblu/noble) with [Octoblu](http://octoblu.com) on noble (node BLE) to allow the same API to be used in node.js or a phonegap/cordova app.
 
-```javascript
-// another-module.js
-define(function(){
+This means we can get Bean-IO onto Android and iOS in a simple cross-platform way.
 
-  console.log('inside another-module.js');
+For an example I put together a [simple cordova application](https://github.com/monteslu/beancontrol) that allows you to click buttons to toggle the digital pin states on a bean.
 
-  return {
-    something: 'yup, another module'
-  };
+![BeanControl](images/beancontrol.png)
 
-});
-```
+(yes that is a horrific UI. Just threw something together, PRs appreciated :) )
 
-## `insertRequire`
+## But what about TVs?
 
-We can specify the `insertRequire` option, to insert a `require` function call at the bottom of
-our bundle, which will initialize your application.
+OK nobody asked that, but Google sent me a developer device(ADT-1) and it has bluetooth 4, so figured I'd give it a shot...
 
-Note: This isn't needed if your `data-main` filename is the same as the module entrypoint name
-because Require.js will do an implicit `require`. We will add it here because it doesn't hurt
-anything and will help in situations like naming the files differently or using something like
-[almond](https://github.com/jrburke/almond).
+![TvBean](images/beantv.jpg)
 
-```javascript
-// config.js
-({
-  baseUrl: './',
-  name: 'main',
-  insertRequire: ['main'] // will add `require(['main'])` to the end of your bundle
-})
-```
+Pretty close, but no dice.  Should be fixable.  I'm really happy that the tv took a cordova app to begin with.  Here's a [bug report]() I' have open on the underlying cordova BLE library.
 
-## `optimize`
+The sooner every home has benevolent nodebots watching over us the better.
 
-During development, you probably want to disable optimization/uglification, so you will
-be able to debug your bundle and builds will happen quicker. This is done by setting
-the `optimize` option to `'none'`.
+![skynet](images/skynet.png)
 
-```javascript
-// config.js
-({
-  baseUrl: './',
-  name: 'main',
-  insertRequire: ['main'],
-  optimize: 'none'
-})
-```
 
-## `useSourceUrl` - Source Maps
+## Next Steps
 
-When using the `optimize: 'none'` option, we can get source maps, using `//# sourceURL=`
-and an `eval` call.
+Jacob Rosenthal has already put together a very low power BeanBot prototype that we can control with javascript:
 
-Setting the `useSourceUrl` option to `true` will auto insert these for you, but it should
-be disabled when bundling for production.
+<p><iframe width="600" height="450" src="//www.youtube.com/embed/i1pIDjbR6YY?rel=0" frameborder="0" allowfullscreen></iframe></p>
 
-```javascript
-// config.js
-({
-  baseUrl: './',
-  name: 'main',
-  insertRequire: ['main'],
-  optimize: 'none',
-  useSourceUrl: true
-})
-```
+He's detailed the construction of it [here](http://citizengadget.com/post/97178122972/lightblue-beanbot).
 
-## `out`
+Now perhaps a Pi/Galileo/BeagleBone/Edison with a BLE dongle could be the hive overlord controlling a swarm of Beanbots?
 
-The typical way r.js is used is to output a file, determined by providing
-a filename string as the `out` option.
+Maybe the BeanBots could lie in wait while they charge up with solar power, ready to save the day when called on?
 
-beefy doesn't operate on files, and instead expects to receive data on
-`process.stdout`.
+Exciting times :)
 
-The `out` option can also take a function that will receive the output
-text as its only parameter.
-
-We are going to leverage the `out` function to redirect the r.js output
-to `process.stdout`.
-
-```javascript
-// config.js
-({
-  baseUrl: './',
-  name: 'main',
-  insertRequire: ['main'],
-  optimize: 'none',
-  useSourceUrl: true,
-  out: console.log // console.log outputs to process.stdout and is tightly bound in node
-})
-```
-
-## `logLevel`
-
-By default, r.js logs info about the build process.  This gets intercepted
-by beefy on `process.stdout` and is added to the output served.
-
-r.js provides a `logLevel` option that can be used to disable logging.  Log level 3 is
-the level that logs only errors.
-
-```javascript
-// config.js
-({
-  baseUrl: './',
-  name: 'main',
-  insertRequire: ['main'],
-  optimize: 'none',
-  useSourceUrl: true,
-  out: console.log,
-  logLevel: 3
-})
-```
-
-## `index.html`
-
-The last thing we need is an `index.html` file that includes Require.js. If an `index.html`
-file doesn't exist, beefy serves up a default page that just injects a script tag for your
-entrypoint file. This won't work with the workflow outlined above because we assume the
-require machinery will be available.
-
-Create an `index.html` file in the root of your project that contains:
-
-```markup
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Beefy + Require.js</title>
-</head>
-<body>
-  <script src="/node_modules/requirejs/require.js" data-main="main" type="text/javascript"></script>
-</body>
-</html>
-```
-
-## Run beefy
-
-The beefy command takes a filename as the first argument, or an input filename/output filename combination
-in the form of `input-filename.js:output-filename.js`. If you don't specify an input filename but specify an
-output filename, in the format `:output-filename.js`, beefy won't pass a filename to the bundler, but it will
-still make the result of the bundler command available as `output-filename.js`.
-
-r.js assumes it is supposed to run a file if one is passed as the first argument to the command, and skips the optimization
-tool. To avoid this, we will specify the first beefy argument as `:main.js`.
-
-Next, we want to reference the r.js compiler as the bundler: `--bundler ./node_modules/.bin/r.js`
-
-Finally, r.js expects the `-o config.js` argument to start the optimize tool with the `config.js` file. Anything
-after the `--` argument to beefy is passed directly to the bundler command.
-
-Putting it all together, the command looks like:
-
-```bash
-beefy :main.js --bundler ./node_modules/.bin/r.js -- -o config.js
-```
-
-## Accessing your bundle
-
-Open your browser and go to the location that the beefy command said it is listening on,
-e.g. `listening on http://localhost:9966/`.
-
-You should see logging in your console if your modules loaded correctly. You should also
-be able to view the individual files in the `sources` pane, probably under (no domain)
-since we were using the `useSourceUrl` option.
-
-## What else can we do?
-
-This configuration will allow you easily to swap dependencies with a single line change.
-
-```javascript
-// config.js
-({
-  // rest of the config
-  paths: {
-    underscore: 'node_modules/underscore/underscore'
-  }
-})
-```
-
-Can be changed to:
-
-```javascript
-// config.js
-({
-  // rest of the config
-  paths: {
-    underscore: 'node_modules/lodash/dist/lodash'
-  }
-})
-```
-
-And your underscore references will resolve to Lo-Dash on the next refresh of your page.
-
-Watch out for part two of this article for some advanced techniques and any other interesting
-stuff I find related to AMD and beefy.
-
--Blaine
+-[Luis](https://twitter.com/monteslu)
