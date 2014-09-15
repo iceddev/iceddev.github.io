@@ -2,7 +2,7 @@ I spent a good deal of my time over the last few years at a hackerspace called [
 
 That was until I finally read Chris Williams' excellent post: [NodeBots - The Rise of JS Robotics](hhttp://www.voodootikigod.com/nodebots-the-rise-of-js-robotics/) 
 
-We now have some really cool building blocks such as node serialport, firmata.js, and Johnny-five.  While we're not quite at the point of Michael Chrichton's solar-powered, self-replicating, networked, cloud of [nanobots](http://en.wikipedia.org/wiki/Prey_(novel)), we're definitely moving towards it :)
+We now have some really cool building blocks such as node serialport, firmata.js, and Johnny-five.  While we're not quite at the point of Michael Chrichton's solar-powered, self-replicating, networked, cloud of <a href="http://en.wikipedia.org/wiki/Prey_(novel)">nanobots</a>, we're definitely moving towards it :)
 
 
 ## Enter the Bean
