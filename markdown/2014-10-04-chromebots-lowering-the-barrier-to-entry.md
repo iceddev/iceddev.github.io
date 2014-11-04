@@ -12,7 +12,7 @@ While running a Nodebots day and later doing some talks/workshops at a local pro
 
 ![Mesa Code Club](images/mesacodeclub.jpg)
 
-Here in my hometown there's a really cool group called the [Mesa Code Club](http://mesacodeclub.weebly.com/).  A group of volunteers led by Kelly Smith have been meeting at the public library to kids how to code.  They recently had a kickstarter that helped them to fund their 501c3 status as well as purchase Chromebooks for the kids to code on. They're doing really cool things with JavaScript including HTML5 game development.
+Here in my hometown there's a really cool group called the [Mesa Code Club](http://mesacodeclub.weebly.com/).  Volunteers led by Kelly Smith have been meeting at the public library to teach kids how to code.  They recently had a kickstarter that helped them to fund their 501c3 status as well as purchase Chromebooks for the kids to code on. They're doing really cool things with JavaScript including HTML5 game development.
 
 
 Kelly has proven that very young people with some guidance take well to programming, so how about we get everyone even more tools to play with?
