@@ -59,12 +59,61 @@
 
 <article class="post">
   <div class="title">
+    <h1><a href="./2014-10-04-chromebots-lowering-the-barrier-to-entry.html">chromebots lowering the barrier to entry</a></h1>
+    <p class="post-date">october 4th 2014</p>
+  </div>
+  <div class="post-content">
+    <p>If you enjoy writing in JavaScript as well tinkering with hardware such as Arduino, then <a href="https://github.com/rwaldron/johnny-five">Johnny-Five</a> is the place to start.  Install Node.js, flash an Arduino Uno or similar with Firmata, npm install johnny-five, and follow the examples.</p>
+<p>While running a Nodebots day and later doing some talks/workshops at a local programming conference, I noticed something. When someone first toggles an LED with code, a light also goes on in their head.  Once the physical world is bridged to software, possibilities open up.  Young people really get this.</p>
+<p><img src="images/mesacodeclub.jpg" alt="Mesa Code Club"></p>
+<p>Here in my hometown there&#39;s a really cool group that&#39;s been meeting called the <a href="http://mesacodeclub.weebly.com/">Mesa Code Club</a>.  A group of volunteers led by Kelly Smith have been meeting at the public library to kids how to code.  They recently had a kickstarter that helped them to fund their 501c3 status as well as purchase Chromebooks for the kids to code on. They&#39;re doing really cool things with JavaScript including HTML5 game development.</p>
+<p>Kelly has proven that very young people with some guidance take well to programming, so how about we get everyone even more tools to play with?</p>
+<h2 id="enter-chromebots">Enter Chromebots</h2>
+<p>Using Johnny-Five, Rick Waldron&#39;s recent <a href="https://github.com/jgautier/firmata">firmata.js</a> enhancements, Glenn Arrowsmith&#39;s <a href="https://github.com/garrows/browser-serialport">browser serial-port</a> implementation, and a few other pieces, I&#39;ve put together a simple Chrome packaged application that allows you to build <a href="http://www.voodootikigod.com/nodebots-the-rise-of-js-robotics/">NodeBots</a> without even having to have Node installed.</p>
+<p><img src="images/j5chrome.png" alt="Bean"></p>
+<p>Install it from here: <a href="https://chrome.google.com/webstore/detail/johnny-five-chrome/gjnfhdmcgnaiogffpdoiecllabiabdee">Johnny-Five Chrome</a></p>
+<p>Source for it is here: <a href="https://github.com/monteslu/j5-chrome"><a href="https://github.com/monteslu/j5-chrome">https://github.com/monteslu/j5-chrome</a></a></p>
+<p>And here&#39;s a video demo of it:</p>
+<p><iframe width="600" height="450" src="//www.youtube.com/embed/XanPBK_RQEQ?rel=0" frameborder="0" allowfullscreen></iframe></p>
+
+<p>The code example for the Sainsmart LCD screen is based off the Johnny-Five LCD example with the pins setup to match the LCD shield and turn on the backlight:</p>
+<pre><code class="lang-javascript">
+<span class="keyword">var</span> p = <span class="keyword">new</span> five.Pin(<span class="number">10</span>);
+p.write(<span class="number">10</span>, <span class="number">1</span>);
+
+<span class="keyword">var</span> lcd = <span class="keyword">new</span> five.LCD({
+  pins: [<span class="number">8</span>, <span class="number">9</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>],
+});
+
+lcd.on(<span class="string">"ready"</span>, <span class="keyword">function</span>() {
+  lcd.clear().print(<span class="string">"CHROMEBOTS"</span>);
+});</code></pre>
+<p>The app handles establing the Nodebot and the code is run when the johnny-five fires its ready event.</p>
+<h2 id="what-about-firefox-">What about Firefox?</h2>
+<p>For the most part the code is pretty portable, however there currently isn&#39;t a Serial Port implementation in Firefox.  Hopefully that gets <a href="https://groups.google.com/forum/#!topic/mozilla.dev.webapi/wykkibp6BKo">fixed soon</a>.</p>
+<p>The other part that needs some attention is that chrome apps <a href="https://code.google.com/p/chromium/issues/detail?id=426206">don&#39;t have access localStorage</a>, so the app has to use the chrome.storage API to save anything locally.  Not a big fan of this, but its easy enough to shim in the codebase.</p>
+<p>-<a href="https://twitter.com/monteslu">Luis</a></p>
+
+  </div>
+  <div class="post-navigation">
+  
+    <span class="comment-link"><a href="./2014-10-04-chromebots-lowering-the-barrier-to-entry.html#comments">View Comments</a></span>
+  
+  </div>
+</article>
+
+  
+  <hr />
+  
+
+<article class="post">
+  <div class="title">
     <h1><a href="./2014-09-15-beanbots-rise-of-the-swarm.html">beanbots rise of the swarm</a></h1>
     <p class="post-date">september 15th 2014</p>
   </div>
   <div class="post-content">
     <p>I spent a good deal of my time over the last few years at a hackerspace called <a href="http://heatsynclabs.org">HeatSync Labs</a>. While I would constantly see members wiring up things like an Arduino Uno or a Raspberry Pi, I tended to just stay in my Node.js and HTML5 world for the most part.</p>
-<p>That was until I finally read Chris Williams&#39; excellent post: <a href="hhttp://www.voodootikigod.com/nodebots-the-rise-of-js-robotics/">NodeBots - The Rise of JS Robotics</a> </p>
+<p>That was until I finally read Chris Williams&#39; excellent post: <a href="http://www.voodootikigod.com/nodebots-the-rise-of-js-robotics/">NodeBots - The Rise of JS Robotics</a> </p>
 <p>We now have some really cool building blocks such as node serialport, firmata.js, and Johnny-five.  While we&#39;re not quite at the point of Michael Chrichton&#39;s solar-powered, self-replicating, networked, cloud of <a href="http://en.wikipedia.org/wiki/Prey_(novel)">nanobots</a>, we&#39;re definitely moving towards it :)</p>
 <h2 id="enter-the-bean">Enter the Bean</h2>
 <p>A really cool piece of hardware to come out recently is Punchthrough&#39;s <a href="http://punchthrough.com/bean/">LightBlue Bean</a>.</p>
