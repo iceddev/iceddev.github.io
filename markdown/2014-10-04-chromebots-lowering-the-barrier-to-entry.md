@@ -19,6 +19,10 @@ Kelly has proven that very young people with some guidance take well to programm
 
 ## Enter Chromebots
 
+![chromebot](images/chromebot.gif)
+
+<span style="font-size: 0.7em; font-style: italic;">image by Pete Misikea</span>
+
 Using Johnny-Five, Rick Waldron's recent [firmata.js](https://github.com/jgautier/firmata) enhancements, Glenn Arrowsmith's [browser serial-port](https://github.com/garrows/browser-serialport) implementation, and a few other pieces, I've put together a simple Chrome packaged application that allows you to build [NodeBots](http://www.voodootikigod.com/nodebots-the-rise-of-js-robotics/) without even installing Node.
 
 ![Bean](images/j5chrome.png)
