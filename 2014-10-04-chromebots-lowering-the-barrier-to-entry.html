@@ -61,13 +61,17 @@
     <p class="post-date">october 4th 2014</p>
   </div>
   <div class="post-content">
-    <p>If you enjoy writing in JavaScript as well tinkering with hardware such as Arduino, then <a href="https://github.com/rwaldron/johnny-five">Johnny-Five</a> is the place to start.  Install Node.js, flash an Arduino Uno or similar with Firmata, npm install johnny-five, and follow the examples.</p>
+    <p>Have you ever wanted to control lights, motors, cameras, or even full terminator style robots using Javascript? Well it turns out, it&#39;s easier than you think, and quickly getting even easier.</p>
+<p>Just fire up NodeJS and <a href="https://github.com/rwaldron/johnny-five">Johnny-Five</a> then plugin an Arduino and write some Javascript. </p>
+<p>Ok, that might be a bit much for someone without any development experience :)</p>
+<p>I&#39;d really recommend taking a look at <a href="http://nodebots.io">nodebots.io</a> as it is a great community to help get you up and running.</p>
+<h2 id="your-eight-year-old-can-code-">Your eight year old can code.</h2>
 <p>While running a Nodebots day and later doing some talks/workshops at a local programming conference, I noticed something. When someone first toggles an LED with code, a light also goes on in their head.  Once the physical world is bridged to software, possibilities open up.  Young people really get this.</p>
 <p><img src="images/mesacodeclub.jpg" alt="Mesa Code Club"></p>
 <p>Here in my hometown there&#39;s a really cool group that&#39;s been meeting called the <a href="http://mesacodeclub.weebly.com/">Mesa Code Club</a>.  A group of volunteers led by Kelly Smith have been meeting at the public library to kids how to code.  They recently had a kickstarter that helped them to fund their 501c3 status as well as purchase Chromebooks for the kids to code on. They&#39;re doing really cool things with JavaScript including HTML5 game development.</p>
 <p>Kelly has proven that very young people with some guidance take well to programming, so how about we get everyone even more tools to play with?</p>
 <h2 id="enter-chromebots">Enter Chromebots</h2>
-<p>Using Johnny-Five, Rick Waldron&#39;s recent <a href="https://github.com/jgautier/firmata">firmata.js</a> enhancements, Glenn Arrowsmith&#39;s <a href="https://github.com/garrows/browser-serialport">browser serial-port</a> implementation, and a few other pieces, I&#39;ve put together a simple Chrome packaged application that allows you to build <a href="http://www.voodootikigod.com/nodebots-the-rise-of-js-robotics/">NodeBots</a> without even having to have Node installed.</p>
+<p>Using Johnny-Five, Rick Waldron&#39;s recent <a href="https://github.com/jgautier/firmata">firmata.js</a> enhancements, Glenn Arrowsmith&#39;s <a href="https://github.com/garrows/browser-serialport">browser serial-port</a> implementation, and a few other pieces, I&#39;ve put together a simple Chrome packaged application that allows you to build <a href="http://www.voodootikigod.com/nodebots-the-rise-of-js-robotics/">NodeBots</a> without even installing Node.</p>
 <p><img src="images/j5chrome.png" alt="Bean"></p>
 <p>Install it from here: <a href="https://chrome.google.com/webstore/detail/johnny-five-chrome/gjnfhdmcgnaiogffpdoiecllabiabdee">Johnny-Five Chrome</a></p>
 <p>Source for it is here: <a href="https://github.com/monteslu/j5-chrome"><a href="https://github.com/monteslu/j5-chrome">https://github.com/monteslu/j5-chrome</a></a></p>
@@ -86,7 +90,10 @@ p.write(<span class="number">10</span>, <span class="number">1</span>);
 lcd.on(<span class="string">"ready"</span>, <span class="keyword">function</span>() {
   lcd.clear().print(<span class="string">"CHROMEBOTS"</span>);
 });</code></pre>
-<p>The app handles establing the Nodebot and the code is run when the johnny-five fires its ready event.</p>
+<p>The app handles establishing the Nodebot and the code is run when the johnny-five fires its ready event.</p>
+<p>Aside from Johnny-Five, you also have jquery, lodash, skynet, and the typical browser variables to build things with.</p>
+<h2 id="barrier-lowered-">Barrier Lowered?</h2>
+<p>We still need at least one person to use the Arduino Development Environment to flash the Standard Firmata sketch onto the Arduinos.  However once that&#39;s done, anyone can use just an Arduino and a chromebook to get started. </p>
 <h2 id="what-about-firefox-">What about Firefox?</h2>
 <p>For the most part the code is pretty portable, however there currently isn&#39;t a Serial Port implementation in Firefox.  Hopefully that gets <a href="https://groups.google.com/forum/#!topic/mozilla.dev.webapi/wykkibp6BKo">fixed soon</a>.</p>
 <p>The other part that needs some attention is that chrome apps <a href="https://code.google.com/p/chromium/issues/detail?id=426206">don&#39;t have access localStorage</a>, so the app has to use the chrome.storage API to save anything locally.  Not a big fan of this, but its easy enough to shim in the codebase.</p>

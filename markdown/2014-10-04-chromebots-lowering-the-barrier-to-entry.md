@@ -1,4 +1,12 @@
-If you enjoy writing in JavaScript as well tinkering with hardware such as Arduino, then [Johnny-Five](https://github.com/rwaldron/johnny-five) is the place to start.  Install Node.js, flash an Arduino Uno or similar with Firmata, npm install johnny-five, and follow the examples.
+Have you ever wanted to control lights, motors, cameras, or even full terminator style robots using Javascript? Well it turns out, it's easier than you think, and quickly getting even easier.
+
+Just fire up NodeJS and [Johnny-Five](https://github.com/rwaldron/johnny-five) then plugin an Arduino and write some Javascript. 
+
+Ok, that might be a bit much for someone without any development experience :)
+
+I'd really recommend taking a look at [nodebots.io](http://nodebots.io) as it is a great community to help get you up and running.
+
+## Your eight year old can code.
 
 While running a Nodebots day and later doing some talks/workshops at a local programming conference, I noticed something. When someone first toggles an LED with code, a light also goes on in their head.  Once the physical world is bridged to software, possibilities open up.  Young people really get this.
 
@@ -11,7 +19,7 @@ Kelly has proven that very young people with some guidance take well to programm
 
 ## Enter Chromebots
 
-Using Johnny-Five, Rick Waldron's recent [firmata.js](https://github.com/jgautier/firmata) enhancements, Glenn Arrowsmith's [browser serial-port](https://github.com/garrows/browser-serialport) implementation, and a few other pieces, I've put together a simple Chrome packaged application that allows you to build [NodeBots](http://www.voodootikigod.com/nodebots-the-rise-of-js-robotics/) without even having to have Node installed.
+Using Johnny-Five, Rick Waldron's recent [firmata.js](https://github.com/jgautier/firmata) enhancements, Glenn Arrowsmith's [browser serial-port](https://github.com/garrows/browser-serialport) implementation, and a few other pieces, I've put together a simple Chrome packaged application that allows you to build [NodeBots](http://www.voodootikigod.com/nodebots-the-rise-of-js-robotics/) without even installing Node.
 
 ![Bean](images/j5chrome.png)
 
@@ -39,7 +47,13 @@ lcd.on("ready", function() {
 
 ```
 
-The app handles establing the Nodebot and the code is run when the johnny-five fires its ready event.
+The app handles establishing the Nodebot and the code is run when the johnny-five fires its ready event.
+
+Aside from Johnny-Five, you also have jquery, lodash, skynet, and the typical browser variables to build things with.
+
+## Barrier Lowered?
+
+We still need at least one person to use the Arduino Development Environment to flash the Standard Firmata sketch onto the Arduinos.  However once that's done, anyone can use just an Arduino and a chromebook to get started. 
 
 ## What about Firefox?
 
