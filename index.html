@@ -79,13 +79,12 @@
 <p>You may at some point in your JavaScript robot creation adventures decide that you&#39;d like to remote control your Arduino from another computer or server or cloud service.  So our first step towards that goal should be to use serial port implementation that uses a network connection.</p>
 <p><img src="images/virtualserialport.png" alt="Virtual Serial Port"></p>
 <p>I&#39;ve built a few virtual serial port implementations to help with that goal:  <a href="https://www.npmjs.org/package/skynet-serial">skynet-serial</a>, <a href="https://github.com/monteslu/mqtt-serial">mqtt-serial</a>, <a href="https://github.com/monteslu/socket.io-serial">socket.io-serial</a>, and a few others.</p>
-<p>All we need to do now is bind a physical serialport connection to the cloud service of your choice.  For example here&#39;s how we could bind an Arduino plugged into a mac to Octoblu(skynet): </p>
+<p>All we need to do now is bind a physical serialport connection to the cloud service of your choice.  For example here&#39;s how we could bind an Arduino plugged into a mac to <a href="http://octoblu.com/">Octoblu</a>(formerly skynet): </p>
 <pre><code class="lang-javascript"><span class="keyword">var</span> SerialPort = require(<span class="string">'serialport'</span>).SerialPort;
 <span class="keyword">var</span> bindPhysical = require(<span class="string">'skynet-serial'</span>).bindPhysical;
 <span class="keyword">var</span> skynet = require(<span class="string">'skynet'</span>);
 
-<span class="comment">// setup variables for myId, token, sendId</span>
-<span class="comment">// the sendId should be for the uuid of the SkynetSerialPort app.</span>
+<span class="comment">// setup variables for myId, token</span>
 
 <span class="keyword">var</span> conn = skynet.createConnection({
   uuid: myId,
@@ -103,8 +102,7 @@ conn.on(<span class="string">'ready'</span>, <span class="keyword">function</spa
 <pre><code class="lang-javascript"><span class="keyword">var</span> SkynetSerialPort = require(<span class="string">'skynet-serial'</span>).SerialPort;
 <span class="keyword">var</span> skynet = require(<span class="string">'skynet'</span>);
 
-<span class="comment">// setup variables for myId, token, sendId</span>
-<span class="comment">// the sendId is for the uuid of the physical serial device</span>
+<span class="comment">// setup variables for myId, token</span>
 
 <span class="keyword">var</span> conn = skynet.createConnection({
   uuid: myId,
@@ -112,6 +110,7 @@ conn.on(<span class="string">'ready'</span>, <span class="keyword">function</spa
 });
 
 conn.on(<span class="string">'ready'</span>, <span class="keyword">function</span>(data){
+  <span class="comment">//the sendId variable is the UUID of the remote physical device.</span>
   <span class="keyword">var</span> serialPort = <span class="keyword">new</span> SkynetSerialPort(conn, sendId);
   <span class="keyword">var</span> board = <span class="keyword">new</span> firmata.Board(serialPort, <span class="function"><span class="keyword">function</span> <span class="params">(err, ok)</span> {</span>
     <span class="keyword">if</span> (err){ <span class="keyword">throw</span> err; }
@@ -134,11 +133,12 @@ conn.on(<span class="string">'ready'</span>, <span class="keyword">function</spa
 <p>We already have that message format, it&#39;s called firmata :)</p>
 <h2 id="enter-remote-io">Enter Remote-IO</h2>
 <p>Since we can treat serial ports, virtual or physical, are just a means of getting bytes back and forth to a device, we can use that as a base of a new johnny-five IO plugin to let us connect any robot to any program.</p>
-<p>I&#39;ve put together an IO class I&#39;m calling <a href="https://github.com/monteslu/remote-io">remote-io</a>.  With this we can simply wrap any other IO instance and connect it to any virtual serial port:</p>
+<p>I&#39;ve put together an IO class I&#39;m calling <a href="https://github.com/monteslu/remote-io">remote-io</a>.  With this we can simply wrap any other IO instance and connect it to any virtual serial port.</p>
+<p><img src="images/remoteio.png" alt="Remote-IO"></p>
+<p>The little devices on the right side of this image are running this common bit of code with an IO class instance specified:</p>
 <pre><code class="lang-javascript"><span class="keyword">var</span> RemoteIO = require(<span class="string">'remote-io'</span>);
 
-<span class="comment">//io could be instance of bean-io, rpi-io, etc.</span>
-
+<span class="comment">//The "io" variable here could be any instance of bean-io, rpi-io, etc.</span>
 io.on(<span class="string">'ready'</span>, <span class="keyword">function</span>(){
 
    <span class="comment">//listen for remote firmata messages</span>
@@ -146,12 +146,13 @@ io.on(<span class="string">'ready'</span>, <span class="keyword">function</span>
      serial: sp, <span class="comment">//any virtual serial port instance</span>
      io: io
    }); 
+
 });</code></pre>
-<p>Now you can simply write johnny-five code that runs anywhere and uses any virtual serial port.  Your johnny-five code just uses the typical firmata IO class to talk to the remote-io instace.</p>
+<p>Now for the laptop on the left side of the picture, you can simply write johnny-five code that uses a virtual serial port.  Your code uses the typical firmata IO class to talk to the remote-io instances.</p>
 <pre><code class="lang-javascript"><span class="keyword">var</span> five = require(<span class="string">'johnny-five'</span>);
 <span class="keyword">var</span> firmata = require(<span class="string">'firmata'</span>);
 
-<span class="comment">//sp could be any instance of a virtual serial port</span>
+<span class="comment">//The "sp" variable here could be any instance of a virtual serial port</span>
 <span class="keyword">var</span> io = <span class="keyword">new</span> firmata.Board(sp);
 
 <span class="keyword">var</span> board = <span class="keyword">new</span> five.Board({io: io});
@@ -159,7 +160,6 @@ board.on(<span class="string">'ready'</span>, <span class="keyword">function</sp
   <span class="keyword">var</span> led = <span class="keyword">new</span> five.Led(<span class="number">13</span>);
   led.blink();
 });</code></pre>
-<p><img src="images/remoteio.png" alt="Remote-IO"></p>
 <p>Remote-io currently supports PWM, Servo, Digital pin writing, Analog sensor input and a few other commands.  If anyone&#39;s interested, I could use some help with I2C and SPI.</p>
 <h2 id="what-s-next-">What&#39;s Next?</h2>
 <p>Virtual serial ports could be websockets, HTTP posts, carrier pigeons, whatever.  And many of these transports could even run in web page.  In fact, these pages could even be delivered from devices that are powerful enough to run node and host the pages.</p>

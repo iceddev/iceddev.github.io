@@ -32,15 +32,14 @@ You may at some point in your JavaScript robot creation adventures decide that y
 
 I've built a few virtual serial port implementations to help with that goal:  [skynet-serial](https://www.npmjs.org/package/skynet-serial), [mqtt-serial](https://github.com/monteslu/mqtt-serial), [socket.io-serial](https://github.com/monteslu/socket.io-serial), and a few others.
 
-All we need to do now is bind a physical serialport connection to the cloud service of your choice.  For example here's how we could bind an Arduino plugged into a mac to Octoblu(skynet): 
+All we need to do now is bind a physical serialport connection to the cloud service of your choice.  For example here's how we could bind an Arduino plugged into a mac to [Octoblu](http://octoblu.com/)(formerly skynet): 
 
 ```javascript
 var SerialPort = require('serialport').SerialPort;
 var bindPhysical = require('skynet-serial').bindPhysical;
 var skynet = require('skynet');
 
-// setup variables for myId, token, sendId
-// the sendId should be for the uuid of the SkynetSerialPort app.
+// setup variables for myId, token
 
 var conn = skynet.createConnection({
   uuid: myId,
@@ -62,8 +61,7 @@ Then you can remote control that device from another computer:
 var SkynetSerialPort = require('skynet-serial').SerialPort;
 var skynet = require('skynet');
 
-// setup variables for myId, token, sendId
-// the sendId is for the uuid of the physical serial device
+// setup variables for myId, token
 
 var conn = skynet.createConnection({
   uuid: myId,
@@ -71,6 +69,7 @@ var conn = skynet.createConnection({
 });
 
 conn.on('ready', function(data){
+  //the sendId variable is the UUID of the remote physical device.
   var serialPort = new SkynetSerialPort(conn, sendId);
   var board = new firmata.Board(serialPort, function (err, ok) {
     if (err){ throw err; }
@@ -110,13 +109,16 @@ We already have that message format, it's called firmata :)
 
 Since we can treat serial ports, virtual or physical, are just a means of getting bytes back and forth to a device, we can use that as a base of a new johnny-five IO plugin to let us connect any robot to any program.
 
-I've put together an IO class I'm calling [remote-io](https://github.com/monteslu/remote-io).  With this we can simply wrap any other IO instance and connect it to any virtual serial port:
+I've put together an IO class I'm calling [remote-io](https://github.com/monteslu/remote-io).  With this we can simply wrap any other IO instance and connect it to any virtual serial port.
+
+![Remote-IO](images/remoteio.png)
+
+The little devices on the right side of this image are running this common bit of code with an IO class instance specified:
 
 ```javascript
 var RemoteIO = require('remote-io');
 
-//io could be instance of bean-io, rpi-io, etc.
-
+//The "io" variable here could be any instance of bean-io, rpi-io, etc.
 io.on('ready', function(){
 
    //listen for remote firmata messages
@@ -124,17 +126,18 @@ io.on('ready', function(){
      serial: sp, //any virtual serial port instance
      io: io
    }); 
+
 });
 
 ```
 
-Now you can simply write johnny-five code that runs anywhere and uses any virtual serial port.  Your johnny-five code just uses the typical firmata IO class to talk to the remote-io instace.
+Now for the laptop on the left side of the picture, you can simply write johnny-five code that uses a virtual serial port.  Your code uses the typical firmata IO class to talk to the remote-io instances.
 
 ```javascript
 var five = require('johnny-five');
 var firmata = require('firmata');
 
-//sp could be any instance of a virtual serial port
+//The "sp" variable here could be any instance of a virtual serial port
 var io = new firmata.Board(sp);
 
 var board = new five.Board({io: io});
@@ -144,7 +147,7 @@ board.on('ready', function(){
 });
 
 ```
-![Remote-IO](images/remoteio.png)
+
 
 Remote-io currently supports PWM, Servo, Digital pin writing, Analog sensor input and a few other commands.  If anyone's interested, I could use some help with I2C and SPI.
 
