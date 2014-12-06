@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Iced Blog]]></title><description><![CDATA[Blog for and by Iced Dev]]></description><link>http://blog.iceddev.com</link><generator>NodeJS RSS Module</generator><lastBuildDate>Sat, 06 Dec 2014 21:13:54 GMT</lastBuildDate><atom:link href="http://blog.iceddev.com/index.xml" rel="self" type="application/rss+xml"/><item><title><![CDATA[create and deploy a nodester app without installing git using cloud9 ide]]></title><description><![CDATA[<p>At Iced Dev, our main business is consulting for Node.js and building
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Iced Blog]]></title><description><![CDATA[Blog for and by Iced Dev]]></description><link>http://blog.iceddev.com</link><generator>NodeJS RSS Module</generator><lastBuildDate>Sat, 06 Dec 2014 21:19:05 GMT</lastBuildDate><atom:link href="http://blog.iceddev.com/index.xml" rel="self" type="application/rss+xml"/><item><title><![CDATA[create and deploy a nodester app without installing git using cloud9 ide]]></title><description><![CDATA[<p>At Iced Dev, our main business is consulting for Node.js and building
 great web applications using it with HTML5 technologies. Our favorite
 hosting platform is <a href="http://nodester.com" title="Nodester">Nodester</a> (<a href="http://twitter.com/nodester" title="Nodester">@Nodester</a>) because it is the only
 Open-Source PaaS for Node.js and maintained by a great group of
@@ -885,10 +885,10 @@ conn.on(<span class="string">'ready'</span>, <span class="keyword">function</spa
 conn.on(<span class="string">'ready'</span>, <span class="keyword">function</span>(data){
   <span class="comment">//the sendId variable is the UUID of the remote physical device.</span>
   <span class="keyword">var</span> serialPort = <span class="keyword">new</span> SkynetSerialPort(conn, sendId);
-  <span class="keyword">var</span> board = <span class="keyword">new</span> firmata.Board(serialPort, <span class="function"><span class="keyword">function</span> <span class="params">(err, ok)</span> {</span>
+  <span class="keyword">var</span> io = <span class="keyword">new</span> firmata.Board(serialPort, <span class="function"><span class="keyword">function</span> <span class="params">(err, ok)</span> {</span>
     <span class="keyword">if</span> (err){ <span class="keyword">throw</span> err; }
     <span class="comment">//light up a pin</span>
-    board.digitalWrite(<span class="number">13</span>, <span class="number">1</span>);
+    io.digitalWrite(<span class="number">13</span>, <span class="number">1</span>);
   });
 });</code></pre>
 <h2 id="but-i-have-an-arduino-wifi-shield-">But I have an Arduino Wifi shield!</h2>

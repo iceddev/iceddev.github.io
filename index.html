@@ -112,10 +112,10 @@ conn.on(<span class="string">'ready'</span>, <span class="keyword">function</spa
 conn.on(<span class="string">'ready'</span>, <span class="keyword">function</span>(data){
   <span class="comment">//the sendId variable is the UUID of the remote physical device.</span>
   <span class="keyword">var</span> serialPort = <span class="keyword">new</span> SkynetSerialPort(conn, sendId);
-  <span class="keyword">var</span> board = <span class="keyword">new</span> firmata.Board(serialPort, <span class="function"><span class="keyword">function</span> <span class="params">(err, ok)</span> {</span>
+  <span class="keyword">var</span> io = <span class="keyword">new</span> firmata.Board(serialPort, <span class="function"><span class="keyword">function</span> <span class="params">(err, ok)</span> {</span>
     <span class="keyword">if</span> (err){ <span class="keyword">throw</span> err; }
     <span class="comment">//light up a pin</span>
-    board.digitalWrite(<span class="number">13</span>, <span class="number">1</span>);
+    io.digitalWrite(<span class="number">13</span>, <span class="number">1</span>);
   });
 });</code></pre>
 <h2 id="but-i-have-an-arduino-wifi-shield-">But I have an Arduino Wifi shield!</h2>

@@ -71,10 +71,10 @@ var conn = skynet.createConnection({
 conn.on('ready', function(data){
   //the sendId variable is the UUID of the remote physical device.
   var serialPort = new SkynetSerialPort(conn, sendId);
-  var board = new firmata.Board(serialPort, function (err, ok) {
+  var io = new firmata.Board(serialPort, function (err, ok) {
     if (err){ throw err; }
     //light up a pin
-    board.digitalWrite(13, 1);
+    io.digitalWrite(13, 1);
   });
 });
 ```
