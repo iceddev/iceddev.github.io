@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Iced Blog]]></title><description><![CDATA[Blog for and by Iced Dev]]></description><link>http://blog.iceddev.com</link><generator>NodeJS RSS Module</generator><lastBuildDate>Tue, 04 Nov 2014 22:48:02 GMT</lastBuildDate><atom:link href="http://blog.iceddev.com/index.xml" rel="self" type="application/rss+xml"/><item><title><![CDATA[create and deploy a nodester app without installing git using cloud9 ide]]></title><description><![CDATA[<p>At Iced Dev, our main business is consulting for Node.js and building
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Iced Blog]]></title><description><![CDATA[Blog for and by Iced Dev]]></description><link>http://blog.iceddev.com</link><generator>NodeJS RSS Module</generator><lastBuildDate>Sat, 06 Dec 2014 20:44:44 GMT</lastBuildDate><atom:link href="http://blog.iceddev.com/index.xml" rel="self" type="application/rss+xml"/><item><title><![CDATA[create and deploy a nodester app without installing git using cloud9 ide]]></title><description><![CDATA[<p>At Iced Dev, our main business is consulting for Node.js and building
 great web applications using it with HTML5 technologies. Our favorite
 hosting platform is <a href="http://nodester.com" title="Nodester">Nodester</a> (<a href="http://twitter.com/nodester" title="Nodester">@Nodester</a>) because it is the only
 Open-Source PaaS for Node.js and maintained by a great group of
@@ -836,4 +836,106 @@ lcd.on(<span class="string">"ready"</span>, <span class="keyword">function</span
 <p>For the most part the code is pretty portable, however there currently isn&#39;t a Serial Port implementation in Firefox.  Hopefully that gets <a href="https://groups.google.com/forum/#!topic/mozilla.dev.webapi/wykkibp6BKo">fixed soon</a>.</p>
 <p>The other part that needs some attention is that chrome apps <a href="https://code.google.com/p/chromium/issues/detail?id=426206">don&#39;t have access localStorage</a>, so the app has to use the chrome.storage API to save anything locally.  Not a big fan of this, but its easy enough to shim in the codebase.</p>
 <p>-<a href="https://twitter.com/monteslu">Luis</a></p>
-]]></description><link>http://blog.iceddev.com/./2014-10-04-chromebots-lowering-the-barrier-to-entry.html</link><guid isPermaLink="true">http://blog.iceddev.com/./2014-10-04-chromebots-lowering-the-barrier-to-entry.html</guid><dc:creator><![CDATA[Iced Dev]]></dc:creator><pubDate>Sat, 04 Oct 2014 00:00:00 GMT</pubDate></item></channel></rss>
+]]></description><link>http://blog.iceddev.com/./2014-10-04-chromebots-lowering-the-barrier-to-entry.html</link><guid isPermaLink="true">http://blog.iceddev.com/./2014-10-04-chromebots-lowering-the-barrier-to-entry.html</guid><dc:creator><![CDATA[Iced Dev]]></dc:creator><pubDate>Sat, 04 Oct 2014 00:00:00 GMT</pubDate></item><item><title><![CDATA[remotebots cutting the cord with remote io]]></title><description><![CDATA[<h2 id="node-serialport">Node-serialport</h2>
+<p>The creation of <a href="https://github.com/voodootikigod/node-serialport">node-serialport</a> was the first step towards what we now call <a href="http://nodebots.io/">nodebots</a>.</p>
+<p>Among many other uses, this node-serialport allowed us to use JavaScript to communicate with hobbyist robotic hardware such as the Arduino platform.</p>
+<p>Adruino is an easy to use open source hardware platform that enables us to read sensors, control motors, and basically anything else we need to build our robots on top of.  The microcontroller chip on the Arduino itself runs what&#39;s called a sketch.  It is native C code compiled an loaded onto the device.  </p>
+<p><img src="images/uno.png" alt="Arduino Uno"></p>
+<p>A very popular Arduino sketch is StandardFirmata which implements the <a href="http://firmata.org/">firmata</a> protocol on the hardware.  This allows us to control all of the input and output pins on the Arduino.</p>
+<p>Since we can talk to a serial port with JavaScript, it stands to reason we could remote control an Arduino using Firmata.  And thankfully, we have a <a href="https://github.com/jgautier/firmata">firmata.js</a> JavaScript API to do just that.  It provides the necessary calls to do things such as set pins to the correct input/output modes and signal them as to when they should toggle the delivery of electrical current.</p>
+<p>While we could do amazing things on top of firamta.js, using just this low-level API to build complex robots could become a bit tedious.</p>
+<h2 id="johnny-five">Johnny-Five</h2>
+<p>The excellent <a href="https://github.com/rwaldron/johnny-five">johnny-five</a> library took firmata.js and built all kinds of helpful higher level APIs on top of it.  We can do things such as control LCD screens, motors, buttons, claws, sensors, and all sorts of other utilities.</p>
+<p>We simply need to plug an Arduino into a computer with a USB cable and get to writing JavaScript.  In fact, you don&#39;t even need node.js with <a href="http://blog.iceddev.com/2014-10-04-chromebots-lowering-the-barrier-to-entry.html">IcedDev&#39;s chromebots app</a>. And thanks to <a href="https://twitter.com/jacobrosenthal">Jacob Rosenthal&#39;s</a> new JavaScript-based Arudino binary <a href="https://github.com/jacobrosenthal/browserdude">loader</a>, your &quot;time to awesome&quot; is about 30 seconds :)</p>
+<p><img src="images/pluggedIn.png" alt="Plugged In"></p>
+<h2 id="virtual-serial-ports">Virtual Serial Ports</h2>
+<p>You may at some point in your JavaScript robot creation adventures decide that you&#39;d like to remote control your Arduino from another computer or server or cloud service.  So our first step towards that goal should be to use serial port implementation that uses a network connection.</p>
+<p><img src="images/virtualserialport.png" alt="Virtual Serial Port"></p>
+<p>I&#39;ve built a few virtual serial port implementations to help with that goal:  <a href="https://www.npmjs.org/package/skynet-serial">skynet-serial</a>, <a href="https://github.com/monteslu/mqtt-serial">mqtt-serial</a>, <a href="https://github.com/monteslu/socket.io-serial">socket.io-serial</a>, and a few others.</p>
+<p>All we need to do now is bind a physical serialport connection to the cloud service of your choice.  For example here&#39;s how we could bind an Arduino plugged into a mac to Octoblu(skynet): </p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> SerialPort = require(<span class="string">'serialport'</span>).SerialPort;
+<span class="keyword">var</span> bindPhysical = require(<span class="string">'skynet-serial'</span>).bindPhysical;
+<span class="keyword">var</span> skynet = require(<span class="string">'skynet'</span>);
+
+<span class="comment">// setup variables for myId, token, sendId</span>
+<span class="comment">// the sendId should be for the uuid of the SkynetSerialPort app.</span>
+
+<span class="keyword">var</span> conn = skynet.createConnection({
+  uuid: myId,
+  token: token
+});
+
+conn.on(<span class="string">'ready'</span>, <span class="keyword">function</span>(data){
+  <span class="keyword">var</span> serialPort = <span class="keyword">new</span> SerialPort(<span class="string">'/dev/tty.usbmodem1411'</span>,{
+      baudrate: <span class="number">57600</span>,
+      buffersize: <span class="number">1</span>
+  });
+  bindPhysical(serialPort, conn);
+});</code></pre>
+<p>Then you can remote control that device from another computer:</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> SkynetSerialPort = require(<span class="string">'skynet-serial'</span>).SerialPort;
+<span class="keyword">var</span> skynet = require(<span class="string">'skynet'</span>);
+
+<span class="comment">// setup variables for myId, token, sendId</span>
+<span class="comment">// the sendId is for the uuid of the physical serial device</span>
+
+<span class="keyword">var</span> conn = skynet.createConnection({
+  uuid: myId,
+  token: token
+});
+
+conn.on(<span class="string">'ready'</span>, <span class="keyword">function</span>(data){
+  <span class="keyword">var</span> serialPort = <span class="keyword">new</span> SkynetSerialPort(conn, sendId);
+  <span class="keyword">var</span> board = <span class="keyword">new</span> firmata.Board(serialPort, <span class="function"><span class="keyword">function</span> <span class="params">(err, ok)</span> {</span>
+    <span class="keyword">if</span> (err){ <span class="keyword">throw</span> err; }
+    <span class="comment">//light up a pin</span>
+    board.digitalWrite(<span class="number">13</span>, <span class="number">1</span>);
+  });
+});</code></pre>
+<h2 id="but-i-have-an-arduino-wifi-shield-">But I have an Arduino Wifi shield!</h2>
+<p>Even better!</p>
+<p>If you have a Wifi or Ethernet shield, <a href="https://twitter.com/jacobrosenthal">Jacob Rosenthal</a> made an Arduino sketch called <a href="https://github.com/octoblu/microblu_mqtt">Microblu</a> that connects up to Octoblu and waits for firmata commands.  </p>
+<p>So you can skip the bindPhysical step in the above example and take your firmata/johnny-five code and go directly through Octoblu into your network connected Arduino.</p>
+<p><img src="images/microblu.png" alt="Microblu"></p>
+<h2 id="can-i-use-a-raspberry-pi-beaglebone-lightblue-bean-imp-galileo-etc-instead-of-an-arduino-">Can I use a Raspberry Pi, BeagleBone, LightBlue Bean, Imp, Galileo, etc instead of an Arduino?</h2>
+<p>Absolutely.</p>
+<p>Something really cool happened earlier this year: <a href="https://twitter.com/rwaldron">Rick Waldron</a> made a great <a href="http://bocoup.com/weblog/intel-galileo-javascript-nodejs/">blog post</a> about decoupling johnny-five from Arduino by way of <a href="https://github.com/rwaldron/johnny-five/wiki/IO-Plugins#available-io-plugins">IO plugins</a>.  I&#39;ve even had the pleasure of creating one for the bluetooth low-energy based LightBlue Bean called <a href="https://github.com/monteslu/bean-io">bean-io</a></p>
+<p>Some of the more powerful devices can even run johnny-five directly on the hardware.  So you can connect to the local GPIO (general purpose input/output) Pins on the board with a device-specific IO plugin and wrap that with johnny-five APIs.  Then connect that script to the internet and handle incoming messages to remote control your robot.</p>
+<p><img src="images/ioplugins.png" alt="IO Plugins"></p>
+<p>Now we just need to come up with a common message format so we can have lots of messages to lots of robots around the world.</p>
+<p>Waitaminute...</p>
+<p>We already have that message format, it&#39;s called firmata :)</p>
+<h2 id="enter-remote-io">Enter Remote-IO</h2>
+<p>Since we can treat serial ports, virtual or physical, are just a means of getting bytes back and forth to a device, we can use that as a base of a new johnny-five IO plugin to let us connect any robot to any program.</p>
+<p>I&#39;ve put together an IO class I&#39;m calling <a href="https://github.com/monteslu/remote-io">remote-io</a>.  With this we can simply wrap any other IO instance and connect it to any virtual serial port:</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> RemoteIO = require(<span class="string">'remote-io'</span>);
+
+<span class="comment">//io could be instance of bean-io, rpi-io, etc.</span>
+
+io.on(<span class="string">'ready'</span>, <span class="keyword">function</span>(){
+
+   <span class="comment">//listen for remote firmata messages</span>
+   <span class="keyword">var</span> remoteio = <span class="keyword">new</span> RemoteIO({
+     serial: sp, <span class="comment">//any virtual serial port instance</span>
+     io: io
+   }); 
+});</code></pre>
+<p>Now you can simply write johnny-five code that runs anywhere and uses any virtual serial port.  Your johnny-five code just uses the typical firmata IO class to talk to the remote-io instace.</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> five = require(<span class="string">'johnny-five'</span>);
+<span class="keyword">var</span> firmata = require(<span class="string">'firmata'</span>);
+
+<span class="comment">//sp could be any instance of a virtual serial port</span>
+<span class="keyword">var</span> io = <span class="keyword">new</span> firmata.Board(sp);
+
+<span class="keyword">var</span> board = <span class="keyword">new</span> five.Board({io: io});
+board.on(<span class="string">'ready'</span>, <span class="keyword">function</span>(){
+  <span class="keyword">var</span> led = <span class="keyword">new</span> five.Led(<span class="number">13</span>);
+  led.blink();
+});</code></pre>
+<p><img src="images/remoteio.png" alt="Remote-IO"></p>
+<p>Remote-io currently supports PWM, Servo, Digital pin writing, Analog sensor input and a few other commands.  If anyone&#39;s interested, I could use some help with I2C and SPI.</p>
+<h2 id="what-s-next-">What&#39;s Next?</h2>
+<p>Virtual serial ports could be websockets, HTTP posts, carrier pigeons, whatever.  And many of these transports could even run in web page.  In fact, these pages could even be delivered from devices that are powerful enough to run node and host the pages.</p>
+<p>If we&#39;re truly building an Internet of Things, we need to be able to remote control ALL of the things. We need every company that&#39;s building cool new hardware to make sure that there&#39;s a johnny-five IO class for it.</p>
+<p>-<a href="https://twitter.com/monteslu">Luis</a></p>
+]]></description><link>http://blog.iceddev.com/./2014-12-05-remotebots-cutting-the-cord-with-remote-io.html</link><guid isPermaLink="true">http://blog.iceddev.com/./2014-12-05-remotebots-cutting-the-cord-with-remote-io.html</guid><dc:creator><![CDATA[Iced Dev]]></dc:creator><pubDate>Fri, 05 Dec 2014 00:00:00 GMT</pubDate></item></channel></rss>
