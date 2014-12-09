@@ -26,7 +26,7 @@ We simply need to plug an Arduino into a computer with a USB cable and get to wr
 
 ## Virtual Serial Ports
 
-You may at some point in your JavaScript robot creation adventures decide that you'd like to remote control your Arduino from another computer or server or cloud service.  So our first step towards that goal should be to use serial port implementation that uses a network connection.
+You may at some point in your JavaScript robot creation adventures decide that you'd like to remote control your Arduino from another computer or server or cloud service.  So our first step towards that goal should be to use a serial port implementation that uses a network connection.
 
 ![Virtual Serial Port](images/virtualserialport.png)
 
@@ -99,7 +99,7 @@ Some of the more powerful devices can even run johnny-five directly on the hardw
 
 ![IO Plugins](images/ioplugins.png)
 
-Now we just need to come up with a common message format so we can have lots of messages to lots of robots around the world.
+Now we just need to come up with a common message format so we can send lots of messages to lots of robots around the world.
 
 Waitaminute...
 
@@ -107,7 +107,7 @@ We already have that message format, it's called firmata :)
 
 ## Enter Remote-IO
 
-Since we can treat serial ports, virtual or physical, are just a means of getting bytes back and forth to a device, we can use that as a base of a new johnny-five IO plugin to let us connect any robot to any program.
+Since we can treat serial ports (virtual or physical) as just a means of getting bytes back and forth to a device, we can use that as a base of a new johnny-five IO plugin to let us connect any robot to any program.
 
 I've put together an IO class I'm calling [remote-io](https://github.com/monteslu/remote-io).  With this we can simply wrap any other IO instance and connect it to any virtual serial port.
 
