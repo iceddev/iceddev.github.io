@@ -95,7 +95,10 @@ lcd.on(<span class="string">"ready"</span>, <span class="keyword">function</span
 <p>The app handles establishing the Nodebot and the code is run when the johnny-five fires its ready event.</p>
 <p>Aside from Johnny-Five, you also have jquery, lodash, skynet, and the typical browser variables to build things with.</p>
 <h2 id="barrier-lowered-">Barrier Lowered?</h2>
-<p>We still need at least one person to use the Arduino Development Environment to flash the Standard Firmata sketch onto the Arduinos.  However once that&#39;s done, anyone can use just an Arduino and a chromebook to get started. </p>
+<p><del>We still need at least one person to use the Arduino Development Environment to flash the Standard Firmata sketch onto the Arduinos.  However once that&#39;s done, anyone can use just an Arduino and a chromebook to get started.</del></p>
+<p><strong>Major update here:</strong>
+Thanks to <a href="https://twitter.com/jacobrosenthal">Jacob Rosenthal&#39;s</a> new JavaScript-based Arudino binary <a href="https://github.com/jacobrosenthal/browserdude">loader</a>, all you need to get started builing robots is an Arduino Uno or compatible board, and a laptop that can run chrome.</p>
+<p>The barrier to entry has in fact been lowered significantly!</p>
 <h2 id="what-about-firefox-">What about Firefox?</h2>
 <p>For the most part the code is pretty portable, however there currently isn&#39;t a Serial Port implementation in Firefox.  Hopefully that gets <a href="https://groups.google.com/forum/#!topic/mozilla.dev.webapi/wykkibp6BKo">fixed soon</a>.</p>
 <p>The other part that needs some attention is that chrome apps <a href="https://code.google.com/p/chromium/issues/detail?id=426206">don&#39;t have access localStorage</a>, so the app has to use the chrome.storage API to save anything locally.  Not a big fan of this, but its easy enough to shim in the codebase.</p>

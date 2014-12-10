@@ -57,9 +57,14 @@ Aside from Johnny-Five, you also have jquery, lodash, skynet, and the typical br
 
 ## Barrier Lowered?
 
-We still need at least one person to use the Arduino Development Environment to flash the Standard Firmata sketch onto the Arduinos.  However once that's done, anyone can use just an Arduino and a chromebook to get started. 
+~~We still need at least one person to use the Arduino Development Environment to flash the Standard Firmata sketch onto the Arduinos.  However once that's done, anyone can use just an Arduino and a chromebook to get started.~~
 
-## What about Firefox?
+**Major update here:**
+Thanks to [Jacob Rosenthal's](https://twitter.com/jacobrosenthal) new JavaScript-based Arudino binary [loader](https://github.com/jacobrosenthal/browserdude), all you need to get started builing robots is an Arduino Uno or compatible board, and a laptop that can run chrome.
+
+The barrier to entry has in fact been lowered significantly!
+
+##   What about Firefox?
 
 For the most part the code is pretty portable, however there currently isn't a Serial Port implementation in Firefox.  Hopefully that gets [fixed soon](https://groups.google.com/forum/#!topic/mozilla.dev.webapi/wykkibp6BKo).
 
